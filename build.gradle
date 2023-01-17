@@ -1,0 +1,23 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.12.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+
+allprojects {
+    group = 'com.epam'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = 11
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java'
+}
+

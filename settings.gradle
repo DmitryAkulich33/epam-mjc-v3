@@ -1,0 +1,5 @@
+rootProject.name = 'mjc-epam'
+include 'api'
+include 'core'
+include 'web'
+
