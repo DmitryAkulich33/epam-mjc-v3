@@ -5,5 +5,5 @@ import com.epam.model.dto.TagDto;
 import java.util.List;
 
 public interface TagService {
-    List<TagDto> getAllTags();
+    List<TagDto> getAllTags(Integer pageNumber, Integer pageSize);
 }
