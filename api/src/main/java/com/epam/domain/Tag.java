@@ -6,12 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity(name = "tag")
-public class Tag {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
-    private Long id;
-
+public class Tag extends BaseEntity {
     @Column(unique = true)
     private String name;
 }
