@@ -31,6 +31,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return getResponseEntityWithCommonMessage(exception, errorCode, HttpStatus.BAD_REQUEST, "data.not.valid");
     }
 
+    @ExceptionHandler(TagNotFoundException.class)
+    public ResponseEntity<Object> handleTagNotFoundException(TagNotFoundException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.NOT_FOUND.value(), ErrorCode.TAG_DAO_ERROR_CODE.getErrorCode());
+        return getResponseEntity(exception, errorCode, HttpStatus.NOT_FOUND);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers,
                                                                   HttpStatus status, WebRequest request) {

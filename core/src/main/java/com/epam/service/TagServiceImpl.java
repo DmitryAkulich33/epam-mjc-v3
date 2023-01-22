@@ -1,7 +1,9 @@
 package com.epam.service;
 
 import com.epam.dao.TagRepository;
+import com.epam.domain.Tag;
 import com.epam.exception.PaginationException;
+import com.epam.exception.TagNotFoundException;
 import com.epam.model.dto.TagDto;
 import com.epam.service.mapper.TagDtoMapper;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,12 @@ public class TagServiceImpl implements TagService {
         Pageable pageable = getPageable(pageNumber - 1, pageSize);
 
         return mapper.toTagDtoList(repository.findAll(pageable));
+    }
+
+    @Override
+    public TagDto getTagById(Long id) {
+        Tag tag = repository.findById(id).orElseThrow(() -> new TagNotFoundException("tag.id.not.found", id));
+        return mapper.toTagDto(tag);
     }
 
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
