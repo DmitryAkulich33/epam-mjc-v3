@@ -1,6 +1,7 @@
 package com.epam.service;
 
 import com.epam.dao.TagRepository;
+import com.epam.exception.PaginationException;
 import com.epam.model.dto.TagDto;
 import com.epam.service.mapper.TagDtoMapper;
 import lombok.AllArgsConstructor;
@@ -27,8 +28,7 @@ public class TagServiceImpl implements TagService {
         long countFromDb = repository.count();
         long countFromRequest = pageNumber * pageSize;
         if (countFromDb <= countFromRequest) {
-            // TODO: add exception
-            throw new RuntimeException();
+            throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
         }
 
         return PageRequest.of(pageNumber, pageSize);

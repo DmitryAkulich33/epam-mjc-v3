@@ -9,4 +9,5 @@ jar {
 dependencies {
     implementation "org.postgresql:postgresql:${postgresql}"
     implementation project(":api")
+    implementation project(":web")
 }
