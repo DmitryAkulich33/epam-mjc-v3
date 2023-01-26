@@ -36,4 +36,11 @@ public class TagControllerImpl implements TagController {
         return new ResponseEntity<>(tagDto, HttpStatus.OK);
     }
 
+    @Override
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTagById(@PathVariable("id") @Positive Long id) {
+        service.deleteTagById(id);
+    }
+
 }

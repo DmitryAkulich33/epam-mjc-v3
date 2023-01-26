@@ -8,4 +8,6 @@ public interface TagService {
     List<TagDto> getAllTags(Integer pageNumber, Integer pageSize);
 
     TagDto getTagById(Long id);
+
+    void deleteTagById(Long id);
 }

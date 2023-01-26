@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,8 +29,13 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public TagDto getTagById(Long id) {
-        Tag tag = repository.findById(id).orElseThrow(() -> new TagNotFoundException("tag.id.not.found", id));
-        return mapper.toTagDto(tag);
+        return mapper.toTagDto(findTagById(id));
+    }
+
+    @Override
+    @Transactional
+    public void deleteTagById(Long id) {
+        repository.delete(findTagById(id));
     }
 
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
@@ -40,5 +46,9 @@ public class TagServiceImpl implements TagService {
         }
 
         return PageRequest.of(pageNumber, pageSize);
+    }
+
+    private Tag findTagById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new TagNotFoundException("tag.id.not.found", id));
     }
 }
