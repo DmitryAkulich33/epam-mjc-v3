@@ -1,6 +1,5 @@
 package com.epam.service;
 
-import com.epam.domain.Tag;
 import com.epam.model.dto.TagDto;
 import com.epam.model.dto.TagToCreate;
 
@@ -14,4 +13,6 @@ public interface TagService {
     void deleteTagById(Long id);
 
     TagDto createTag(TagToCreate tagToCreate);
+
+    List<TagDto> getTagsByPartName(String partName, Integer pageNumber, Integer pageSize);
 }

@@ -5,6 +5,7 @@ import com.epam.model.dto.TagToCreate;
 import org.springframework.http.ResponseEntity;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -16,4 +17,8 @@ public interface TagController {
     void deleteTagById(@Positive Long id);
 
     ResponseEntity<TagDto> createTag(@Valid TagToCreate tagToCreate);
+
+    ResponseEntity<List<TagDto>> getTagsByPartName(@NotBlank String partName,
+                                                   @Positive Integer pageNumber,
+                                                   @Positive Integer pageSize);
 }

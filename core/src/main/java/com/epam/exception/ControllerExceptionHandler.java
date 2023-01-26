@@ -2,10 +2,17 @@ package com.epam.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingPathVariableException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -48,6 +55,51 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpStatus status, WebRequest request) {
         String errorCode = String.format("%s%s", HttpStatus.BAD_REQUEST.value(), ErrorCode.VALIDATION_ERROR_CODE.getErrorCode());
         return getResponseEntityWithCommonMessage(exception, errorCode, HttpStatus.BAD_REQUEST, "data.not.valid");
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
+                                                                         HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String errorCode = String.format("%s%s", HttpStatus.METHOD_NOT_ALLOWED.value(), ErrorCode.REQUEST_ERROR_CODE.getErrorCode());
+        return getResponseEntityWithCommonMessage(ex, errorCode, HttpStatus.METHOD_NOT_ALLOWED, "method.not.allowed");
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex, HttpHeaders headers,
+                                                                     HttpStatus status, WebRequest request) {
+        String errorCode = String.format("%s%s", HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), ErrorCode.REQUEST_ERROR_CODE.getErrorCode());
+        return getResponseEntityWithCommonMessage(ex, errorCode, HttpStatus.UNSUPPORTED_MEDIA_TYPE, "media.not.supported");
+
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMediaTypeNotAcceptable(HttpMediaTypeNotAcceptableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String errorCode = String.format("%s%s", HttpStatus.NOT_ACCEPTABLE.value(), ErrorCode.REQUEST_ERROR_CODE.getErrorCode());
+        return getResponseEntityWithCommonMessage(ex, errorCode, HttpStatus.NOT_ACCEPTABLE, "media.not.acceptable");
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMissingPathVariable(MissingPathVariableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String errorCode = String.format("%s%s", HttpStatus.BAD_REQUEST.value(), ErrorCode.REQUEST_ERROR_CODE.getErrorCode());
+        return getResponseEntityWithCommonMessage(ex, errorCode, HttpStatus.BAD_REQUEST, "missing.path.variable");
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String errorCode = String.format("%s%s", HttpStatus.BAD_REQUEST.value(), ErrorCode.REQUEST_ERROR_CODE.getErrorCode());
+        return getResponseEntityWithCommonMessage(ex, errorCode, HttpStatus.BAD_REQUEST, "missing.servlet.request.param");
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String errorCode = String.format("%s%s", HttpStatus.BAD_REQUEST.value(), ErrorCode.REQUEST_ERROR_CODE.getErrorCode());
+        return getResponseEntityWithCommonMessage(ex, errorCode, HttpStatus.BAD_REQUEST, "type.mismatch");
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String errorCode = String.format("%s%s", HttpStatus.BAD_REQUEST.value(), ErrorCode.REQUEST_ERROR_CODE.getErrorCode());
+        return getResponseEntityWithCommonMessage(ex, errorCode, HttpStatus.BAD_REQUEST, "not.readable");
     }
 
 

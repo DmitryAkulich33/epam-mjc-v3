@@ -49,6 +49,13 @@ public class TagServiceImpl implements TagService {
         return mapper.toTagDto(repository.save(Tag.builder().name(tagName).build()));
     }
 
+    @Override
+    public List<TagDto> getTagsByPartName(String partName, Integer pageNumber, Integer pageSize) {
+        Pageable pageable = getPageable(pageNumber - 1, pageSize);
+
+        return mapper.toTagDtoList(repository.findTagsByNameContains(partName, pageable));
+    }
+
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
         long countFromDb = repository.count();
         long countFromRequest = pageNumber * pageSize;

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -48,6 +49,16 @@ public class TagControllerImpl implements TagController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TagDto> createTag(@RequestBody TagToCreate tagToCreate) {
         return new ResponseEntity<>(service.createTag(tagToCreate), HttpStatus.CREATED);
+    }
+
+    @Override
+    @GetMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TagDto>> getTagsByPartName(@RequestParam @NotBlank String partName,
+                                                          @RequestParam(defaultValue = "1") @Positive Integer pageNumber,
+                                                          @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
+        List<TagDto> tags = service.getTagsByPartName(partName, pageNumber, pageSize);
+
+        return new ResponseEntity<>(tags, HttpStatus.OK);
     }
 
 }
