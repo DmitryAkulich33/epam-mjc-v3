@@ -1,6 +1,7 @@
 package com.epam.controller;
 
 import com.epam.model.dto.TagDto;
+import com.epam.model.dto.TagToCreate;
 import com.epam.service.TagService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class TagControllerImpl implements TagController {
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TagDto>> getAllTags(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                   @RequestParam(defaultValue = "3") @Positive Integer pageSize) {
+                                                   @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
         List<TagDto> tags = service.getAllTags(pageNumber, pageSize);
 
         return new ResponseEntity<>(tags, HttpStatus.OK);
@@ -41,6 +42,12 @@ public class TagControllerImpl implements TagController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTagById(@PathVariable("id") @Positive Long id) {
         service.deleteTagById(id);
+    }
+
+    @Override
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TagDto> createTag(@RequestBody TagToCreate tagToCreate) {
+        return new ResponseEntity<>(service.createTag(tagToCreate), HttpStatus.CREATED);
     }
 
 }

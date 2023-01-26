@@ -3,8 +3,10 @@ package com.epam.service;
 import com.epam.dao.TagRepository;
 import com.epam.domain.Tag;
 import com.epam.exception.PaginationException;
+import com.epam.exception.TagAlreadyExistsException;
 import com.epam.exception.TagNotFoundException;
 import com.epam.model.dto.TagDto;
+import com.epam.model.dto.TagToCreate;
 import com.epam.service.mapper.TagDtoMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +40,15 @@ public class TagServiceImpl implements TagService {
         repository.delete(findTagById(id));
     }
 
+    @Override
+    @Transactional
+    public TagDto createTag(TagToCreate tagToCreate) {
+        String tagName = tagToCreate.getName();
+        checkForDuplicate(tagName);
+
+        return mapper.toTagDto(repository.save(Tag.builder().name(tagName).build()));
+    }
+
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
         long countFromDb = repository.count();
         long countFromRequest = pageNumber * pageSize;
@@ -50,5 +61,11 @@ public class TagServiceImpl implements TagService {
 
     private Tag findTagById(Long id) {
         return repository.findById(id).orElseThrow(() -> new TagNotFoundException("tag.id.not.found", id));
+    }
+
+    private void checkForDuplicate(String name) {
+        repository.findTagByName(name).ifPresent(tag -> {
+            throw new TagAlreadyExistsException("tag.exists", name);
+        });
     }
 }

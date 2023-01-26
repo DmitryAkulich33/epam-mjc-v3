@@ -37,6 +37,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return getResponseEntity(exception, errorCode, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(TagAlreadyExistsException.class)
+    public ResponseEntity<Object> handleTagAlreadyExistsException(TagAlreadyExistsException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.BAD_REQUEST.value(), ErrorCode.VALIDATION_ERROR_CODE.getErrorCode());
+        return getResponseEntity(exception, errorCode, HttpStatus.BAD_REQUEST);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers,
                                                                   HttpStatus status, WebRequest request) {
