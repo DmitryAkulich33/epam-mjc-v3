@@ -50,6 +50,18 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return getResponseEntity(exception, errorCode, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(AuthorNotFoundException.class)
+    public ResponseEntity<Object> handleAuthorNotFoundException(AuthorNotFoundException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.NOT_FOUND.value(), ErrorCode.AUTHOR_DAO_ERROR_CODE.getErrorCode());
+        return getResponseEntity(exception, errorCode, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AuthorAlreadyExistsException.class)
+    public ResponseEntity<Object> handleAuthorAlreadyExistsException(AuthorAlreadyExistsException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.BAD_REQUEST.value(), ErrorCode.VALIDATION_ERROR_CODE.getErrorCode());
+        return getResponseEntity(exception, errorCode, HttpStatus.BAD_REQUEST);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers,
                                                                   HttpStatus status, WebRequest request) {

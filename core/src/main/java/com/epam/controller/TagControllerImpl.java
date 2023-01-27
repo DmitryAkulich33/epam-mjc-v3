@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -33,9 +34,7 @@ public class TagControllerImpl implements TagController {
     @Override
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TagDto> getTagById(@PathVariable("id") @Positive Long id) {
-        TagDto tagDto = service.getTagById(id);
-
-        return new ResponseEntity<>(tagDto, HttpStatus.OK);
+        return new ResponseEntity<>(service.getTagById(id), HttpStatus.OK);
     }
 
     @Override
@@ -47,7 +46,7 @@ public class TagControllerImpl implements TagController {
 
     @Override
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TagDto> createTag(@RequestBody TagToCreate tagToCreate) {
+    public ResponseEntity<TagDto> createTag(@RequestBody @Valid TagToCreate tagToCreate) {
         return new ResponseEntity<>(service.createTag(tagToCreate), HttpStatus.CREATED);
     }
 
@@ -56,7 +55,7 @@ public class TagControllerImpl implements TagController {
     public ResponseEntity<List<TagDto>> getTagsByPartName(@RequestParam @NotBlank String partName,
                                                           @RequestParam(defaultValue = "1") @Positive Integer pageNumber,
                                                           @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
-        List<TagDto> tags = service.getTagsByPartName(partName, pageNumber, pageSize);
+        List<TagDto> tags = service.getTagsByPartName(partName.trim(), pageNumber, pageSize);
 
         return new ResponseEntity<>(tags, HttpStatus.OK);
     }

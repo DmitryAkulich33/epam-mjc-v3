@@ -43,7 +43,7 @@ public class TagServiceImpl implements TagService {
     @Override
     @Transactional
     public TagDto createTag(TagToCreate tagToCreate) {
-        String tagName = tagToCreate.getName();
+        String tagName = tagToCreate.getName().trim();
         checkForDuplicate(tagName);
 
         return mapper.toTagDto(repository.save(Tag.builder().name(tagName).build()));
@@ -53,7 +53,7 @@ public class TagServiceImpl implements TagService {
     public List<TagDto> getTagsByPartName(String partName, Integer pageNumber, Integer pageSize) {
         Pageable pageable = getPageable(pageNumber - 1, pageSize);
 
-        return mapper.toTagDtoList(repository.findTagsByNameContains(partName, pageable));
+        return mapper.toTagDtoList(repository.findTagsByNameContainsIgnoreCase(partName, pageable));
     }
 
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
@@ -71,7 +71,7 @@ public class TagServiceImpl implements TagService {
     }
 
     private void checkForDuplicate(String name) {
-        repository.findTagByName(name).ifPresent(tag -> {
+        repository.findTagByNameIgnoreCase(name).ifPresent(tag -> {
             throw new TagAlreadyExistsException("tag.exists", name);
         });
     }
