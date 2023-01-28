@@ -35,3 +35,14 @@ CREATE TABLE news_tag
     CONSTRAINT fk_tag_id FOREIGN KEY (tag_id) REFERENCES tag (id)
 )
 
+CREATE TABLE comment
+(
+    id BIGSERIAL PRIMARY KEY,
+    content VARCHAR(255) NOT NULL,
+    news_id BIGINT,
+    created TIMESTAMP,
+    modified TIMESTAMP,
+
+    CONSTRAINT fk_news_author FOREIGN KEY (news_id) REFERENCES news (id)
+);
+

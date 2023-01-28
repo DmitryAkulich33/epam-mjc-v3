@@ -32,4 +32,8 @@ public class News extends BaseEntity {
             joinColumns = @JoinColumn(name = "news_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "news", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Comment> comments;
 }
