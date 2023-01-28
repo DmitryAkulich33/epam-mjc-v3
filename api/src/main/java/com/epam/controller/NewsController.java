@@ -9,4 +9,5 @@ import java.util.List;
 public interface NewsController {
     ResponseEntity<List<NewsDto>> getAllNews(@Positive Integer pageNumber, @Positive Integer pageSize);
 
+    ResponseEntity<NewsDto> getNewsById(@Positive Long id);
 }

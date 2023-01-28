@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CommentController {
     ResponseEntity<List<CommentDto>> getAllComments(@Positive Integer pageNumber, @Positive Integer pageSize);
+
+    ResponseEntity<CommentDto> getCommentById(@Positive Long id);
 }

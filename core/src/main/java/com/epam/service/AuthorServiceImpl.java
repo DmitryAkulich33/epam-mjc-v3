@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,11 +35,13 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Transactional
     public void deleteAuthorById(Long id) {
         repository.delete(findAuthorById(id));
     }
 
     @Override
+    @Transactional
     public AuthorDto createAuthor(AuthorToCreate authorToCreate) {
         String authorName = authorToCreate.getName().trim();
         checkForDuplicate(authorName);

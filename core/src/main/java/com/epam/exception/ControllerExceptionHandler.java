@@ -40,7 +40,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(TagNotFoundException.class)
     public ResponseEntity<Object> handleTagNotFoundException(TagNotFoundException exception) {
-        String errorCode = String.format("%s%s", HttpStatus.NOT_FOUND.value(), ErrorCode.TAG_DAO_ERROR_CODE.getErrorCode());
+        String errorCode = String.format("%s%s", HttpStatus.NOT_FOUND.value(), ErrorCode.TAG_ERROR_CODE.getErrorCode());
         return getResponseEntity(exception, errorCode, HttpStatus.NOT_FOUND);
     }
 
@@ -52,7 +52,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AuthorNotFoundException.class)
     public ResponseEntity<Object> handleAuthorNotFoundException(AuthorNotFoundException exception) {
-        String errorCode = String.format("%s%s", HttpStatus.NOT_FOUND.value(), ErrorCode.AUTHOR_DAO_ERROR_CODE.getErrorCode());
+        String errorCode = String.format("%s%s", HttpStatus.NOT_FOUND.value(), ErrorCode.AUTHOR_ERROR_CODE.getErrorCode());
         return getResponseEntity(exception, errorCode, HttpStatus.NOT_FOUND);
     }
 
@@ -60,6 +60,18 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleAuthorAlreadyExistsException(AuthorAlreadyExistsException exception) {
         String errorCode = String.format("%s%s", HttpStatus.BAD_REQUEST.value(), ErrorCode.VALIDATION_ERROR_CODE.getErrorCode());
         return getResponseEntity(exception, errorCode, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<Object> handleCommentNotFoundException(CommentNotFoundException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.NOT_FOUND.value(), ErrorCode.COMMENT_ERROR_CODE.getErrorCode());
+        return getResponseEntity(exception, errorCode, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NewsNotFoundException.class)
+    public ResponseEntity<Object> handleNewsNotFoundException(NewsNotFoundException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.NOT_FOUND.value(), ErrorCode.NEWS_ERROR_CODE.getErrorCode());
+        return getResponseEntity(exception, errorCode, HttpStatus.NOT_FOUND);
     }
 
     @Override

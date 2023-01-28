@@ -1,6 +1,8 @@
 package com.epam.service;
 
 import com.epam.dao.NewsRepository;
+import com.epam.domain.News;
+import com.epam.exception.NewsNotFoundException;
 import com.epam.exception.PaginationException;
 import com.epam.model.dto.NewsDto;
 import com.epam.service.mapper.NewsDtoMapper;
@@ -24,6 +26,11 @@ public class NewsServiceImpl implements NewsService {
         return mapper.toNewsDtoList(repository.findAll(pageable));
     }
 
+    @Override
+    public NewsDto getNewsById(Long id) {
+        return mapper.toNewsDto(findNewsById(id));
+    }
+
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
         long countFromDb = repository.count();
         long countFromRequest = pageNumber * pageSize;
@@ -32,5 +39,9 @@ public class NewsServiceImpl implements NewsService {
         }
 
         return PageRequest.of(pageNumber, pageSize);
+    }
+
+    private News findNewsById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new NewsNotFoundException("news.id.not.found", id));
     }
 }

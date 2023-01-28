@@ -12,4 +12,6 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {AuthorDto.class, TagDto.class, CommentDto.class})
 public interface NewsDtoMapper {
     List<NewsDto> toNewsDtoList(List<News> news);
+
+    NewsDto toNewsDto(News news);
 }

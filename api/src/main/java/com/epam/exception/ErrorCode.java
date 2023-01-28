@@ -6,10 +6,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
-    TAG_DAO_ERROR_CODE("01"),
-    TAG_SERVICE_ERROR_CODE("02"),
-    AUTHOR_DAO_ERROR_CODE("03"),
-    AUTHOR_SERVICE_ERROR_CODE("04"),
+    TAG_ERROR_CODE("01"),
+    NEWS_ERROR_CODE("02"),
+    AUTHOR_ERROR_CODE("03"),
+    COMMENT_ERROR_CODE("04"),
     VALIDATION_ERROR_CODE("05"),
     SERVER_ERROR_CODE("06"),
     REQUEST_ERROR_CODE("07");

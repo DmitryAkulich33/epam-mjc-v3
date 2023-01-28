@@ -1,6 +1,8 @@
 package com.epam.service;
 
 import com.epam.dao.CommentRepository;
+import com.epam.domain.Comment;
+import com.epam.exception.CommentNotFoundException;
 import com.epam.exception.PaginationException;
 import com.epam.model.dto.CommentDto;
 import com.epam.service.mapper.CommentDtoMapper;
@@ -24,6 +26,11 @@ public class CommentServiceImpl implements CommentService {
         return mapper.toCommentDtoList(repository.findAll(pageable));
     }
 
+    @Override
+    public CommentDto getCommentById(Long id) {
+        return mapper.toCommentDto(findCommentById(id));
+    }
+
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
         long countFromDb = repository.count();
         long countFromRequest = pageNumber * pageSize;
@@ -32,6 +39,10 @@ public class CommentServiceImpl implements CommentService {
         }
 
         return PageRequest.of(pageNumber, pageSize);
+    }
+
+    private Comment findCommentById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new CommentNotFoundException("comment.id.not.found", id));
     }
 
 }
