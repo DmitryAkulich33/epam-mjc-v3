@@ -4,6 +4,10 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -14,4 +18,9 @@ import javax.persistence.Entity;
 public class Tag extends BaseEntity {
     @Column(unique = true)
     private String name;
+
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<News> news = new ArrayList<>();
+
 }

@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -24,4 +26,10 @@ public class News extends BaseEntity {
     private LocalDateTime created;
 
     private LocalDateTime modified;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "news_tag",
+            joinColumns = @JoinColumn(name = "news_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags = new ArrayList<>();
 }
