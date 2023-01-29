@@ -37,7 +37,7 @@ public class CommentControllerImpl implements CommentController {
     }
 
     @Override
-    @PostMapping(path = "/{newsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/news/{newsId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CommentDto> createComment(@RequestBody @Valid CommentToCreate commentToCreate,
                                                     @PathVariable("newsId") @Positive Long newsId) {
         return new ResponseEntity<>(commentService.createComment(commentToCreate, newsId), HttpStatus.CREATED);
