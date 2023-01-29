@@ -31,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto getCommentById(Long commentId) {
+    public CommentDto getCommentDtoById(Long commentId) {
         return commentDtoMapper.toCommentDto(findCommentById(commentId));
     }
 

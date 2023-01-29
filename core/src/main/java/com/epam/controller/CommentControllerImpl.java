@@ -33,7 +33,7 @@ public class CommentControllerImpl implements CommentController {
     @Override
     @GetMapping(path = "/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CommentDto> getCommentById(@PathVariable("commentId") @Positive Long commentId) {
-        return new ResponseEntity<>(commentService.getCommentById(commentId), HttpStatus.OK);
+        return new ResponseEntity<>(commentService.getCommentDtoById(commentId), HttpStatus.OK);
     }
 
     @Override

@@ -1,11 +1,9 @@
 package com.epam.controller;
 
-import com.epam.model.dto.AuthorDto;
-import com.epam.model.dto.CommentDto;
-import com.epam.model.dto.NewsDto;
-import com.epam.model.dto.TagDto;
+import com.epam.model.dto.*;
 import org.springframework.http.ResponseEntity;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -19,4 +17,6 @@ public interface NewsController {
     ResponseEntity<AuthorDto> getNewsAuthor(@Positive Long newsId);
 
     ResponseEntity<List<CommentDto>> getNewsComments(@Positive Long newsId);
+
+    ResponseEntity<NewsDto> createNews(@Valid NewsToCreate newsToCreate, @Positive Long authorId);
 }

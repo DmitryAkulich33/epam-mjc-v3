@@ -34,7 +34,7 @@ public class AuthorControllerImpl implements AuthorController {
     @Override
     @GetMapping(path = "/{authorId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AuthorDto> getAuthorById(@PathVariable("authorId") @Positive Long authorId) {
-        return new ResponseEntity<>(authorService.getAuthorById(authorId), HttpStatus.OK);
+        return new ResponseEntity<>(authorService.getAuthorDtoById(authorId), HttpStatus.OK);
     }
 
     @Override

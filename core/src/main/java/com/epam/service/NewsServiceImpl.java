@@ -1,14 +1,13 @@
 package com.epam.service;
 
-import com.epam.dao.CommentRepository;
 import com.epam.dao.NewsRepository;
+import com.epam.domain.Author;
 import com.epam.domain.News;
+import com.epam.domain.Tag;
+import com.epam.exception.NewsAlreadyExistsException;
 import com.epam.exception.NewsNotFoundException;
 import com.epam.exception.PaginationException;
-import com.epam.model.dto.AuthorDto;
-import com.epam.model.dto.CommentDto;
-import com.epam.model.dto.NewsDto;
-import com.epam.model.dto.TagDto;
+import com.epam.model.dto.*;
 import com.epam.service.mapper.AuthorDtoMapper;
 import com.epam.service.mapper.CommentDtoMapper;
 import com.epam.service.mapper.NewsDtoMapper;
@@ -18,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,6 +28,8 @@ public class NewsServiceImpl implements NewsService {
     private final TagDtoMapper tagDtoMapper;
     private final AuthorDtoMapper authorDtoMapper;
     private final CommentDtoMapper commentDtoMapper;
+    private final AuthorService authorService;
+    private final TagService tagService;
 
     @Override
     public List<NewsDto> getAllNews(Integer pageNumber, Integer pageSize) {
@@ -67,6 +69,21 @@ public class NewsServiceImpl implements NewsService {
         return newsRepository.findById(newsId).orElseThrow(() -> new NewsNotFoundException("news.id.not.found", newsId));
     }
 
+    @Override
+    public NewsDto createNews(NewsToCreate newsToCreate, Long authorId) {
+        checkForDuplicate(newsToCreate.getTitle().trim());
+        Author author = authorService.getAuthorById(authorId);
+        List<Tag> tags = tagService.updateTags(newsToCreate.getTags());
+        News news = News.builder()
+                .author(author)
+                .content(newsToCreate.getContent())
+                .title(newsToCreate.getTitle())
+                .tags(tags)
+                .build();
+
+        return newsDtoMapper.toNewsDto(newsRepository.save(news));
+    }
+
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
         long countFromDb = newsRepository.count();
         long countFromRequest = pageNumber * pageSize;
@@ -75,5 +92,11 @@ public class NewsServiceImpl implements NewsService {
         }
 
         return PageRequest.of(pageNumber, pageSize);
+    }
+
+    private void checkForDuplicate(String title) {
+        newsRepository.findNewsByTitleIgnoreCase(title).ifPresent(news -> {
+            throw new NewsAlreadyExistsException("news.exists", title);
+        });
     }
 }

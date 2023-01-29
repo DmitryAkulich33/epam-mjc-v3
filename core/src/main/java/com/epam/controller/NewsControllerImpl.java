@@ -1,9 +1,6 @@
 package com.epam.controller;
 
-import com.epam.model.dto.AuthorDto;
-import com.epam.model.dto.CommentDto;
-import com.epam.model.dto.NewsDto;
-import com.epam.model.dto.TagDto;
+import com.epam.model.dto.*;
 import com.epam.service.NewsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -59,5 +57,12 @@ public class NewsControllerImpl implements NewsController {
         List<CommentDto> comments = newsService.getNewsComments(newsId);
 
         return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
+
+    @Override
+    @PostMapping(path = "/authors/{authorId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<NewsDto> createNews(@RequestBody @Valid NewsToCreate newsToCreate,
+                                              @PathVariable("authorId") @Positive Long authorId) {
+        return new ResponseEntity<>(newsService.createNews(newsToCreate, authorId), HttpStatus.CREATED);
     }
 }

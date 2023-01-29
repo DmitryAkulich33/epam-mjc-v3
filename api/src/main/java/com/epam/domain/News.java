@@ -1,10 +1,10 @@
 package com.epam.domain;
 
+import com.epam.dao.audit.AuditNewsListener;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,6 +13,7 @@ import java.util.List;
 @Entity(name = "news")
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditNewsListener.class)
 public class News extends BaseEntity {
     @Column(unique = true)
     private String title;
@@ -31,7 +32,7 @@ public class News extends BaseEntity {
     @JoinTable(name = "news_tag",
             joinColumns = @JoinColumn(name = "news_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private List<Tag> tags = new ArrayList<>();
+    private List<Tag> tags;
 
     @OneToMany(mappedBy = "news", fetch = FetchType.LAZY)
     @ToString.Exclude

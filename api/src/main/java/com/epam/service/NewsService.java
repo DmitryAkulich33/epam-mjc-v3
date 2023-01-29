@@ -1,10 +1,7 @@
 package com.epam.service;
 
 import com.epam.domain.News;
-import com.epam.model.dto.AuthorDto;
-import com.epam.model.dto.CommentDto;
-import com.epam.model.dto.NewsDto;
-import com.epam.model.dto.TagDto;
+import com.epam.model.dto.*;
 
 import java.util.List;
 
@@ -20,4 +17,6 @@ public interface NewsService {
     List<CommentDto> getNewsComments(Long newsId);
 
     News getNewsById(Long newsId);
+
+    NewsDto createNews(NewsToCreate newsToCreate, Long authorId);
 }

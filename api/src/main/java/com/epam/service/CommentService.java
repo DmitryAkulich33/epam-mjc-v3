@@ -8,7 +8,7 @@ import java.util.List;
 public interface CommentService {
     List<CommentDto> getAllComments(Integer pageNumber, Integer pageSize);
 
-    CommentDto getCommentById(Long commentId);
+    CommentDto getCommentDtoById(Long commentId);
 
     CommentDto createComment(CommentToCreate commentToCreate, Long newsId);
 

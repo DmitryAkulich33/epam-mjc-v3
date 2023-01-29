@@ -30,14 +30,14 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorDto getAuthorById(Long authorId) {
-        return authorDtoMapper.toAuthorDto(findAuthorById(authorId));
+    public AuthorDto getAuthorDtoById(Long authorId) {
+        return authorDtoMapper.toAuthorDto(getAuthorById(authorId));
     }
 
     @Override
     @Transactional
     public void deleteAuthorById(Long authorId) {
-        authorRepository.delete(findAuthorById(authorId));
+        authorRepository.delete(getAuthorById(authorId));
     }
 
     @Override
@@ -56,6 +56,12 @@ public class AuthorServiceImpl implements AuthorService {
         return authorDtoMapper.toAuthorDtoList(authorRepository.findAuthorsByNameContainsIgnoreCase(partName, pageable));
     }
 
+    @Override
+    public Author getAuthorById(Long authorId) {
+        return authorRepository.findById(authorId).orElseThrow(() -> new AuthorNotFoundException("author.id.not.found", authorId));
+
+    }
+
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
         long countFromDb = authorRepository.count();
         long countFromRequest = pageNumber * pageSize;
@@ -64,10 +70,6 @@ public class AuthorServiceImpl implements AuthorService {
         }
 
         return PageRequest.of(pageNumber, pageSize);
-    }
-
-    private Author findAuthorById(Long id) {
-        return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException("author.id.not.found", id));
     }
 
     private void checkForDuplicate(String name) {
