@@ -30,14 +30,14 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public TagDto getTagById(Long id) {
-        return mapper.toTagDto(findTagById(id));
+    public TagDto getTagById(Long tagId) {
+        return mapper.toTagDto(findTagById(tagId));
     }
 
     @Override
     @Transactional
-    public void deleteTagById(Long id) {
-        repository.delete(findTagById(id));
+    public void deleteTagById(Long tagId) {
+        repository.delete(findTagById(tagId));
     }
 
     @Override

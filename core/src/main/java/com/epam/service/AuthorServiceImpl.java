@@ -30,14 +30,14 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorDto getAuthorById(Long id) {
-        return mapper.toAuthorDto(findAuthorById(id));
+    public AuthorDto getAuthorById(Long authorId) {
+        return mapper.toAuthorDto(findAuthorById(authorId));
     }
 
     @Override
     @Transactional
-    public void deleteAuthorById(Long id) {
-        repository.delete(findAuthorById(id));
+    public void deleteAuthorById(Long authorId) {
+        repository.delete(findAuthorById(authorId));
     }
 
     @Override

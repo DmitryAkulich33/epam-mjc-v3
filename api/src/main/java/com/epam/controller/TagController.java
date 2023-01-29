@@ -12,9 +12,9 @@ import java.util.List;
 public interface TagController {
     ResponseEntity<List<TagDto>> getAllTags(@Positive Integer pageNumber, @Positive Integer pageSize);
 
-    ResponseEntity<TagDto> getTagById(@Positive Long id);
+    ResponseEntity<TagDto> getTagById(@Positive Long tagId);
 
-    void deleteTagById(@Positive Long id);
+    void deleteTagById(@Positive Long tagId);
 
     ResponseEntity<TagDto> createTag(@Valid TagToCreate tagToCreate);
 

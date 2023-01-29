@@ -8,9 +8,9 @@ import java.util.List;
 public interface AuthorService {
     List<AuthorDto> getAllAuthors(Integer pageNumber, Integer pageSize);
 
-    AuthorDto getAuthorById(Long id);
+    AuthorDto getAuthorById(Long authorId);
 
-    void deleteAuthorById(Long id);
+    void deleteAuthorById(Long authorId);
 
     AuthorDto createAuthor(AuthorToCreate authorToCreate);
 

@@ -33,15 +33,15 @@ public class TagControllerImpl implements TagController {
 
     @Override
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TagDto> getTagById(@PathVariable("id") @Positive Long id) {
-        return new ResponseEntity<>(service.getTagById(id), HttpStatus.OK);
+    public ResponseEntity<TagDto> getTagById(@PathVariable("id") @Positive Long tagId) {
+        return new ResponseEntity<>(service.getTagById(tagId), HttpStatus.OK);
     }
 
     @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTagById(@PathVariable("id") @Positive Long id) {
-        service.deleteTagById(id);
+    public void deleteTagById(@PathVariable("id") @Positive Long tagId) {
+        service.deleteTagById(tagId);
     }
 
     @Override
@@ -59,5 +59,4 @@ public class TagControllerImpl implements TagController {
 
         return new ResponseEntity<>(tags, HttpStatus.OK);
     }
-
 }

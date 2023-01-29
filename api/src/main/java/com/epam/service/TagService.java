@@ -8,9 +8,9 @@ import java.util.List;
 public interface TagService {
     List<TagDto> getAllTags(Integer pageNumber, Integer pageSize);
 
-    TagDto getTagById(Long id);
+    TagDto getTagById(Long tagId);
 
-    void deleteTagById(Long id);
+    void deleteTagById(Long tagId);
 
     TagDto createTag(TagToCreate tagToCreate);
 

@@ -27,8 +27,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto getCommentById(Long id) {
-        return mapper.toCommentDto(findCommentById(id));
+    public CommentDto getCommentById(Long commentId) {
+        return mapper.toCommentDto(findCommentById(commentId));
     }
 
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {

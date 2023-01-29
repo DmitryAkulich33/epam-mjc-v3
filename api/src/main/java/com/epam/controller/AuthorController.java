@@ -12,9 +12,9 @@ import java.util.List;
 public interface AuthorController {
     ResponseEntity<List<AuthorDto>> getAllAuthors(@Positive Integer pageNumber, @Positive Integer pageSize);
 
-    ResponseEntity<AuthorDto> getAuthorById(@Positive Long id);
+    ResponseEntity<AuthorDto> getAuthorById(@Positive Long authorId);
 
-    void deleteAuthorById(@Positive Long id);
+    void deleteAuthorById(@Positive Long authorId);
 
     ResponseEntity<AuthorDto> createAuthor(@Valid AuthorToCreate authorToCreate);
 

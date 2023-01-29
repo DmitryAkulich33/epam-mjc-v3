@@ -33,7 +33,7 @@ CREATE TABLE news_tag
 
     CONSTRAINT fk_news_id FOREIGN KEY (news_id) REFERENCES news (id),
     CONSTRAINT fk_tag_id FOREIGN KEY (tag_id) REFERENCES tag (id)
-)
+);
 
 CREATE TABLE comment
 (

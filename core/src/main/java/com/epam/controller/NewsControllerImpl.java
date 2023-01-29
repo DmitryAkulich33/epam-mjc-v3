@@ -1,6 +1,9 @@
 package com.epam.controller;
 
+import com.epam.model.dto.AuthorDto;
+import com.epam.model.dto.CommentDto;
 import com.epam.model.dto.NewsDto;
+import com.epam.model.dto.TagDto;
 import com.epam.service.NewsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,14 +26,38 @@ public class NewsControllerImpl implements NewsController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<NewsDto>> getAllNews(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
                                                     @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
-        List<NewsDto> tags = service.getAllNews(pageNumber, pageSize);
+        List<NewsDto> news = service.getAllNews(pageNumber, pageSize);
+
+        return new ResponseEntity<>(news, HttpStatus.OK);
+    }
+
+    @Override
+    @GetMapping(path = "/{newsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<NewsDto> getNewsById(@PathVariable("newsId") @Positive Long newsId) {
+        return new ResponseEntity<>(service.getNewsById(newsId), HttpStatus.OK);
+    }
+
+    @Override
+    @GetMapping(path = "/{newsId}/tags", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TagDto>> getNewsTags(@PathVariable("newsId") @Positive Long newsId) {
+        List<TagDto> tags = service.getNewsTags(newsId);
 
         return new ResponseEntity<>(tags, HttpStatus.OK);
     }
 
     @Override
-    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<NewsDto> getNewsById(@PathVariable("id") @Positive Long id) {
-        return new ResponseEntity<>(service.getNewsById(id), HttpStatus.OK);
+    @GetMapping(path = "/{newsId}/authors", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AuthorDto> getNewsAuthor(@PathVariable("newsId") @Positive Long newsId) {
+        AuthorDto author = service.getNewsAuthor(newsId);
+
+        return new ResponseEntity<>(author, HttpStatus.OK);
+    }
+
+    @Override
+    @GetMapping(path = "/{newsId}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CommentDto>> getNewsComments(@PathVariable("newsId") @Positive Long newsId) {
+        List<CommentDto> comments = service.getNewsComments(newsId);
+
+        return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 }
