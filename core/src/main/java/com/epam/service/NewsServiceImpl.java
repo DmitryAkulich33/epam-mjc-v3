@@ -37,29 +37,34 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public NewsDto getNewsById(Long newsId) {
-        return newsDtoMapper.toNewsDto(findNewsById(newsId));
+    public NewsDto getNewsDtoById(Long newsId) {
+        return newsDtoMapper.toNewsDto(getNewsById(newsId));
     }
 
     @Override
     public List<TagDto> getNewsTags(Long newsId) {
-        News news = findNewsById(newsId);
+        News news = getNewsById(newsId);
 
         return tagDtoMapper.toTagDtoList(news.getTags());
     }
 
     @Override
     public AuthorDto getNewsAuthor(Long newsId) {
-        News news = findNewsById(newsId);
+        News news = getNewsById(newsId);
 
         return authorDtoMapper.toAuthorDto(news.getAuthor());
     }
 
     @Override
     public List<CommentDto> getNewsComments(Long newsId) {
-        News news = findNewsById(newsId);
+        News news = getNewsById(newsId);
 
         return commentDtoMapper.toCommentDtoList(news.getComments());
+    }
+
+    @Override
+    public News getNewsById(Long newsId) {
+        return newsRepository.findById(newsId).orElseThrow(() -> new NewsNotFoundException("news.id.not.found", newsId));
     }
 
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
@@ -70,9 +75,5 @@ public class NewsServiceImpl implements NewsService {
         }
 
         return PageRequest.of(pageNumber, pageSize);
-    }
-
-    private News findNewsById(Long id) {
-        return newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("news.id.not.found", id));
     }
 }

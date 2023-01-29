@@ -20,13 +20,13 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(value = "/api/v1/news")
 public class NewsControllerImpl implements NewsController {
-    private final NewsService service;
+    private final NewsService newsService;
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<NewsDto>> getAllNews(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
                                                     @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
-        List<NewsDto> news = service.getAllNews(pageNumber, pageSize);
+        List<NewsDto> news = newsService.getAllNews(pageNumber, pageSize);
 
         return new ResponseEntity<>(news, HttpStatus.OK);
     }
@@ -34,13 +34,13 @@ public class NewsControllerImpl implements NewsController {
     @Override
     @GetMapping(path = "/{newsId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NewsDto> getNewsById(@PathVariable("newsId") @Positive Long newsId) {
-        return new ResponseEntity<>(service.getNewsById(newsId), HttpStatus.OK);
+        return new ResponseEntity<>(newsService.getNewsDtoById(newsId), HttpStatus.OK);
     }
 
     @Override
     @GetMapping(path = "/{newsId}/tags", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TagDto>> getNewsTags(@PathVariable("newsId") @Positive Long newsId) {
-        List<TagDto> tags = service.getNewsTags(newsId);
+        List<TagDto> tags = newsService.getNewsTags(newsId);
 
         return new ResponseEntity<>(tags, HttpStatus.OK);
     }
@@ -48,7 +48,7 @@ public class NewsControllerImpl implements NewsController {
     @Override
     @GetMapping(path = "/{newsId}/authors", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AuthorDto> getNewsAuthor(@PathVariable("newsId") @Positive Long newsId) {
-        AuthorDto author = service.getNewsAuthor(newsId);
+        AuthorDto author = newsService.getNewsAuthor(newsId);
 
         return new ResponseEntity<>(author, HttpStatus.OK);
     }
@@ -56,7 +56,7 @@ public class NewsControllerImpl implements NewsController {
     @Override
     @GetMapping(path = "/{newsId}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CommentDto>> getNewsComments(@PathVariable("newsId") @Positive Long newsId) {
-        List<CommentDto> comments = service.getNewsComments(newsId);
+        List<CommentDto> comments = newsService.getNewsComments(newsId);
 
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }

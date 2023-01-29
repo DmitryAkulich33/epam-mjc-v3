@@ -20,13 +20,13 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(value = "/api/v1/authors")
 public class AuthorControllerImpl implements AuthorController {
-    private final AuthorService service;
+    private final AuthorService authorService;
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AuthorDto>> getAllAuthors(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
                                                          @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
-        List<AuthorDto> authors = service.getAllAuthors(pageNumber, pageSize);
+        List<AuthorDto> authors = authorService.getAllAuthors(pageNumber, pageSize);
 
         return new ResponseEntity<>(authors, HttpStatus.OK);
     }
@@ -34,20 +34,20 @@ public class AuthorControllerImpl implements AuthorController {
     @Override
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AuthorDto> getAuthorById(@PathVariable("id") @Positive Long authorId) {
-        return new ResponseEntity<>(service.getAuthorById(authorId), HttpStatus.OK);
+        return new ResponseEntity<>(authorService.getAuthorById(authorId), HttpStatus.OK);
     }
 
     @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAuthorById(@PathVariable("id") @Positive Long authorId) {
-        service.deleteAuthorById(authorId);
+        authorService.deleteAuthorById(authorId);
     }
 
     @Override
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AuthorDto> createAuthor(@RequestBody @Valid AuthorToCreate authorToCreate) {
-        return new ResponseEntity<>(service.createAuthor(authorToCreate), HttpStatus.CREATED);
+        return new ResponseEntity<>(authorService.createAuthor(authorToCreate), HttpStatus.CREATED);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class AuthorControllerImpl implements AuthorController {
     public ResponseEntity<List<AuthorDto>> getAuthorsByPartName(@RequestParam @NotBlank String partName,
                                                                 @RequestParam(defaultValue = "1") @Positive Integer pageNumber,
                                                                 @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
-        List<AuthorDto> authors = service.getAuthorsByPartName(partName.trim(), pageNumber, pageSize);
+        List<AuthorDto> authors = authorService.getAuthorsByPartName(partName.trim(), pageNumber, pageSize);
 
         return new ResponseEntity<>(authors, HttpStatus.OK);
     }

@@ -20,13 +20,13 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(value = "/api/v1/tags")
 public class TagControllerImpl implements TagController {
-    private final TagService service;
+    private final TagService tagService;
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TagDto>> getAllTags(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
                                                    @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
-        List<TagDto> tags = service.getAllTags(pageNumber, pageSize);
+        List<TagDto> tags = tagService.getAllTags(pageNumber, pageSize);
 
         return new ResponseEntity<>(tags, HttpStatus.OK);
     }
@@ -34,20 +34,20 @@ public class TagControllerImpl implements TagController {
     @Override
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TagDto> getTagById(@PathVariable("id") @Positive Long tagId) {
-        return new ResponseEntity<>(service.getTagById(tagId), HttpStatus.OK);
+        return new ResponseEntity<>(tagService.getTagById(tagId), HttpStatus.OK);
     }
 
     @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTagById(@PathVariable("id") @Positive Long tagId) {
-        service.deleteTagById(tagId);
+        tagService.deleteTagById(tagId);
     }
 
     @Override
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TagDto> createTag(@RequestBody @Valid TagToCreate tagToCreate) {
-        return new ResponseEntity<>(service.createTag(tagToCreate), HttpStatus.CREATED);
+        return new ResponseEntity<>(tagService.createTag(tagToCreate), HttpStatus.CREATED);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class TagControllerImpl implements TagController {
     public ResponseEntity<List<TagDto>> getTagsByPartName(@RequestParam @NotBlank String partName,
                                                           @RequestParam(defaultValue = "1") @Positive Integer pageNumber,
                                                           @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
-        List<TagDto> tags = service.getTagsByPartName(partName.trim(), pageNumber, pageSize);
+        List<TagDto> tags = tagService.getTagsByPartName(partName.trim(), pageNumber, pageSize);
 
         return new ResponseEntity<>(tags, HttpStatus.OK);
     }

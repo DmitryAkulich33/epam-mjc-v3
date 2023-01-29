@@ -14,4 +14,6 @@ public interface NewsDtoMapper {
     List<NewsDto> toNewsDtoList(List<News> news);
 
     NewsDto toNewsDto(News news);
+
+    News toNews(NewsDto newsDto);
 }

@@ -1,11 +1,9 @@
 package com.epam.domain;
 
+import com.epam.dao.audit.AuditCommentListener;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity(name = "comment")
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditCommentListener.class)
 public class Comment extends BaseEntity {
     private String content;
 

@@ -19,25 +19,25 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
-    private final AuthorRepository repository;
-    private final AuthorDtoMapper mapper;
+    private final AuthorRepository authorRepository;
+    private final AuthorDtoMapper authorDtoMapper;
 
     @Override
     public List<AuthorDto> getAllAuthors(Integer pageNumber, Integer pageSize) {
         Pageable pageable = getPageable(pageNumber - 1, pageSize);
 
-        return mapper.toAuthorDtoList(repository.findAll(pageable));
+        return authorDtoMapper.toAuthorDtoList(authorRepository.findAll(pageable));
     }
 
     @Override
     public AuthorDto getAuthorById(Long authorId) {
-        return mapper.toAuthorDto(findAuthorById(authorId));
+        return authorDtoMapper.toAuthorDto(findAuthorById(authorId));
     }
 
     @Override
     @Transactional
     public void deleteAuthorById(Long authorId) {
-        repository.delete(findAuthorById(authorId));
+        authorRepository.delete(findAuthorById(authorId));
     }
 
     @Override
@@ -46,18 +46,18 @@ public class AuthorServiceImpl implements AuthorService {
         String authorName = authorToCreate.getName().trim();
         checkForDuplicate(authorName);
 
-        return mapper.toAuthorDto(repository.save(Author.builder().name(authorName).build()));
+        return authorDtoMapper.toAuthorDto(authorRepository.save(Author.builder().name(authorName).build()));
     }
 
     @Override
     public List<AuthorDto> getAuthorsByPartName(String partName, Integer pageNumber, Integer pageSize) {
         Pageable pageable = getPageable(pageNumber - 1, pageSize);
 
-        return mapper.toAuthorDtoList(repository.findAuthorsByNameContainsIgnoreCase(partName, pageable));
+        return authorDtoMapper.toAuthorDtoList(authorRepository.findAuthorsByNameContainsIgnoreCase(partName, pageable));
     }
 
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
-        long countFromDb = repository.count();
+        long countFromDb = authorRepository.count();
         long countFromRequest = pageNumber * pageSize;
         if (countFromDb <= countFromRequest) {
             throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
@@ -67,11 +67,11 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     private Author findAuthorById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new AuthorNotFoundException("author.id.not.found", id));
+        return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException("author.id.not.found", id));
     }
 
     private void checkForDuplicate(String name) {
-        repository.findAuthorByNameIgnoreCase(name).ifPresent(author -> {
+        authorRepository.findAuthorByNameIgnoreCase(name).ifPresent(author -> {
             throw new AuthorAlreadyExistsException("author.exists", name);
         });
     }
