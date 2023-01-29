@@ -14,4 +14,6 @@ public interface CommentController {
     ResponseEntity<CommentDto> getCommentById(@Positive Long commentId);
 
     ResponseEntity<CommentDto> createComment(@Valid CommentToCreate commentToCreate, @Positive Long newsId);
+
+    void deleteCommentById(@Positive Long commentId);
 }

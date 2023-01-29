@@ -32,15 +32,15 @@ public class AuthorControllerImpl implements AuthorController {
     }
 
     @Override
-    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthorDto> getAuthorById(@PathVariable("id") @Positive Long authorId) {
+    @GetMapping(path = "/{authorId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AuthorDto> getAuthorById(@PathVariable("authorId") @Positive Long authorId) {
         return new ResponseEntity<>(authorService.getAuthorById(authorId), HttpStatus.OK);
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{authorId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAuthorById(@PathVariable("id") @Positive Long authorId) {
+    public void deleteAuthorById(@PathVariable("authorId") @Positive Long authorId) {
         authorService.deleteAuthorById(authorId);
     }
 

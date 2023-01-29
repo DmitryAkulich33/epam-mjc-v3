@@ -32,15 +32,15 @@ public class TagControllerImpl implements TagController {
     }
 
     @Override
-    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TagDto> getTagById(@PathVariable("id") @Positive Long tagId) {
+    @GetMapping(path = "/{tagId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TagDto> getTagById(@PathVariable("tagId") @Positive Long tagId) {
         return new ResponseEntity<>(tagService.getTagById(tagId), HttpStatus.OK);
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{tagId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTagById(@PathVariable("id") @Positive Long tagId) {
+    public void deleteTagById(@PathVariable("tagId") @Positive Long tagId) {
         tagService.deleteTagById(tagId);
     }
 

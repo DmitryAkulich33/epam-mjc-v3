@@ -46,6 +46,11 @@ public class CommentServiceImpl implements CommentService {
         return commentDtoMapper.toCommentDto(commentRepository.save(comment));
     }
 
+    @Override
+    public void deleteCommentById(Long commentId) {
+        commentRepository.delete(findCommentById(commentId));
+    }
+
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
         long countFromDb = commentRepository.count();
         long countFromRequest = pageNumber * pageSize;

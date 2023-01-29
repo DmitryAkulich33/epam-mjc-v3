@@ -42,4 +42,10 @@ public class CommentControllerImpl implements CommentController {
                                                     @PathVariable("newsId") @Positive Long newsId) {
         return new ResponseEntity<>(commentService.createComment(commentToCreate, newsId), HttpStatus.CREATED);
     }
+
+    @Override
+    @DeleteMapping("/{commentId}")
+    public void deleteCommentById(@PathVariable("commentId") @Positive Long commentId) {
+        commentService.deleteCommentById(commentId);
+    }
 }
