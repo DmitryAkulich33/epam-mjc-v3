@@ -2,6 +2,7 @@ package com.epam.controller;
 
 import com.epam.model.dto.CommentDto;
 import com.epam.model.dto.CommentToCreate;
+import com.epam.model.dto.CommentToUpdate;
 import com.epam.service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -48,5 +49,12 @@ public class CommentControllerImpl implements CommentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCommentById(@PathVariable("commentId") @Positive Long commentId) {
         commentService.deleteCommentById(commentId);
+    }
+
+    @Override
+    @PatchMapping(path = "/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommentDto> updateComment(@RequestBody @Valid CommentToUpdate commentToUpdate,
+                                                    @PathVariable("commentId") @Positive Long commentId) {
+        return new ResponseEntity<>(commentService.updateCommentById(commentToUpdate, commentId), HttpStatus.OK);
     }
 }

@@ -1,7 +1,9 @@
 package com.epam.controller;
 
+import com.epam.domain.Comment;
 import com.epam.model.dto.CommentDto;
 import com.epam.model.dto.CommentToCreate;
+import com.epam.model.dto.CommentToUpdate;
 import org.springframework.http.ResponseEntity;
 
 import javax.validation.Valid;
@@ -16,4 +18,6 @@ public interface CommentController {
     ResponseEntity<CommentDto> createComment(@Valid CommentToCreate commentToCreate, @Positive Long newsId);
 
     void deleteCommentById(@Positive Long commentId);
+
+    ResponseEntity<CommentDto> updateComment(@Valid CommentToUpdate commentToCreate, @Positive Long commentId);
 }

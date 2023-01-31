@@ -72,13 +72,14 @@ public class NewsServiceImpl implements NewsService {
     @Override
     @Transactional
     public NewsDto createNews(NewsToCreate newsToCreate, Long authorId) {
-        checkForDuplicate(newsToCreate.getTitle().trim());
+        String newTitle = newsToCreate.getTitle().trim();
+        checkForDuplicate(newTitle);
         Author author = authorService.getAuthorById(authorId);
         List<Tag> tags = tagService.updateTags(newsToCreate.getTags());
         News news = News.builder()
                 .author(author)
                 .content(newsToCreate.getContent())
-                .title(newsToCreate.getTitle())
+                .title(newTitle)
                 .tags(tags)
                 .build();
 

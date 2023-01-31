@@ -7,6 +7,7 @@ import com.epam.exception.CommentNotFoundException;
 import com.epam.exception.PaginationException;
 import com.epam.model.dto.CommentDto;
 import com.epam.model.dto.CommentToCreate;
+import com.epam.model.dto.CommentToUpdate;
 import com.epam.service.mapper.CommentDtoMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -32,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto getCommentDtoById(Long commentId) {
-        return commentDtoMapper.toCommentDto(findCommentById(commentId));
+        return commentDtoMapper.toCommentDto(getCommentById(commentId));
     }
 
     @Override
@@ -48,7 +49,22 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void deleteCommentById(Long commentId) {
-        commentRepository.delete(findCommentById(commentId));
+        commentRepository.delete(getCommentById(commentId));
+    }
+
+    @Override
+    @Transactional
+    public CommentDto updateCommentById(CommentToUpdate commentToUpdate, Long commentId) {
+        Comment comment = getCommentById(commentId);
+        comment.setContent(commentToUpdate.getContent().trim());
+
+        return commentDtoMapper.toCommentDto(commentRepository.save(comment));
+    }
+
+    @Override
+    public Comment getCommentById(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(() -> new CommentNotFoundException("comment.id.not.found", commentId));
+
     }
 
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
@@ -60,9 +76,4 @@ public class CommentServiceImpl implements CommentService {
 
         return PageRequest.of(pageNumber, pageSize);
     }
-
-    private Comment findCommentById(Long id) {
-        return commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException("comment.id.not.found", id));
-    }
-
 }
