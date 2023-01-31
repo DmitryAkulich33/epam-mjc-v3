@@ -65,4 +65,11 @@ public class NewsControllerImpl implements NewsController {
                                               @PathVariable("authorId") @Positive Long authorId) {
         return new ResponseEntity<>(newsService.createNews(newsToCreate, authorId), HttpStatus.CREATED);
     }
+
+    @Override
+    @DeleteMapping("/{newsId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteNewsById(@PathVariable("newsId") @Positive Long newsId) {
+        newsService.deleteNewsById(newsId);
+    }
 }

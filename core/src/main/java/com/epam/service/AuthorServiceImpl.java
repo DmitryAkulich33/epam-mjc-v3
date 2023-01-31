@@ -65,7 +65,7 @@ public class AuthorServiceImpl implements AuthorService {
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
         long countFromDb = authorRepository.count();
         long countFromRequest = pageNumber * pageSize;
-        if (countFromDb <= countFromRequest) {
+        if (countFromDb <= countFromRequest && countFromDb != 0) {
             throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
         }
 

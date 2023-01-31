@@ -43,6 +43,6 @@ CREATE TABLE comment
     created TIMESTAMP,
     modified TIMESTAMP,
 
-    CONSTRAINT fk_news_author FOREIGN KEY (news_id) REFERENCES news (id)
+    CONSTRAINT fk_news_comment FOREIGN KEY (news_id) REFERENCES news (id) ON DELETE CASCADE
 );
 

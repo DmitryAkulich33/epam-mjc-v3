@@ -19,4 +19,6 @@ public interface NewsController {
     ResponseEntity<List<CommentDto>> getNewsComments(@Positive Long newsId);
 
     ResponseEntity<NewsDto> createNews(@Valid NewsToCreate newsToCreate, @Positive Long authorId);
+
+    void deleteNewsById(@Positive Long newsId);
 }

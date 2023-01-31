@@ -16,8 +16,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -70,6 +70,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    @Transactional
     public NewsDto createNews(NewsToCreate newsToCreate, Long authorId) {
         checkForDuplicate(newsToCreate.getTitle().trim());
         Author author = authorService.getAuthorById(authorId);
@@ -84,10 +85,15 @@ public class NewsServiceImpl implements NewsService {
         return newsDtoMapper.toNewsDto(newsRepository.save(news));
     }
 
+    @Override
+    public void deleteNewsById(Long newsId) {
+        newsRepository.delete(getNewsById(newsId));
+    }
+
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
         long countFromDb = newsRepository.count();
         long countFromRequest = pageNumber * pageSize;
-        if (countFromDb <= countFromRequest) {
+        if (countFromDb <= countFromRequest && countFromDb != 0) {
             throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
         }
 

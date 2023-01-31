@@ -45,6 +45,7 @@ public class CommentControllerImpl implements CommentController {
 
     @Override
     @DeleteMapping("/{commentId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCommentById(@PathVariable("commentId") @Positive Long commentId) {
         commentService.deleteCommentById(commentId);
     }

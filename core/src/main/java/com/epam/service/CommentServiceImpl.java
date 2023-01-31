@@ -54,7 +54,7 @@ public class CommentServiceImpl implements CommentService {
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
         long countFromDb = commentRepository.count();
         long countFromRequest = pageNumber * pageSize;
-        if (countFromDb <= countFromRequest) {
+        if (countFromDb <= countFromRequest && countFromDb != 0) {
             throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
         }
 
