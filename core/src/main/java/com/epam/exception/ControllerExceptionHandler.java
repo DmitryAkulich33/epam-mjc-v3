@@ -80,6 +80,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return getResponseEntity(exception, errorCode, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleException(Exception exception) {
+        String errorCode = String.format("%s%s", HttpStatus.INTERNAL_SERVER_ERROR.value(), ErrorCode.SERVER_ERROR_CODE.getErrorCode());
+        return getResponseEntityWithCommonMessage(exception, errorCode, HttpStatus.INTERNAL_SERVER_ERROR, "server.error");
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers,
                                                                   HttpStatus status, WebRequest request) {
@@ -131,7 +137,6 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         String errorCode = String.format("%s%s", HttpStatus.BAD_REQUEST.value(), ErrorCode.REQUEST_ERROR_CODE.getErrorCode());
         return getResponseEntityWithCommonMessage(ex, errorCode, HttpStatus.BAD_REQUEST, "not.readable");
     }
-
 
     private ResponseEntity<Object> getResponseEntity(ServiceException exception, String errorCode, HttpStatus httpStatus) {
         String message = localeTranslator.getString(exception.getMessage(), exception.getArgs());
