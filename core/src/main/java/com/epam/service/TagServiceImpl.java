@@ -2,14 +2,13 @@ package com.epam.service;
 
 import com.epam.dao.TagRepository;
 import com.epam.domain.Tag;
-import com.epam.exception.PaginationException;
 import com.epam.exception.TagAlreadyExistsException;
 import com.epam.exception.TagNotFoundException;
 import com.epam.model.dto.TagDto;
 import com.epam.model.dto.TagToCreate;
 import com.epam.service.mapper.TagDtoMapper;
+import com.epam.util.PageableUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,7 +26,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<TagDto> getAllTags(Integer pageNumber, Integer pageSize) {
-        Pageable pageable = getPageable(pageNumber - 1, pageSize);
+        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, tagRepository);
 
         return tagDtoMapper.toTagDtoList(tagRepository.findAll(pageable));
     }
@@ -55,7 +53,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<TagDto> getTagsByPartName(String partName, Integer pageNumber, Integer pageSize) {
-        Pageable pageable = getPageable(pageNumber - 1, pageSize);
+        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, tagRepository);
 
         return tagDtoMapper.toTagDtoList(tagRepository.findTagsByNameContainsIgnoreCase(partName, pageable));
     }
@@ -68,16 +66,6 @@ public class TagServiceImpl implements TagService {
                 .map(tag -> tagRepository.findTagByNameIgnoreCase(tag.getName().trim())
                         .orElseGet(() -> tagRepository.save(Tag.builder().name(tag.getName().trim()).build())))
                 .collect(Collectors.toList());
-    }
-
-    private Pageable getPageable(Integer pageNumber, Integer pageSize) {
-        long countFromDb = tagRepository.count();
-        long countFromRequest = pageNumber * pageSize;
-        if (countFromDb <= countFromRequest && countFromDb != 0) {
-            throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
-        }
-
-        return PageRequest.of(pageNumber, pageSize);
     }
 
     private Tag findTagById(Long id) {

@@ -4,12 +4,11 @@ import com.epam.dao.AuthorRepository;
 import com.epam.domain.Author;
 import com.epam.exception.AuthorAlreadyExistsException;
 import com.epam.exception.AuthorNotFoundException;
-import com.epam.exception.PaginationException;
 import com.epam.model.dto.AuthorDto;
 import com.epam.model.dto.AuthorToCreate;
 import com.epam.service.mapper.AuthorDtoMapper;
+import com.epam.util.PageableUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +23,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<AuthorDto> getAllAuthors(Integer pageNumber, Integer pageSize) {
-        Pageable pageable = getPageable(pageNumber - 1, pageSize);
+        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, authorRepository);
 
         return authorDtoMapper.toAuthorDtoList(authorRepository.findAll(pageable));
     }
@@ -51,7 +50,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<AuthorDto> getAuthorsByPartName(String partName, Integer pageNumber, Integer pageSize) {
-        Pageable pageable = getPageable(pageNumber - 1, pageSize);
+        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, authorRepository);
 
         return authorDtoMapper.toAuthorDtoList(authorRepository.findAuthorsByNameContainsIgnoreCase(partName, pageable));
     }
@@ -60,16 +59,6 @@ public class AuthorServiceImpl implements AuthorService {
     public Author getAuthorById(Long authorId) {
         return authorRepository.findById(authorId).orElseThrow(() -> new AuthorNotFoundException("author.id.not.found", authorId));
 
-    }
-
-    private Pageable getPageable(Integer pageNumber, Integer pageSize) {
-        long countFromDb = authorRepository.count();
-        long countFromRequest = pageNumber * pageSize;
-        if (countFromDb <= countFromRequest && countFromDb != 0) {
-            throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
-        }
-
-        return PageRequest.of(pageNumber, pageSize);
     }
 
     private void checkForDuplicate(String name) {

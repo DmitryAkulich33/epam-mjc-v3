@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -25,8 +26,10 @@ public class CommentControllerImpl implements CommentController {
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CommentDto>> getAllComments(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                           @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
-        List<CommentDto> comments = commentService.getAllComments(pageNumber, pageSize);
+                                                           @RequestParam(defaultValue = "5") @Positive Integer pageSize,
+                                                           @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
+                                                           @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
+        List<CommentDto> comments = commentService.getAllComments(pageNumber, pageSize, sortType, sortField);
 
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }

@@ -4,13 +4,12 @@ import com.epam.dao.CommentRepository;
 import com.epam.domain.Comment;
 import com.epam.domain.News;
 import com.epam.exception.CommentNotFoundException;
-import com.epam.exception.PaginationException;
 import com.epam.model.dto.CommentDto;
 import com.epam.model.dto.CommentToCreate;
 import com.epam.model.dto.CommentToUpdate;
 import com.epam.service.mapper.CommentDtoMapper;
+import com.epam.util.PageableUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +24,8 @@ public class CommentServiceImpl implements CommentService {
     private final NewsService newsService;
 
     @Override
-    public List<CommentDto> getAllComments(Integer pageNumber, Integer pageSize) {
-        Pageable pageable = getPageable(pageNumber - 1, pageSize);
+    public List<CommentDto> getAllComments(Integer pageNumber, Integer pageSize, String sortType, String sortField) {
+        Pageable pageable = PageableUtil.getPageableWithSort(pageNumber - 1, pageSize, sortType, sortField, commentRepository);
 
         return commentDtoMapper.toCommentDtoList(commentRepository.findAll(pageable));
     }
@@ -65,15 +64,5 @@ public class CommentServiceImpl implements CommentService {
     public Comment getCommentById(Long commentId) {
         return commentRepository.findById(commentId).orElseThrow(() -> new CommentNotFoundException("comment.id.not.found", commentId));
 
-    }
-
-    private Pageable getPageable(Integer pageNumber, Integer pageSize) {
-        long countFromDb = commentRepository.count();
-        long countFromRequest = pageNumber * pageSize;
-        if (countFromDb <= countFromRequest && countFromDb != 0) {
-            throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
-        }
-
-        return PageRequest.of(pageNumber, pageSize);
     }
 }
