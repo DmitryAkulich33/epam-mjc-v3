@@ -7,6 +7,7 @@ jar {
 }
 
 dependencies {
+    implementation "org.apache.commons:commons-lang3:${commonsLang3}"
     implementation "org.postgresql:postgresql:${postgresql}"
     implementation project(":api")
     implementation project(":web")

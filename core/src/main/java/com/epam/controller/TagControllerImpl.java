@@ -34,7 +34,7 @@ public class TagControllerImpl implements TagController {
     @Override
     @GetMapping(path = "/{tagId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TagDto> getTagById(@PathVariable("tagId") @Positive Long tagId) {
-        return new ResponseEntity<>(tagService.getTagById(tagId), HttpStatus.OK);
+        return new ResponseEntity<>(tagService.getTagDtoById(tagId), HttpStatus.OK);
     }
 
     @Override

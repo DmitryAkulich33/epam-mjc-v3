@@ -13,6 +13,7 @@ import com.epam.service.mapper.CommentDtoMapper;
 import com.epam.service.mapper.NewsDtoMapper;
 import com.epam.service.mapper.TagDtoMapper;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -91,6 +92,16 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.delete(getNewsById(newsId));
     }
 
+    @Override
+    public NewsDto updateNewsById(NewsToUpdate newsToUpdate, Long newsId) {
+        News news = getNewsById(newsId);
+        composeNewsTitle(newsToUpdate, news);
+        composeNewsContent(newsToUpdate, news);
+        composeNewsTags(newsToUpdate, news);
+
+        return newsDtoMapper.toNewsDto(newsRepository.save(news));
+    }
+
     private Pageable getPageable(Integer pageNumber, Integer pageSize) {
         long countFromDb = newsRepository.count();
         long countFromRequest = pageNumber * pageSize;
@@ -105,5 +116,26 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.findNewsByTitleIgnoreCase(title).ifPresent(news -> {
             throw new NewsAlreadyExistsException("news.exists", title);
         });
+    }
+
+    private void composeNewsTitle(NewsToUpdate newsToUpdate, News news) {
+        String newTitle = newsToUpdate.getTitle();
+        if (StringUtils.isNotBlank(newTitle)) {
+            news.setTitle(newTitle.trim());
+        }
+    }
+
+    private void composeNewsContent(NewsToUpdate newsToUpdate, News news) {
+        String newContent = newsToUpdate.getContent();
+        if (StringUtils.isNotBlank(newContent)) {
+            news.setContent(newContent.trim());
+        }
+    }
+
+    private void composeNewsTags(NewsToUpdate newsToUpdate, News news) {
+        List<TagToCreate> newTags = newsToUpdate.getTags();
+        if (newTags != null && !newTags.isEmpty()) {
+            news.setTags(tagService.updateTags(newTags));
+        }
     }
 }

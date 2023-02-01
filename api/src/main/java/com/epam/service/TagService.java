@@ -9,7 +9,7 @@ import java.util.List;
 public interface TagService {
     List<TagDto> getAllTags(Integer pageNumber, Integer pageSize);
 
-    TagDto getTagById(Long tagId);
+    TagDto getTagDtoById(Long tagId);
 
     void deleteTagById(Long tagId);
 

@@ -21,4 +21,6 @@ public interface NewsController {
     ResponseEntity<NewsDto> createNews(@Valid NewsToCreate newsToCreate, @Positive Long authorId);
 
     void deleteNewsById(@Positive Long newsId);
+
+    ResponseEntity<NewsDto> updateNews(@Valid NewsToUpdate newsToUpdate, @Positive Long newsId);
 }

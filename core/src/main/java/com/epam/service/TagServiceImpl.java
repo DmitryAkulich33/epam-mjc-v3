@@ -34,7 +34,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public TagDto getTagById(Long tagId) {
+    public TagDto getTagDtoById(Long tagId) {
         return tagDtoMapper.toTagDto(findTagById(tagId));
     }
 

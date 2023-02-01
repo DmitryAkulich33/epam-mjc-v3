@@ -72,4 +72,11 @@ public class NewsControllerImpl implements NewsController {
     public void deleteNewsById(@PathVariable("newsId") @Positive Long newsId) {
         newsService.deleteNewsById(newsId);
     }
+
+    @Override
+    @PatchMapping(path = "/{newsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<NewsDto> updateNews(@RequestBody @Valid NewsToUpdate newsToUpdate,
+                                              @PathVariable("newsId") @Positive Long newsId) {
+        return new ResponseEntity<>(newsService.updateNewsById(newsToUpdate, newsId), HttpStatus.OK);
+    }
 }

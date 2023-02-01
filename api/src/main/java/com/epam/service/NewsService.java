@@ -21,4 +21,6 @@ public interface NewsService {
     NewsDto createNews(NewsToCreate newsToCreate, Long authorId);
 
     void deleteNewsById(Long newsId);
+
+    NewsDto updateNewsById(NewsToUpdate newsToUpdate, Long newsId);
 }
