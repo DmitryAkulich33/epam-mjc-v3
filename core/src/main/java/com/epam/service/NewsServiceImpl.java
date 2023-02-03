@@ -6,15 +6,14 @@ import com.epam.domain.News;
 import com.epam.domain.Tag;
 import com.epam.exception.NewsAlreadyExistsException;
 import com.epam.exception.NewsNotFoundException;
-import com.epam.exception.PaginationException;
 import com.epam.model.dto.*;
 import com.epam.service.mapper.AuthorDtoMapper;
 import com.epam.service.mapper.CommentDtoMapper;
 import com.epam.service.mapper.NewsDtoMapper;
 import com.epam.service.mapper.TagDtoMapper;
+import com.epam.util.PageableUtil;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +32,8 @@ public class NewsServiceImpl implements NewsService {
     private final TagService tagService;
 
     @Override
-    public List<NewsDto> getAllNews(Integer pageNumber, Integer pageSize) {
-        Pageable pageable = getPageable(pageNumber - 1, pageSize);
+    public List<NewsDto> getAllNews(Integer pageNumber, Integer pageSize, String sortType, String sortField) {
+        Pageable pageable = PageableUtil.getPageableWithSort(pageNumber - 1, pageSize, sortType, sortField, newsRepository);
 
         return newsDtoMapper.toNewsDtoList(newsRepository.findAll(pageable));
     }
@@ -102,15 +101,15 @@ public class NewsServiceImpl implements NewsService {
         return newsDtoMapper.toNewsDto(newsRepository.save(news));
     }
 
-    private Pageable getPageable(Integer pageNumber, Integer pageSize) {
-        long countFromDb = newsRepository.count();
-        long countFromRequest = pageNumber * pageSize;
-        if (countFromDb <= countFromRequest && countFromDb != 0) {
-            throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
-        }
-
-        return PageRequest.of(pageNumber, pageSize);
-    }
+//    private Pageable getPageable(Integer pageNumber, Integer pageSize) {
+//        long countFromDb = newsRepository.count();
+//        long countFromRequest = pageNumber * pageSize;
+//        if (countFromDb <= countFromRequest && countFromDb != 0) {
+//            throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
+//        }
+//
+//        return PageRequest.of(pageNumber, pageSize);
+//    }
 
     private void checkForDuplicate(String title) {
         newsRepository.findNewsByTitleIgnoreCase(title).ifPresent(news -> {

@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -23,8 +24,10 @@ public class NewsControllerImpl implements NewsController {
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<NewsDto>> getAllNews(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                    @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
-        List<NewsDto> news = newsService.getAllNews(pageNumber, pageSize);
+                                                    @RequestParam(defaultValue = "5") @Positive Integer pageSize,
+                                                    @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
+                                                    @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
+        List<NewsDto> news = newsService.getAllNews(pageNumber, pageSize, sortType, sortField);
 
         return new ResponseEntity<>(news, HttpStatus.OK);
     }
