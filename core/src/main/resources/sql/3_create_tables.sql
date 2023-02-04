@@ -31,8 +31,8 @@ CREATE TABLE news_tag
     news_id BIGINT,
     tag_id BIGINT,
 
-    CONSTRAINT fk_news_id FOREIGN KEY (news_id) REFERENCES news (id),
-    CONSTRAINT fk_tag_id FOREIGN KEY (tag_id) REFERENCES tag (id)
+    CONSTRAINT fk_news_id FOREIGN KEY (news_id) REFERENCES news (id) ON DELETE CASCADE,
+    CONSTRAINT fk_tag_id FOREIGN KEY (tag_id) REFERENCES tag (id) ON DELETE CASCADE
 );
 
 CREATE TABLE comment

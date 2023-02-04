@@ -1,9 +1,11 @@
 package com.epam.controller;
 
+import com.epam.hateoas.assembler.impl.AuthorCollectionAssembler;
 import com.epam.model.dto.AuthorDto;
 import com.epam.model.dto.AuthorToCreate;
 import com.epam.service.AuthorService;
 import lombok.AllArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +23,16 @@ import java.util.List;
 @RequestMapping(value = "/api/v1/authors")
 public class AuthorControllerImpl implements AuthorController {
     private final AuthorService authorService;
+    private final AuthorCollectionAssembler authorCollectionAssembler;
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<AuthorDto>> getAllAuthors(@RequestParam(defaultValue = "1") @Positive int pageNumber,
-                                                         @RequestParam(defaultValue = "5") @Positive int pageSize) {
+    public ResponseEntity<CollectionModel<AuthorDto>> getAllAuthors(@RequestParam(defaultValue = "1") @Positive int pageNumber,
+                                                                    @RequestParam(defaultValue = "5") @Positive int pageSize) {
         List<AuthorDto> authors = authorService.getAllAuthors(pageNumber, pageSize);
+        CollectionModel<AuthorDto> model = authorCollectionAssembler.toCollectionModel(authors, pageNumber, pageSize);
 
-        return new ResponseEntity<>(authors, HttpStatus.OK);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @Override
@@ -52,11 +56,12 @@ public class AuthorControllerImpl implements AuthorController {
 
     @Override
     @GetMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<AuthorDto>> getAuthorsByPartName(@RequestParam @NotBlank String partName,
+    public ResponseEntity<CollectionModel<AuthorDto>> getAuthorsByPartName(@RequestParam @NotBlank String partName,
                                                                 @RequestParam(defaultValue = "1") @Positive int pageNumber,
                                                                 @RequestParam(defaultValue = "5") @Positive int pageSize) {
         List<AuthorDto> authors = authorService.getAuthorsByPartName(partName.trim(), pageNumber, pageSize);
+        CollectionModel<AuthorDto> model = authorCollectionAssembler.toCollectionModel(authors, pageNumber, pageSize);
 
-        return new ResponseEntity<>(authors, HttpStatus.OK);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 }
