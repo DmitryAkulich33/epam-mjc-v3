@@ -11,8 +11,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
 public interface CommentController {
-    ResponseEntity<CollectionModel<CommentDto>> getAllComments(@Positive int pageNumber,
-                                                               @Positive int pageSize,
+    ResponseEntity<CollectionModel<CommentDto>> getAllComments(@Positive Integer pageNumber,
+                                                               @Positive Integer pageSize,
                                                                @Pattern(regexp = "ASC|DESC") String sortType,
                                                                @Pattern(regexp = "created|modified") String sortField);
 
@@ -20,7 +20,7 @@ public interface CommentController {
 
     ResponseEntity<CommentDto> createComment(@Valid CommentToCreate commentToCreate, @Positive Long newsId);
 
-    void deleteCommentById(@Positive Long commentId);
+    ResponseEntity<CommentDto> deleteCommentById(@Positive Long commentId);
 
     ResponseEntity<CommentDto> updateComment(@Valid CommentToUpdate commentToCreate, @Positive Long commentId);
 }

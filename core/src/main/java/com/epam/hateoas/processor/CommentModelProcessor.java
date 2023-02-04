@@ -13,10 +13,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class CommentModelProcessor implements RepresentationModelProcessor<CommentDto> {
     @Override
     public CommentDto process(CommentDto model) {
-        model.add(linkTo(methodOn(CommentControllerImpl.class).getCommentById(model.getId()))
-                .withSelfRel());
-        model.add(linkTo(methodOn(CommentControllerImpl.class).getCommentById(model.getId()))
-                .withRel(DELETE_BY_ID));
+        Long id = model.getId();
+        model.add(linkTo(methodOn(CommentControllerImpl.class).getCommentById(id)).withSelfRel());
+        model.add(linkTo(methodOn(CommentControllerImpl.class).deleteCommentById(id)).withRel(DELETE_BY_ID));
 
         return model;
     }

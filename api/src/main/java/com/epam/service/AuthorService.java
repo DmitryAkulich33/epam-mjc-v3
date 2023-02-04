@@ -7,7 +7,7 @@ import com.epam.model.dto.AuthorToCreate;
 import java.util.List;
 
 public interface AuthorService {
-    List<AuthorDto> getAllAuthors(int pageNumber,int pageSize);
+    List<AuthorDto> getAllAuthors(Integer pageNumber,Integer pageSize);
 
     AuthorDto getAuthorDtoById(Long authorId);
 
@@ -15,7 +15,7 @@ public interface AuthorService {
 
     AuthorDto createAuthor(AuthorToCreate authorToCreate);
 
-    List<AuthorDto> getAuthorsByPartName(String partName, int pageNumber, int pageSize);
+    List<AuthorDto> getAuthorsByPartName(String partName, Integer pageNumber, Integer pageSize);
 
     Author getAuthorById(Long authorId);
 }

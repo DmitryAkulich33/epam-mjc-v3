@@ -8,7 +8,7 @@ import com.epam.model.dto.CommentToUpdate;
 import java.util.List;
 
 public interface CommentService {
-    List<CommentDto> getAllComments(int pageNumber, int pageSize, String sortType, String sortField);
+    List<CommentDto> getAllComments(Integer pageNumber, Integer pageSize, String sortType, String sortField);
 
     CommentDto getCommentDtoById(Long commentId);
 

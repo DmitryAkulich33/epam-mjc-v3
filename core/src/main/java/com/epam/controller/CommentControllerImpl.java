@@ -28,8 +28,8 @@ public class CommentControllerImpl implements CommentController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CollectionModel<CommentDto>> getAllComments(@RequestParam(defaultValue = "1") @Positive int pageNumber,
-                                                                      @RequestParam(defaultValue = "5") @Positive int pageSize,
+    public ResponseEntity<CollectionModel<CommentDto>> getAllComments(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
+                                                                      @RequestParam(defaultValue = "5") @Positive Integer pageSize,
                                                                       @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
                                                                       @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
         List<CommentDto> comments = commentService.getAllComments(pageNumber, pageSize, sortType, sortField);
@@ -53,9 +53,10 @@ public class CommentControllerImpl implements CommentController {
 
     @Override
     @DeleteMapping("/{commentId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCommentById(@PathVariable("commentId") @Positive Long commentId) {
+    public ResponseEntity<CommentDto> deleteCommentById(@PathVariable("commentId") @Positive Long commentId) {
         commentService.deleteCommentById(commentId);
+
+        return ResponseEntity.noContent().build();
     }
 
     @Override

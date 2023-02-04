@@ -1,8 +1,8 @@
 package com.epam.hateoas.assembler.impl;
 
-import com.epam.controller.CommentControllerImpl;
+import com.epam.controller.NewsControllerImpl;
 import com.epam.hateoas.assembler.CollectionModelAssembler;
-import com.epam.model.dto.CommentDto;
+import com.epam.model.dto.NewsDto;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Component;
 
@@ -15,20 +15,20 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class CommentCollectionAssembler implements CollectionModelAssembler<CommentDto> {
+public class NewsCollectionAssembler implements CollectionModelAssembler<NewsDto> {
     @Override
     public List<Link> getCollectionLinks(Integer pageNumber, Integer pageSize, String sortType, String sortField) {
         List<Link> links = new ArrayList<>();
         if (pageNumber > 1) {
-            links.add(linkTo(methodOn(CommentControllerImpl.class)
-                    .getAllComments(pageNumber - 1, pageSize, sortType, sortField))
+            links.add(linkTo(methodOn(NewsControllerImpl.class)
+                    .getAllNews(pageNumber - 1, pageSize, sortType, sortField))
                     .withRel(PREVIOUS_PAGE));
         }
-        links.add(linkTo(methodOn(CommentControllerImpl.class)
-                .getAllComments(pageNumber, pageSize, sortType, sortField))
+        links.add(linkTo(methodOn(NewsControllerImpl.class)
+                .getAllNews(pageNumber, pageSize, sortType, sortField))
                 .withSelfRel());
-        links.add(linkTo(methodOn(CommentControllerImpl.class)
-                .getAllComments(pageNumber + 1, pageSize, sortType, sortField))
+        links.add(linkTo(methodOn(NewsControllerImpl.class)
+                .getAllNews(pageNumber + 1, pageSize, sortType, sortField))
                 .withRel(NEXT_PAGE));
 
         return links;

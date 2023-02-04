@@ -10,15 +10,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 public interface AuthorController {
-    ResponseEntity<CollectionModel<AuthorDto>> getAllAuthors(@Positive int pageNumber, @Positive int pageSize);
+    ResponseEntity<CollectionModel<AuthorDto>> getAllAuthors(@Positive Integer pageNumber, @Positive Integer pageSize);
 
     ResponseEntity<AuthorDto> getAuthorById(@Positive Long authorId);
 
-    void deleteAuthorById(@Positive Long authorId);
+    ResponseEntity<AuthorDto> deleteAuthorById(@Positive Long authorId);
 
     ResponseEntity<AuthorDto> createAuthor(@Valid AuthorToCreate authorToCreate);
 
     ResponseEntity<CollectionModel<AuthorDto>> getAuthorsByPartName(@NotBlank String partName,
-                                                                    @Positive int pageNumber,
-                                                                    @Positive int pageSize);
+                                                                    @Positive Integer pageNumber,
+                                                                    @Positive Integer pageSize);
 }

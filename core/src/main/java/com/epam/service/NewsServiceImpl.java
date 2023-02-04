@@ -32,7 +32,7 @@ public class NewsServiceImpl implements NewsService {
     private final TagService tagService;
 
     @Override
-    public List<NewsDto> getAllNews(int pageNumber, int pageSize, String sortType, String sortField) {
+    public List<NewsDto> getAllNews(Integer pageNumber, Integer pageSize, String sortType, String sortField) {
         long count = newsRepository.count();
         Pageable pageable = PageableUtil.getPageableWithSort(pageNumber - 1, pageSize, sortType, sortField, count);
 

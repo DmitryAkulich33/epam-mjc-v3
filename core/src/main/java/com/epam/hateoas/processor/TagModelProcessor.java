@@ -13,10 +13,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class TagModelProcessor implements RepresentationModelProcessor<TagDto> {
     @Override
     public TagDto process(TagDto model) {
-        model.add(linkTo(methodOn(TagControllerImpl.class).getTagById(model.getId()))
-                .withSelfRel());
-        model.add(linkTo(methodOn(TagControllerImpl.class).deleteTagById(model.getId()))
-                .withRel(DELETE_BY_ID));
+        Long id = model.getId();
+        model.add(linkTo(methodOn(TagControllerImpl.class).getTagById(id)).withSelfRel());
+        model.add(linkTo(methodOn(TagControllerImpl.class).deleteTagById(id)).withRel(DELETE_BY_ID));
 
         return model;
     }

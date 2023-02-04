@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 public interface TagController {
-    ResponseEntity<CollectionModel<TagDto>> getAllTags(@Positive int pageNumber, @Positive int pageSize);
+    ResponseEntity<CollectionModel<TagDto>> getAllTags(@Positive Integer pageNumber, @Positive Integer pageSize);
 
     ResponseEntity<TagDto> getTagById(@Positive Long tagId);
 
@@ -19,6 +19,6 @@ public interface TagController {
     ResponseEntity<TagDto> createTag(@Valid TagToCreate tagToCreate);
 
     ResponseEntity<CollectionModel<TagDto>> getTagsByPartName(@NotBlank String partName,
-                                                              @Positive int pageNumber,
-                                                              @Positive int pageSize);
+                                                              @Positive Integer pageNumber,
+                                                              @Positive Integer pageSize);
 }

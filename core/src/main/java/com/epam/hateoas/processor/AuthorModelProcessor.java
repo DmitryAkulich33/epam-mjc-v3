@@ -13,10 +13,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class AuthorModelProcessor implements RepresentationModelProcessor<AuthorDto> {
     @Override
     public AuthorDto process(AuthorDto model) {
-        model.add(linkTo(methodOn(AuthorControllerImpl.class).getAuthorById(model.getId()))
-                .withSelfRel());
-        model.add(linkTo(methodOn(AuthorControllerImpl.class).getAuthorById(model.getId()))
-                .withRel(DELETE_BY_ID));
+        Long id = model.getId();
+        model.add(linkTo(methodOn(AuthorControllerImpl.class).getAuthorById(id)).withSelfRel());
+        model.add(linkTo(methodOn(AuthorControllerImpl.class).deleteAuthorById(id)).withRel(DELETE_BY_ID));
 
         return model;
     }

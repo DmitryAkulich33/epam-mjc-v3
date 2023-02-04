@@ -1,8 +1,12 @@
 package com.epam.controller;
 
+import com.epam.hateoas.assembler.impl.CommentCollectionAssembler;
+import com.epam.hateoas.assembler.impl.NewsCollectionAssembler;
+import com.epam.hateoas.assembler.impl.TagCollectionAssembler;
 import com.epam.model.dto.*;
 import com.epam.service.NewsService;
 import lombok.AllArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +24,20 @@ import java.util.List;
 @RequestMapping(value = "/api/v1/news")
 public class NewsControllerImpl implements NewsController {
     private final NewsService newsService;
+    private final NewsCollectionAssembler newsCollectionAssembler;
+    private final CommentCollectionAssembler commentCollectionAssembler;
+    private final TagCollectionAssembler tagCollectionAssembler;
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<NewsDto>> getAllNews(@RequestParam(defaultValue = "1") @Positive int pageNumber,
-                                                    @RequestParam(defaultValue = "5") @Positive int pageSize,
-                                                    @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
-                                                    @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
+    public ResponseEntity<CollectionModel<NewsDto>> getAllNews(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
+                                                               @RequestParam(defaultValue = "5") @Positive Integer pageSize,
+                                                               @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
+                                                               @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
         List<NewsDto> news = newsService.getAllNews(pageNumber, pageSize, sortType, sortField);
+        CollectionModel<NewsDto> model = newsCollectionAssembler.toCollectionModel(news, pageNumber, pageSize, sortType, sortField);
 
-        return new ResponseEntity<>(news, HttpStatus.OK);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @Override
@@ -40,10 +48,11 @@ public class NewsControllerImpl implements NewsController {
 
     @Override
     @GetMapping(path = "/{newsId}/tags", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TagDto>> getNewsTags(@PathVariable("newsId") @Positive Long newsId) {
+    public ResponseEntity<CollectionModel<TagDto>> getNewsTags(@PathVariable("newsId") @Positive Long newsId) {
         List<TagDto> tags = newsService.getNewsTags(newsId);
+        CollectionModel<TagDto> model = tagCollectionAssembler.toCollectionModel(tags, 1, 10, null, null);
 
-        return new ResponseEntity<>(tags, HttpStatus.OK);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @Override
@@ -56,10 +65,11 @@ public class NewsControllerImpl implements NewsController {
 
     @Override
     @GetMapping(path = "/{newsId}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CommentDto>> getNewsComments(@PathVariable("newsId") @Positive Long newsId) {
+    public ResponseEntity<CollectionModel<CommentDto>> getNewsComments(@PathVariable("newsId") @Positive Long newsId) {
         List<CommentDto> comments = newsService.getNewsComments(newsId);
-
-        return new ResponseEntity<>(comments, HttpStatus.OK);
+        CollectionModel<CommentDto> model = commentCollectionAssembler.toCollectionModel(comments, 1, 10, null, null);
+        
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @Override
@@ -71,9 +81,10 @@ public class NewsControllerImpl implements NewsController {
 
     @Override
     @DeleteMapping("/{newsId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteNewsById(@PathVariable("newsId") @Positive Long newsId) {
+    public ResponseEntity<NewsDto> deleteNewsById(@PathVariable("newsId") @Positive Long newsId) {
         newsService.deleteNewsById(newsId);
+
+        return ResponseEntity.noContent().build();
     }
 
     @Override
