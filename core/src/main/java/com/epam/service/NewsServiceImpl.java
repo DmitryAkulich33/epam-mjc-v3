@@ -33,7 +33,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<NewsDto> getAllNews(Integer pageNumber, Integer pageSize, String sortType, String sortField) {
-        Pageable pageable = PageableUtil.getPageableWithSort(pageNumber - 1, pageSize, sortType, sortField, newsRepository);
+        long count = newsRepository.count();
+        Pageable pageable = PageableUtil.getPageableWithSort(pageNumber - 1, pageSize, sortType, sortField, count);
 
         return newsDtoMapper.toNewsDtoList(newsRepository.findAll(pageable));
     }
@@ -100,16 +101,6 @@ public class NewsServiceImpl implements NewsService {
 
         return newsDtoMapper.toNewsDto(newsRepository.save(news));
     }
-
-//    private Pageable getPageable(Integer pageNumber, Integer pageSize) {
-//        long countFromDb = newsRepository.count();
-//        long countFromRequest = pageNumber * pageSize;
-//        if (countFromDb <= countFromRequest && countFromDb != 0) {
-//            throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
-//        }
-//
-//        return PageRequest.of(pageNumber, pageSize);
-//    }
 
     private void checkForDuplicate(String title) {
         newsRepository.findNewsByTitleIgnoreCase(title).ifPresent(news -> {

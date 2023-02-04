@@ -26,7 +26,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<TagDto> getAllTags(Integer pageNumber, Integer pageSize) {
-        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, tagRepository);
+        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, getCount());
 
         return tagDtoMapper.toTagDtoList(tagRepository.findAll(pageable));
     }
@@ -53,7 +53,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<TagDto> getTagsByPartName(String partName, Integer pageNumber, Integer pageSize) {
-        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, tagRepository);
+        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, getCount());
 
         return tagDtoMapper.toTagDtoList(tagRepository.findTagsByNameContainsIgnoreCase(partName, pageable));
     }
@@ -76,5 +76,9 @@ public class TagServiceImpl implements TagService {
         tagRepository.findTagByNameIgnoreCase(name).ifPresent(tag -> {
             throw new TagAlreadyExistsException("tag.exists", name);
         });
+    }
+
+    private long getCount() {
+        return tagRepository.count();
     }
 }
