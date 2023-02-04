@@ -7,7 +7,7 @@ import com.epam.model.dto.TagToCreate;
 import java.util.List;
 
 public interface TagService {
-    List<TagDto> getAllTags(Integer pageNumber, Integer pageSize);
+    List<TagDto> getAllTags(int pageNumber, int pageSize);
 
     TagDto getTagDtoById(Long tagId);
 
@@ -15,7 +15,7 @@ public interface TagService {
 
     TagDto createTag(TagToCreate tagToCreate);
 
-    List<TagDto> getTagsByPartName(String partName, Integer pageNumber, Integer pageSize);
+    List<TagDto> getTagsByPartName(String partName, int pageNumber, int pageSize);
 
     List<Tag> updateTags(List<TagToCreate> tagsToCreate);
 }

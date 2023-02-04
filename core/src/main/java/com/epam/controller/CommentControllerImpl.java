@@ -25,8 +25,8 @@ public class CommentControllerImpl implements CommentController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CommentDto>> getAllComments(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                           @RequestParam(defaultValue = "5") @Positive Integer pageSize,
+    public ResponseEntity<List<CommentDto>> getAllComments(@RequestParam(defaultValue = "1") @Positive int pageNumber,
+                                                           @RequestParam(defaultValue = "5") @Positive int pageSize,
                                                            @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
                                                            @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
         List<CommentDto> comments = commentService.getAllComments(pageNumber, pageSize, sortType, sortField);

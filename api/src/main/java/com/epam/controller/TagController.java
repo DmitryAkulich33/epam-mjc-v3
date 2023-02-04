@@ -20,6 +20,6 @@ public interface TagController {
     ResponseEntity<TagDto> createTag(@Valid TagToCreate tagToCreate);
 
     ResponseEntity<List<TagDto>> getTagsByPartName(@NotBlank String partName,
-                                                   @Positive Integer pageNumber,
-                                                   @Positive Integer pageSize);
+                                                   @Positive int pageNumber,
+                                                   @Positive int pageSize);
 }

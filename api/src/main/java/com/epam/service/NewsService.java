@@ -6,7 +6,7 @@ import com.epam.model.dto.*;
 import java.util.List;
 
 public interface NewsService {
-    List<NewsDto> getAllNews(Integer pageNumber, Integer pageSize, String sortType, String sortField);
+    List<NewsDto> getAllNews(int pageNumber, int pageSize, String sortType, String sortField);
 
     NewsDto getNewsDtoById(Long newsId);
 

@@ -58,8 +58,8 @@ public class TagControllerImpl implements TagController {
     @Override
     @GetMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TagDto>> getTagsByPartName(@RequestParam @NotBlank String partName,
-                                                          @RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                          @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
+                                                          @RequestParam(defaultValue = "1") @Positive int pageNumber,
+                                                          @RequestParam(defaultValue = "5") @Positive int pageSize) {
         List<TagDto> tags = tagService.getTagsByPartName(partName.trim(), pageNumber, pageSize);
 
         return new ResponseEntity<>(tags, HttpStatus.OK);

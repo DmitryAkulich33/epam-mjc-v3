@@ -24,8 +24,8 @@ public class AuthorControllerImpl implements AuthorController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<AuthorDto>> getAllAuthors(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                         @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
+    public ResponseEntity<List<AuthorDto>> getAllAuthors(@RequestParam(defaultValue = "1") @Positive int pageNumber,
+                                                         @RequestParam(defaultValue = "5") @Positive int pageSize) {
         List<AuthorDto> authors = authorService.getAllAuthors(pageNumber, pageSize);
 
         return new ResponseEntity<>(authors, HttpStatus.OK);
@@ -53,8 +53,8 @@ public class AuthorControllerImpl implements AuthorController {
     @Override
     @GetMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AuthorDto>> getAuthorsByPartName(@RequestParam @NotBlank String partName,
-                                                                @RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                                @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
+                                                                @RequestParam(defaultValue = "1") @Positive int pageNumber,
+                                                                @RequestParam(defaultValue = "5") @Positive int pageSize) {
         List<AuthorDto> authors = authorService.getAuthorsByPartName(partName.trim(), pageNumber, pageSize);
 
         return new ResponseEntity<>(authors, HttpStatus.OK);

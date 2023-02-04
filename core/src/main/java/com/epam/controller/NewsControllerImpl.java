@@ -23,8 +23,8 @@ public class NewsControllerImpl implements NewsController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<NewsDto>> getAllNews(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                    @RequestParam(defaultValue = "5") @Positive Integer pageSize,
+    public ResponseEntity<List<NewsDto>> getAllNews(@RequestParam(defaultValue = "1") @Positive int pageNumber,
+                                                    @RequestParam(defaultValue = "5") @Positive int pageSize,
                                                     @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
                                                     @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
         List<NewsDto> news = newsService.getAllNews(pageNumber, pageSize, sortType, sortField);

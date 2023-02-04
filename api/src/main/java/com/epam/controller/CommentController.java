@@ -11,8 +11,8 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 public interface CommentController {
-    ResponseEntity<List<CommentDto>> getAllComments(@Positive Integer pageNumber,
-                                                    @Positive Integer pageSize,
+    ResponseEntity<List<CommentDto>> getAllComments(@Positive int pageNumber,
+                                                    @Positive int pageSize,
                                                     @Pattern(regexp = "ASC|DESC") String sortType,
                                                     @Pattern(regexp = "created|modified") String sortField);
 

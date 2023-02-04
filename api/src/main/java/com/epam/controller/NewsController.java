@@ -9,8 +9,8 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 public interface NewsController {
-    ResponseEntity<List<NewsDto>> getAllNews(@Positive Integer pageNumber,
-                                             @Positive Integer pageSize,
+    ResponseEntity<List<NewsDto>> getAllNews(@Positive int pageNumber,
+                                             @Positive int pageSize,
                                              @Pattern(regexp = "ASC|DESC") String sortType,
                                              @Pattern(regexp = "created|modified") String sortField
     );

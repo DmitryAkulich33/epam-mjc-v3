@@ -10,7 +10,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 public interface AuthorController {
-    ResponseEntity<List<AuthorDto>> getAllAuthors(@Positive Integer pageNumber, @Positive Integer pageSize);
+    ResponseEntity<List<AuthorDto>> getAllAuthors(@Positive int pageNumber, @Positive int pageSize);
 
     ResponseEntity<AuthorDto> getAuthorById(@Positive Long authorId);
 
@@ -19,6 +19,6 @@ public interface AuthorController {
     ResponseEntity<AuthorDto> createAuthor(@Valid AuthorToCreate authorToCreate);
 
     ResponseEntity<List<AuthorDto>> getAuthorsByPartName(@NotBlank String partName,
-                                                         @Positive Integer pageNumber,
-                                                         @Positive Integer pageSize);
+                                                         @Positive int pageNumber,
+                                                         @Positive int pageSize);
 }
