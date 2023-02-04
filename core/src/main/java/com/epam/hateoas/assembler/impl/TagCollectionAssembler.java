@@ -17,7 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Component
 public class TagCollectionAssembler implements CollectionModelAssembler<TagDto> {
     @Override
-    public List<Link> getCollectionLinks(int pageNumber, int pageSize) {
+    public List<Link> getCollectionLinks(int pageNumber, int pageSize, String sortType, String sortField) {
         List<Link> links = new ArrayList<>();
         if (pageNumber > 1) {
             links.add(linkTo(methodOn(TagControllerImpl.class).getAllTags(pageNumber - 1, pageSize))

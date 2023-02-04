@@ -30,7 +30,7 @@ public class AuthorControllerImpl implements AuthorController {
     public ResponseEntity<CollectionModel<AuthorDto>> getAllAuthors(@RequestParam(defaultValue = "1") @Positive int pageNumber,
                                                                     @RequestParam(defaultValue = "5") @Positive int pageSize) {
         List<AuthorDto> authors = authorService.getAllAuthors(pageNumber, pageSize);
-        CollectionModel<AuthorDto> model = authorCollectionAssembler.toCollectionModel(authors, pageNumber, pageSize);
+        CollectionModel<AuthorDto> model = authorCollectionAssembler.toCollectionModel(authors, pageNumber, pageSize, null, null);
 
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
@@ -57,10 +57,10 @@ public class AuthorControllerImpl implements AuthorController {
     @Override
     @GetMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CollectionModel<AuthorDto>> getAuthorsByPartName(@RequestParam @NotBlank String partName,
-                                                                @RequestParam(defaultValue = "1") @Positive int pageNumber,
-                                                                @RequestParam(defaultValue = "5") @Positive int pageSize) {
+                                                                           @RequestParam(defaultValue = "1") @Positive int pageNumber,
+                                                                           @RequestParam(defaultValue = "5") @Positive int pageSize) {
         List<AuthorDto> authors = authorService.getAuthorsByPartName(partName.trim(), pageNumber, pageSize);
-        CollectionModel<AuthorDto> model = authorCollectionAssembler.toCollectionModel(authors, pageNumber, pageSize);
+        CollectionModel<AuthorDto> model = authorCollectionAssembler.toCollectionModel(authors, pageNumber, pageSize, null, null);
 
         return new ResponseEntity<>(model, HttpStatus.OK);
     }

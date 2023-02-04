@@ -30,7 +30,7 @@ public class TagControllerImpl implements TagController {
     public ResponseEntity<CollectionModel<TagDto>> getAllTags(@RequestParam(defaultValue = "1") @Positive int pageNumber,
                                                               @RequestParam(defaultValue = "5") @Positive int pageSize) {
         List<TagDto> tags = tagService.getAllTags(pageNumber, pageSize);
-        CollectionModel<TagDto> model = tagCollectionAssembler.toCollectionModel(tags, pageNumber, pageSize);
+        CollectionModel<TagDto> model = tagCollectionAssembler.toCollectionModel(tags, pageNumber, pageSize, null, null);
 
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
@@ -61,7 +61,7 @@ public class TagControllerImpl implements TagController {
                                                                      @RequestParam(defaultValue = "1") @Positive int pageNumber,
                                                                      @RequestParam(defaultValue = "5") @Positive int pageSize) {
         List<TagDto> tags = tagService.getTagsByPartName(partName.trim(), pageNumber, pageSize);
-        CollectionModel<TagDto> model = tagCollectionAssembler.toCollectionModel(tags, pageNumber, pageSize);
+        CollectionModel<TagDto> model = tagCollectionAssembler.toCollectionModel(tags, pageNumber, pageSize, null, null);
 
         return new ResponseEntity<>(model, HttpStatus.OK);
     }

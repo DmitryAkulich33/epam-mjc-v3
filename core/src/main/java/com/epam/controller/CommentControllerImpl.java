@@ -1,10 +1,12 @@
 package com.epam.controller;
 
+import com.epam.hateoas.assembler.impl.CommentCollectionAssembler;
 import com.epam.model.dto.CommentDto;
 import com.epam.model.dto.CommentToCreate;
 import com.epam.model.dto.CommentToUpdate;
 import com.epam.service.CommentService;
 import lombok.AllArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,17 +23,19 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(value = "/api/v1/comments")
 public class CommentControllerImpl implements CommentController {
-    private CommentService commentService;
+    private final CommentService commentService;
+    private final CommentCollectionAssembler commentCollectionAssembler;
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CommentDto>> getAllComments(@RequestParam(defaultValue = "1") @Positive int pageNumber,
-                                                           @RequestParam(defaultValue = "5") @Positive int pageSize,
-                                                           @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
-                                                           @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
+    public ResponseEntity<CollectionModel<CommentDto>> getAllComments(@RequestParam(defaultValue = "1") @Positive int pageNumber,
+                                                                      @RequestParam(defaultValue = "5") @Positive int pageSize,
+                                                                      @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
+                                                                      @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
         List<CommentDto> comments = commentService.getAllComments(pageNumber, pageSize, sortType, sortField);
+        CollectionModel<CommentDto> model = commentCollectionAssembler.toCollectionModel(comments, pageNumber, pageSize, null, null);
 
-        return new ResponseEntity<>(comments, HttpStatus.OK);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @Override
