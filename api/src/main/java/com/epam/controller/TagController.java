@@ -2,6 +2,7 @@ package com.epam.controller;
 
 import com.epam.model.dto.TagDto;
 import com.epam.model.dto.TagToCreate;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 
 import javax.validation.Valid;
@@ -10,11 +11,11 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 public interface TagController {
-    ResponseEntity<List<TagDto>> getAllTags(@Positive Integer pageNumber, @Positive Integer pageSize);
+    ResponseEntity<CollectionModel<TagDto>> getAllTags(@Positive int pageNumber, @Positive int pageSize);
 
     ResponseEntity<TagDto> getTagById(@Positive Long tagId);
 
-    void deleteTagById(@Positive Long tagId);
+    ResponseEntity<TagDto> deleteTagById(@Positive Long tagId);
 
     ResponseEntity<TagDto> createTag(@Valid TagToCreate tagToCreate);
 

@@ -1,9 +1,11 @@
 package com.epam.controller;
 
+import com.epam.hateoas.assembler.impl.TagCollectionAssembler;
 import com.epam.model.dto.TagDto;
 import com.epam.model.dto.TagToCreate;
 import com.epam.service.TagService;
 import lombok.AllArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +23,16 @@ import java.util.List;
 @RequestMapping(value = "/api/v1/tags")
 public class TagControllerImpl implements TagController {
     private final TagService tagService;
+    private final TagCollectionAssembler tagCollectionAssembler;
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TagDto>> getAllTags(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                   @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
+    public ResponseEntity<CollectionModel<TagDto>> getAllTags(@RequestParam(defaultValue = "1") @Positive int pageNumber,
+                                                              @RequestParam(defaultValue = "5") @Positive int pageSize) {
         List<TagDto> tags = tagService.getAllTags(pageNumber, pageSize);
+        CollectionModel<TagDto> model = tagCollectionAssembler.toCollectionModel(tags, pageNumber, pageSize);
 
-        return new ResponseEntity<>(tags, HttpStatus.OK);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @Override
@@ -39,9 +43,10 @@ public class TagControllerImpl implements TagController {
 
     @Override
     @DeleteMapping("/{tagId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTagById(@PathVariable("tagId") @Positive Long tagId) {
+    public ResponseEntity<TagDto> deleteTagById(@PathVariable("tagId") @Positive Long tagId) {
         tagService.deleteTagById(tagId);
+
+        return ResponseEntity.noContent().build();
     }
 
     @Override

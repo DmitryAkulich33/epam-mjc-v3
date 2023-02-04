@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {AuthorDto.class, TagDto.class, CommentDto.class})
+@Mapper(componentModel = "spring", uses = {AuthorDtoMapper.class, TagDtoMapper.class, CommentDtoMapper.class})
 public interface NewsDtoMapper {
     List<NewsDto> toNewsDtoList(List<News> news);
 
