@@ -27,8 +27,8 @@ public class TagControllerImpl implements TagController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CollectionModel<TagDto>> getAllTags(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                              @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
+    public ResponseEntity<CollectionModel<TagDto>> getAllTags(@RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
+                                                              @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize) {
         List<TagDto> tags = tagService.getAllTags(pageNumber, pageSize);
         CollectionModel<TagDto> model = tagCollectionAssembler.toCollectionModel(tags, pageNumber, pageSize, null, null);
 
@@ -37,14 +37,14 @@ public class TagControllerImpl implements TagController {
 
     @Override
     @GetMapping(path = "/{tagId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TagDto> getTagById(@PathVariable("tagId") @Positive Long tagId) {
-        return new ResponseEntity<>(tagService.getTagDtoById(tagId), HttpStatus.OK);
+    public ResponseEntity<TagDto> getEntityById(@PathVariable("tagId") @Positive Long tagId) {
+        return new ResponseEntity<>(tagService.getEntityById(tagId), HttpStatus.OK);
     }
 
     @Override
     @DeleteMapping("/{tagId}")
-    public ResponseEntity<TagDto> deleteTagById(@PathVariable("tagId") @Positive Long tagId) {
-        tagService.deleteTagById(tagId);
+    public ResponseEntity<TagDto> deleteEntityById(@PathVariable("tagId") @Positive Long tagId) {
+        tagService.deleteEntityById(tagId);
 
         return ResponseEntity.noContent().build();
     }
@@ -58,8 +58,8 @@ public class TagControllerImpl implements TagController {
     @Override
     @GetMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CollectionModel<TagDto>> getTagsByPartName(@RequestParam @NotBlank String partName,
-                                                                     @RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                                     @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
+                                                                     @RequestParam(defaultValue = "${tag.default.pageNumber}") @Positive Integer pageNumber,
+                                                                     @RequestParam(defaultValue = "${tag.default.pageSize}") @Positive Integer pageSize) {
         List<TagDto> tags = tagService.getTagsByPartName(partName.trim(), pageNumber, pageSize);
         CollectionModel<TagDto> model = tagCollectionAssembler.toCollectionModel(tags, pageNumber, pageSize, null, null);
 

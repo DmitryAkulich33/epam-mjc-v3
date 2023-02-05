@@ -40,7 +40,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public NewsDto getNewsDtoById(Long newsId) {
+    public NewsDto getEntityById(Long newsId) {
         return newsDtoMapper.toNewsDto(getNewsById(newsId));
     }
 
@@ -88,7 +88,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public void deleteNewsById(Long newsId) {
+    public void deleteEntityById(Long newsId) {
         newsRepository.delete(getNewsById(newsId));
     }
 

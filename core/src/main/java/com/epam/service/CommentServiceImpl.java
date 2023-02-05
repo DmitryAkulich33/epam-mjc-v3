@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto getCommentDtoById(Long commentId) {
+    public CommentDto getEntityById(Long commentId) {
         return commentDtoMapper.toCommentDto(getCommentById(commentId));
     }
 
@@ -48,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void deleteCommentById(Long commentId) {
+    public void deleteEntityById(Long commentId) {
         commentRepository.delete(getCommentById(commentId));
     }
 

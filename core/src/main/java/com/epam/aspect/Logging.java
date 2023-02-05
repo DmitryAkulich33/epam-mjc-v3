@@ -1,6 +1,5 @@
 package com.epam.aspect;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -19,7 +18,8 @@ public class Logging {
     private static final Logger logger = LogManager.getLogger();
 
     @Pointcut("within(com.epam.service..*) || within(com.epam.controller..*)")
-    public void executeLogging() {}
+    public void executeLogging() {
+    }
 
     @Around("executeLogging()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -46,5 +46,4 @@ public class Logging {
         logger.error("Exception in {}.{}() with cause = {}", joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(), e.getCause() != null ? e.getCause() : "NULL");
     }
-
 }

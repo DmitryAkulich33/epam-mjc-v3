@@ -28,8 +28,8 @@ public class CommentControllerImpl implements CommentController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CollectionModel<CommentDto>> getAllComments(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                                      @RequestParam(defaultValue = "5") @Positive Integer pageSize,
+    public ResponseEntity<CollectionModel<CommentDto>> getAllComments(@RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
+                                                                      @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize,
                                                                       @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
                                                                       @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
         List<CommentDto> comments = commentService.getAllComments(pageNumber, pageSize, sortType, sortField);
@@ -40,8 +40,8 @@ public class CommentControllerImpl implements CommentController {
 
     @Override
     @GetMapping(path = "/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CommentDto> getCommentById(@PathVariable("commentId") @Positive Long commentId) {
-        return new ResponseEntity<>(commentService.getCommentDtoById(commentId), HttpStatus.OK);
+    public ResponseEntity<CommentDto> getEntityById(@PathVariable("commentId") @Positive Long commentId) {
+        return new ResponseEntity<>(commentService.getEntityById(commentId), HttpStatus.OK);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class CommentControllerImpl implements CommentController {
 
     @Override
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<CommentDto> deleteCommentById(@PathVariable("commentId") @Positive Long commentId) {
-        commentService.deleteCommentById(commentId);
+    public ResponseEntity<CommentDto> deleteEntityById(@PathVariable("commentId") @Positive Long commentId) {
+        commentService.deleteEntityById(commentId);
 
         return ResponseEntity.noContent().build();
     }

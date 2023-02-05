@@ -14,8 +14,8 @@ public class TagModelProcessor implements RepresentationModelProcessor<TagDto> {
     @Override
     public TagDto process(TagDto model) {
         Long id = model.getId();
-        model.add(linkTo(methodOn(TagControllerImpl.class).getTagById(id)).withSelfRel());
-        model.add(linkTo(methodOn(TagControllerImpl.class).deleteTagById(id)).withRel(DELETE_BY_ID));
+        model.add(linkTo(methodOn(TagControllerImpl.class).getEntityById(id)).withSelfRel());
+        model.add(linkTo(methodOn(TagControllerImpl.class).deleteEntityById(id)).withRel(DELETE_BY_ID));
 
         return model;
     }

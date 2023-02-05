@@ -6,12 +6,8 @@ import com.epam.model.dto.AuthorToCreate;
 
 import java.util.List;
 
-public interface AuthorService {
-    List<AuthorDto> getAllAuthors(Integer pageNumber,Integer pageSize);
-
-    AuthorDto getAuthorDtoById(Long authorId);
-
-    void deleteAuthorById(Long authorId);
+public interface AuthorService extends BaseEntityService<AuthorDto> {
+    List<AuthorDto> getAllAuthors(Integer pageNumber, Integer pageSize);
 
     AuthorDto createAuthor(AuthorToCreate authorToCreate);
 

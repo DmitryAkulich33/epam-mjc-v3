@@ -6,12 +6,8 @@ import com.epam.model.dto.TagToCreate;
 
 import java.util.List;
 
-public interface TagService {
+public interface TagService extends BaseEntityService<TagDto> {
     List<TagDto> getAllTags(Integer pageNumber, Integer pageSize);
-
-    TagDto getTagDtoById(Long tagId);
-
-    void deleteTagById(Long tagId);
 
     TagDto createTag(TagToCreate tagToCreate);
 

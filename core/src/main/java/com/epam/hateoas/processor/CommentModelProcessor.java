@@ -14,8 +14,8 @@ public class CommentModelProcessor implements RepresentationModelProcessor<Comme
     @Override
     public CommentDto process(CommentDto model) {
         Long id = model.getId();
-        model.add(linkTo(methodOn(CommentControllerImpl.class).getCommentById(id)).withSelfRel());
-        model.add(linkTo(methodOn(CommentControllerImpl.class).deleteCommentById(id)).withRel(DELETE_BY_ID));
+        model.add(linkTo(methodOn(CommentControllerImpl.class).getEntityById(id)).withSelfRel());
+        model.add(linkTo(methodOn(CommentControllerImpl.class).deleteEntityById(id)).withRel(DELETE_BY_ID));
 
         return model;
     }

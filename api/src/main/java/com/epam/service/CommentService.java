@@ -7,14 +7,10 @@ import com.epam.model.dto.CommentToUpdate;
 
 import java.util.List;
 
-public interface CommentService {
+public interface CommentService extends BaseEntityService<CommentDto> {
     List<CommentDto> getAllComments(Integer pageNumber, Integer pageSize, String sortType, String sortField);
 
-    CommentDto getCommentDtoById(Long commentId);
-
     CommentDto createComment(CommentToCreate commentToCreate, Long newsId);
-
-    void deleteCommentById(Long commentId);
 
     CommentDto updateCommentById(CommentToUpdate commentToUpdate, Long commentId);
 

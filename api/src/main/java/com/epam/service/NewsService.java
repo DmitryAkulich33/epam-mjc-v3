@@ -5,10 +5,8 @@ import com.epam.model.dto.*;
 
 import java.util.List;
 
-public interface NewsService {
+public interface NewsService extends BaseEntityService<NewsDto> {
     List<NewsDto> getAllNews(Integer pageNumber, Integer pageSize, String sortType, String sortField);
-
-    NewsDto getNewsDtoById(Long newsId);
 
     List<TagDto> getNewsTags(Long newsId);
 
@@ -20,7 +18,6 @@ public interface NewsService {
 
     NewsDto createNews(NewsToCreate newsToCreate, Long authorId);
 
-    void deleteNewsById(Long newsId);
 
     NewsDto updateNewsById(NewsToUpdate newsToUpdate, Long newsId);
 }

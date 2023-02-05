@@ -14,8 +14,8 @@ public class AuthorModelProcessor implements RepresentationModelProcessor<Author
     @Override
     public AuthorDto process(AuthorDto model) {
         Long id = model.getId();
-        model.add(linkTo(methodOn(AuthorControllerImpl.class).getAuthorById(id)).withSelfRel());
-        model.add(linkTo(methodOn(AuthorControllerImpl.class).deleteAuthorById(id)).withRel(DELETE_BY_ID));
+        model.add(linkTo(methodOn(AuthorControllerImpl.class).getEntityById(id)).withSelfRel());
+        model.add(linkTo(methodOn(AuthorControllerImpl.class).deleteEntityById(id)).withRel(DELETE_BY_ID));
 
         return model;
     }

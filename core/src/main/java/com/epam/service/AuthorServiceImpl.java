@@ -29,13 +29,13 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorDto getAuthorDtoById(Long authorId) {
+    public AuthorDto getEntityById(Long authorId) {
         return authorDtoMapper.toAuthorDto(getAuthorById(authorId));
     }
 
     @Override
     @Transactional
-    public void deleteAuthorById(Long authorId) {
+    public void deleteEntityById(Long authorId) {
         authorRepository.delete(getAuthorById(authorId));
     }
 

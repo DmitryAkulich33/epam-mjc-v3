@@ -30,8 +30,8 @@ public class NewsControllerImpl implements NewsController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CollectionModel<NewsDto>> getAllNews(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                               @RequestParam(defaultValue = "5") @Positive Integer pageSize,
+    public ResponseEntity<CollectionModel<NewsDto>> getAllNews(@RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
+                                                               @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize,
                                                                @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
                                                                @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
         List<NewsDto> news = newsService.getAllNews(pageNumber, pageSize, sortType, sortField);
@@ -42,8 +42,8 @@ public class NewsControllerImpl implements NewsController {
 
     @Override
     @GetMapping(path = "/{newsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<NewsDto> getNewsById(@PathVariable("newsId") @Positive Long newsId) {
-        return new ResponseEntity<>(newsService.getNewsDtoById(newsId), HttpStatus.OK);
+    public ResponseEntity<NewsDto> getEntityById(@PathVariable("newsId") @Positive Long newsId) {
+        return new ResponseEntity<>(newsService.getEntityById(newsId), HttpStatus.OK);
     }
 
     @Override
@@ -81,8 +81,8 @@ public class NewsControllerImpl implements NewsController {
 
     @Override
     @DeleteMapping("/{newsId}")
-    public ResponseEntity<NewsDto> deleteNewsById(@PathVariable("newsId") @Positive Long newsId) {
-        newsService.deleteNewsById(newsId);
+    public ResponseEntity<NewsDto> deleteEntityById(@PathVariable("newsId") @Positive Long newsId) {
+        newsService.deleteEntityById(newsId);
 
         return ResponseEntity.noContent().build();
     }

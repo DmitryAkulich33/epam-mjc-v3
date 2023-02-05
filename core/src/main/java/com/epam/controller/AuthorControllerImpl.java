@@ -27,8 +27,8 @@ public class AuthorControllerImpl implements AuthorController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CollectionModel<AuthorDto>> getAllAuthors(@RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                                    @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
+    public ResponseEntity<CollectionModel<AuthorDto>> getAllAuthors(@RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
+                                                                    @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize) {
         List<AuthorDto> authors = authorService.getAllAuthors(pageNumber, pageSize);
         CollectionModel<AuthorDto> model = authorCollectionAssembler.toCollectionModel(authors, pageNumber, pageSize, null, null);
 
@@ -37,14 +37,14 @@ public class AuthorControllerImpl implements AuthorController {
 
     @Override
     @GetMapping(path = "/{authorId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthorDto> getAuthorById(@PathVariable("authorId") @Positive Long authorId) {
-        return new ResponseEntity<>(authorService.getAuthorDtoById(authorId), HttpStatus.OK);
+    public ResponseEntity<AuthorDto> getEntityById(@PathVariable("authorId") @Positive Long authorId) {
+        return new ResponseEntity<>(authorService.getEntityById(authorId), HttpStatus.OK);
     }
 
     @Override
     @DeleteMapping("/{authorId}")
-    public ResponseEntity<AuthorDto> deleteAuthorById(@PathVariable("authorId") @Positive Long authorId) {
-        authorService.deleteAuthorById(authorId);
+    public ResponseEntity<AuthorDto> deleteEntityById(@PathVariable("authorId") @Positive Long authorId) {
+        authorService.deleteEntityById(authorId);
 
         return ResponseEntity.noContent().build();
     }
@@ -58,8 +58,8 @@ public class AuthorControllerImpl implements AuthorController {
     @Override
     @GetMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CollectionModel<AuthorDto>> getAuthorsByPartName(@RequestParam @NotBlank String partName,
-                                                                           @RequestParam(defaultValue = "1") @Positive Integer pageNumber,
-                                                                           @RequestParam(defaultValue = "5") @Positive Integer pageSize) {
+                                                                           @RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
+                                                                           @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize) {
         List<AuthorDto> authors = authorService.getAuthorsByPartName(partName.trim(), pageNumber, pageSize);
         CollectionModel<AuthorDto> model = authorCollectionAssembler.toCollectionModel(authors, pageNumber, pageSize, null, null);
 

@@ -20,8 +20,8 @@ public class NewsModelProcessor implements RepresentationModelProcessor<NewsDto>
     @Override
     public NewsDto process(NewsDto model) {
         Long id = model.getId();
-        model.add(linkTo(methodOn(NewsControllerImpl.class).getNewsById(id)).withSelfRel());
-        model.add(linkTo(methodOn(NewsControllerImpl.class).deleteNewsById(id)).withRel(DELETE_BY_ID));
+        model.add(linkTo(methodOn(NewsControllerImpl.class).getEntityById(id)).withSelfRel());
+        model.add(linkTo(methodOn(NewsControllerImpl.class).deleteEntityById(id)).withRel(DELETE_BY_ID));
         model.add(linkTo(methodOn(NewsControllerImpl.class).getNewsComments(id)).withRel(NEWS_COMMENTS));
         model.add(linkTo(methodOn(NewsControllerImpl.class).getNewsAuthor(model.getAuthor().getId())).withRel(NEWS_AUTHOR));
         model.add(linkTo(methodOn(NewsControllerImpl.class).getNewsTags(id)).withRel(NEWS_TAGS));

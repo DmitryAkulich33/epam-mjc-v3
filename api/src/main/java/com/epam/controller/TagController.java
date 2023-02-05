@@ -9,12 +9,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
-public interface TagController {
+public interface TagController extends BaseEntityController<TagDto> {
     ResponseEntity<CollectionModel<TagDto>> getAllTags(@Positive Integer pageNumber, @Positive Integer pageSize);
-
-    ResponseEntity<TagDto> getTagById(@Positive Long tagId);
-
-    ResponseEntity<TagDto> deleteTagById(@Positive Long tagId);
 
     ResponseEntity<TagDto> createTag(@Valid TagToCreate tagToCreate);
 

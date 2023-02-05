@@ -9,12 +9,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
-public interface AuthorController {
+public interface AuthorController extends BaseEntityController<AuthorDto> {
     ResponseEntity<CollectionModel<AuthorDto>> getAllAuthors(@Positive Integer pageNumber, @Positive Integer pageSize);
-
-    ResponseEntity<AuthorDto> getAuthorById(@Positive Long authorId);
-
-    ResponseEntity<AuthorDto> deleteAuthorById(@Positive Long authorId);
 
     ResponseEntity<AuthorDto> createAuthor(@Valid AuthorToCreate authorToCreate);
 
