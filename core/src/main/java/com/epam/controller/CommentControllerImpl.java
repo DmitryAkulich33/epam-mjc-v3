@@ -1,5 +1,6 @@
 package com.epam.controller;
 
+import com.epam.domain.Comment_;
 import com.epam.hateoas.assembler.impl.CommentCollectionAssembler;
 import com.epam.model.dto.CommentDto;
 import com.epam.model.dto.CommentToCreate;
@@ -31,7 +32,7 @@ public class CommentControllerImpl implements CommentController {
     public ResponseEntity<CollectionModel<CommentDto>> getAllComments(@RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
                                                                       @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize,
                                                                       @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
-                                                                      @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
+                                                                      @RequestParam(defaultValue = Comment_.CREATED) @Pattern(regexp = "created|modified") String sortField) {
         List<CommentDto> comments = commentService.getAllComments(pageNumber, pageSize, sortType, sortField);
         CollectionModel<CommentDto> model = commentCollectionAssembler.toCollectionModel(comments, pageNumber, pageSize, null, null);
 

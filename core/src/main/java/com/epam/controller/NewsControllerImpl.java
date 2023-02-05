@@ -1,5 +1,6 @@
 package com.epam.controller;
 
+import com.epam.domain.News_;
 import com.epam.hateoas.assembler.impl.CommentCollectionAssembler;
 import com.epam.hateoas.assembler.impl.NewsCollectionAssembler;
 import com.epam.hateoas.assembler.impl.TagCollectionAssembler;
@@ -33,7 +34,7 @@ public class NewsControllerImpl implements NewsController {
     public ResponseEntity<CollectionModel<NewsDto>> getAllNews(@RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
                                                                @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize,
                                                                @RequestParam(defaultValue = "DESC") @Pattern(regexp = "ASC|DESC") String sortType,
-                                                               @RequestParam(defaultValue = "created") @Pattern(regexp = "created|modified") String sortField) {
+                                                               @RequestParam(defaultValue = News_.CREATED) @Pattern(regexp = "created|modified") String sortField) {
         List<NewsDto> news = newsService.getAllNews(pageNumber, pageSize, sortType, sortField);
         CollectionModel<NewsDto> model = newsCollectionAssembler.toCollectionModel(news, pageNumber, pageSize, sortType, sortField);
 
