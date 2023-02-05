@@ -11,9 +11,3 @@ dependencies {
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     annotationProcessor 'org.hibernate:hibernate-jpamodelgen:6.0.0.Alpha6'
 }
-
-//sourceSets.configureEach { sourceSet ->
-//    tasks.named(sourceSet.compileJavaTaskName).configure {
-//        options.annotationProcessorGeneratedSourcesDirectory = file("$buildDir/generated/sources/annotationProcessor/java/main")
-//    }
-//}

@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Locale;
 
-@EnableWebMvc
 @Configuration
-public class WebConfig extends AcceptHeaderLocaleResolver {
+@EnableWebMvc
+public class LocaleConfig extends AcceptHeaderLocaleResolver {
     private final List<Locale> LOCALES = List.of(new Locale("ru"), new Locale("en"));
 
     @Override

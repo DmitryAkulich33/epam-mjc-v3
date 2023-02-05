@@ -4,9 +4,9 @@ plugins {
     id "java"
 }
 
-bootJar {
-    mainClassName = "com.epam.Application"
-}
+//bootJar {
+//    mainClassName = "com.epam.Application"
+//}
 
 allprojects {
     group = "com.epam"
@@ -27,7 +27,7 @@ subprojects {
         implementation "org.springframework.boot:spring-boot-starter-data-jpa"
         implementation "org.springframework.boot:spring-boot-starter-web"
         implementation "org.springframework.boot:spring-boot-starter-validation"
-        implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+        implementation "org.springframework.boot:spring-boot-starter-hateoas"
         implementation "org.projectlombok:lombok:${projectlombokVersion}"
         annotationProcessor "org.projectlombok:lombok:${projectlombokVersion}"
     }

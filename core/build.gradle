@@ -11,7 +11,7 @@ configurations {
 }
 
 dependencies {
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.7.0'
+    implementation "org.springframework.boot:spring-boot-starter-log4j2:${log4j2Version}"
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     implementation "org.postgresql:postgresql:${postgresqlVersion}"
     implementation project(":api")
