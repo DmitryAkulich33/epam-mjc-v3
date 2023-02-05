@@ -88,11 +88,13 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    @Transactional
     public void deleteEntityById(Long newsId) {
         newsRepository.delete(getNewsById(newsId));
     }
 
     @Override
+    @Transactional
     public NewsDto updateNewsById(NewsToUpdate newsToUpdate, Long newsId) {
         News news = getNewsById(newsId);
         composeNewsTitle(newsToUpdate, news);

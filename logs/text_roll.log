@@ -1,0 +1,933 @@
+2023-02-05 15:19:05 DEBUG org.springframework.core.env.PropertySourcesPropertyResolver - Found key 'spring.liveBeansView.mbeanDomain' in PropertySource 'systemProperties' with value of type String
+2023-02-05 15:19:05 INFO  com.epam.Application - Started Application in 5.593 seconds (JVM running for 7.235)
+2023-02-05 15:19:05 DEBUG org.springframework.core.env.PropertySourcesPropertyResolver - Found key 'local.server.port' in PropertySource 'server.ports' with value of type Integer
+2023-02-05 15:19:05 INFO  core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-02-05 15:19:05 INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-02-05 15:19:05 DEBUG org.springframework.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2023-02-05 15:19:05 DEBUG org.springframework.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2023-02-05 15:19:05 INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 11 ms
+2023-02-05 15:19:05 DEBUG org.springframework.web.servlet.DispatcherServlet - GET "/api/v1/tags?pageNumber=1&pageSize=10", parameters={masked}
+2023-02-05 15:19:05 DEBUG servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped to com.epam.controller.TagControllerImpl#getAllTags(Integer, Integer)
+2023-02-05 15:19:05 DEBUG springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2023-02-05 15:19:05 DEBUG com.epam.aspect.Logging - Enter: com.epam.controller.TagControllerImpl.getAllTags() with argument[s] = [1, 10]
+2023-02-05 15:19:05 DEBUG com.epam.aspect.Logging - Enter: com.epam.service.TagServiceImpl.getAllTags() with argument[s] = [1, 10]
+2023-02-05 15:19:05 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(2134870152<open>)] for JPA transaction
+2023-02-05 15:19:05 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-02-05 15:19:05 DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Setting JDBC Connection [HikariProxyConnection@1501564369 wrapping org.postgresql.jdbc.PgConnection@3dbd7107] read-only
+2023-02-05 15:19:05 DEBUG hibernate.engine.transaction.internal.TransactionImpl - On TransactionImpl creation, JpaCompliance#isJpaTransactionComplianceEnabled == false
+2023-02-05 15:19:05 DEBUG hibernate.engine.transaction.internal.TransactionImpl - begin
+2023-02-05 15:19:05 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@771b8904]
+2023-02-05 15:19:05 DEBUG org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - QueryTranslatorFactory: org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory@338c4f1b
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - parse() - HQL: select count(*) from com.epam.domain.Tag x
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - --- HQL AST ---
+ \-[QUERY] Node: 'query'
+    \-[SELECT_FROM] Node: 'SELECT_FROM'
+       +-[FROM] Node: 'from'
+       |  \-[RANGE] Node: 'RANGE'
+       |     +-[DOT] Node: '.'
+       |     |  +-[DOT] Node: '.'
+       |     |  |  +-[DOT] Node: '.'
+       |     |  |  |  +-[IDENT] Node: 'com'
+       |     |  |  |  \-[IDENT] Node: 'epam'
+       |     |  |  \-[IDENT] Node: 'domain'
+       |     |  \-[IDENT] Node: 'Tag'
+       |     \-[ALIAS] Node: 'x'
+       \-[SELECT] Node: 'select'
+          \-[COUNT] Node: 'count'
+             \-[ROW_STAR] Node: '*'
+
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select << begin [level=1, statement=select]
+2023-02-05 15:19:05 DEBUG hql.internal.ast.tree.FromElement - FromClause{level=1} : com.epam.domain.Tag (x) -> tag0_
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select : finishing up [level=1, statement=select]
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.ast.HqlSqlWalker - processQuery() :  ( SELECT ( {select clause} ( count * ) ) ( FromClause{level=1} tag tag0_ ) )
+2023-02-05 15:19:05 DEBUG hql.internal.ast.util.JoinProcessor - Tables referenced from query nodes:
+ \-QueryNode
+    +-SelectClause
+    |  +-CountNode
+    |  |  \-SqlNode
+    |  \-SqlNode
+    \-FromClause
+       \-FromElement
+
+2023-02-05 15:19:05 DEBUG hql.internal.ast.util.JoinProcessor - Using FROM fragment [tag tag0_]
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select >> end [level=1, statement=select]
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - --- SQL AST ---
+ \-[SELECT] QueryNode: 'SELECT'  querySpaces (tag)
+    +-[SELECT_CLAUSE] SelectClause: '{select clause}'
+    |  +-[COUNT] CountNode: 'count'
+    |  |  \-[ROW_STAR] SqlNode: '*'
+    |  \-[SELECT_COLUMNS] SqlNode: ' as col_0_0_'
+    \-[FROM] FromClause: 'from' FromClause{level=1, fromElementCounter=1, fromElements=1, fromElementByClassAlias=[x], fromElementByTableAlias=[tag0_], fromElementsByPath=[], collectionJoinFromElementsByPath=[], impliedElements=[]}
+       \-[FROM_FRAGMENT] FromElement: 'tag tag0_' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=x,role=null,tableName=tag,tableAlias=tag0_,origin=null,columns={,className=com.epam.domain.Tag}}
+
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - HQL: select count(*) from com.epam.domain.Tag x
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - SQL: select count(*) as col_0_0_ from tag tag0_
+2023-02-05 15:19:05 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:06 DEBUG org.hibernate.SQL - 
+    select
+        count(*) as col_0_0_ 
+    from
+        tag tag0_
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result set row: 0
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result row: 
+2023-02-05 15:19:06 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2023-02-05 15:19:06 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(2134870152<open>)]
+2023-02-05 15:19:06 DEBUG hibernate.engine.transaction.internal.TransactionImpl - committing
+2023-02-05 15:19:06 DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Resetting read-only flag of JDBC Connection [HikariProxyConnection@1501564369 wrapping org.postgresql.jdbc.PgConnection@3dbd7107]
+2023-02-05 15:19:06 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Not closing pre-bound JPA EntityManager after transaction
+2023-02-05 15:19:06 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(2134870152<open>)] for JPA transaction
+2023-02-05 15:19:06 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-02-05 15:19:06 DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Setting JDBC Connection [HikariProxyConnection@1501564369 wrapping org.postgresql.jdbc.PgConnection@3dbd7107] read-only
+2023-02-05 15:19:06 DEBUG hibernate.engine.transaction.internal.TransactionImpl - begin
+2023-02-05 15:19:06 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@3c537ead]
+2023-02-05 15:19:06 DEBUG hibernate.query.criteria.internal.CriteriaQueryImpl - Rendered criteria query -> select generatedAlias0 from tag as generatedAlias0
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - parse() - HQL: select generatedAlias0 from com.epam.domain.Tag as generatedAlias0
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - --- HQL AST ---
+ \-[QUERY] Node: 'query'
+    \-[SELECT_FROM] Node: 'SELECT_FROM'
+       +-[FROM] Node: 'from'
+       |  \-[RANGE] Node: 'RANGE'
+       |     +-[DOT] Node: '.'
+       |     |  +-[DOT] Node: '.'
+       |     |  |  +-[DOT] Node: '.'
+       |     |  |  |  +-[IDENT] Node: 'com'
+       |     |  |  |  \-[IDENT] Node: 'epam'
+       |     |  |  \-[IDENT] Node: 'domain'
+       |     |  \-[IDENT] Node: 'Tag'
+       |     \-[ALIAS] Node: 'generatedAlias0'
+       \-[SELECT] Node: 'select'
+          \-[IDENT] Node: 'generatedAlias0'
+
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select << begin [level=1, statement=select]
+2023-02-05 15:19:06 DEBUG hql.internal.ast.tree.FromElement - FromClause{level=1} : com.epam.domain.Tag (generatedAlias0) -> tag0_
+2023-02-05 15:19:06 DEBUG hql.internal.ast.tree.FromReferenceNode - Resolved : generatedAlias0 -> tag0_.id
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select : finishing up [level=1, statement=select]
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.ast.HqlSqlWalker - processQuery() :  ( SELECT ( {select clause} tag0_.id ) ( FromClause{level=1} tag tag0_ ) )
+2023-02-05 15:19:06 DEBUG hql.internal.ast.util.JoinProcessor - Tables referenced from query nodes:
+ \-QueryNode
+    +-SelectClause
+    | referencedTables(entity Tag): [tag]
+    |  +-IdentNode
+    |  | persister: SingleTableEntityPersister(com.epam.domain.Tag)
+    |  | originalText: generatedAlias0
+    |  \-SqlFragment
+    \-FromClause
+       \-FromElement
+
+2023-02-05 15:19:06 DEBUG hql.internal.ast.util.JoinProcessor - Using FROM fragment [tag tag0_]
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select >> end [level=1, statement=select]
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - --- SQL AST ---
+ \-[SELECT] QueryNode: 'SELECT'  querySpaces (tag)
+    +-[SELECT_CLAUSE] SelectClause: '{select clause}'
+    |  +-[ALIAS_REF] IdentNode: 'tag0_.id as id1_4_' {alias=generatedAlias0, className=com.epam.domain.Tag, tableAlias=tag0_}
+    |  \-[SQL_TOKEN] SqlFragment: 'tag0_.name as name2_4_'
+    \-[FROM] FromClause: 'from' FromClause{level=1, fromElementCounter=1, fromElements=1, fromElementByClassAlias=[generatedAlias0], fromElementByTableAlias=[tag0_], fromElementsByPath=[], collectionJoinFromElementsByPath=[], impliedElements=[]}
+       \-[FROM_FRAGMENT] FromElement: 'tag tag0_' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=generatedAlias0,role=null,tableName=tag,tableAlias=tag0_,origin=null,columns={,className=com.epam.domain.Tag}}
+
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - HQL: select generatedAlias0 from com.epam.domain.Tag as generatedAlias0
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - SQL: select tag0_.id as id1_4_, tag0_.name as name2_4_ from tag tag0_
+2023-02-05 15:19:06 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:06 DEBUG org.hibernate.SQL - 
+    select
+        tag0_.id as id1_4_,
+        tag0_.name as name2_4_ 
+    from
+        tag tag0_ limit ?
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result set row: 0
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#1]
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result set row: 1
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#2]
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result set row: 2
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#3]
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result set row: 3
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#4]
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result set row: 4
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#6]
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result set row: 5
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#7]
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result set row: 6
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#8]
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result set row: 7
+2023-02-05 15:19:06 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#9]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#1]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = sport
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#1]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#2]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = weather
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#2]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#3]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = shop
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#3]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#4]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = culture
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#4]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#6]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = test3
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#6]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#7]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = test23
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#7]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#8]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = test
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#8]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#9]
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = test8888
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:06 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#9]
+2023-02-05 15:19:06 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2023-02-05 15:19:06 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(2134870152<open>)]
+2023-02-05 15:19:06 DEBUG hibernate.engine.transaction.internal.TransactionImpl - committing
+2023-02-05 15:19:06 DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Resetting read-only flag of JDBC Connection [HikariProxyConnection@1501564369 wrapping org.postgresql.jdbc.PgConnection@3dbd7107]
+2023-02-05 15:19:06 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Not closing pre-bound JPA EntityManager after transaction
+2023-02-05 15:19:06 DEBUG com.epam.aspect.Logging - Enter: com.epam.service.mapper.TagDtoMapperImpl.toTagDtoList() with argument[s] = [[Tag(name=sport), Tag(name=weather), Tag(name=shop), Tag(name=culture), Tag(name=test3), Tag(name=test23), Tag(name=test), Tag(name=test8888)]]
+2023-02-05 15:19:06 DEBUG com.epam.aspect.Logging - Exit: com.epam.service.mapper.TagDtoMapperImpl.toTagDtoList() with result = [TagDto(id=1, name=sport), TagDto(id=2, name=weather), TagDto(id=3, name=shop), TagDto(id=4, name=culture), TagDto(id=6, name=test3), TagDto(id=7, name=test23), TagDto(id=8, name=test), TagDto(id=9, name=test8888)]
+2023-02-05 15:19:06 DEBUG com.epam.aspect.Logging - Exit: com.epam.service.TagServiceImpl.getAllTags() with result = [TagDto(id=1, name=sport), TagDto(id=2, name=weather), TagDto(id=3, name=shop), TagDto(id=4, name=culture), TagDto(id=6, name=test3), TagDto(id=7, name=test23), TagDto(id=8, name=test), TagDto(id=9, name=test8888)]
+2023-02-05 15:19:06 DEBUG com.epam.aspect.Logging - Exit: com.epam.controller.TagControllerImpl.getAllTags() with result = <200 OK OK,Resources { content: [TagDto(id=1, name=sport), TagDto(id=2, name=weather), TagDto(id=3, name=shop), TagDto(id=4, name=culture), TagDto(id=6, name=test3), TagDto(id=7, name=test23), TagDto(id=8, name=test), TagDto(id=9, name=test8888)], links: [<http://localhost:8080/api/v1/tags?pageNumber=1&pageSize=10>;rel="self", <http://localhost:8080/api/v1/tags?pageNumber=2&pageSize=10>;rel="nextPage"] },[]>
+2023-02-05 15:19:06 DEBUG servlet.mvc.method.annotation.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json]
+2023-02-05 15:19:06 DEBUG servlet.mvc.method.annotation.HttpEntityMethodProcessor - Writing [Resources { content: [TagDto(id=1, name=sport), TagDto(id=2, name=weather), TagDto(id=3, name=shop), (truncated)...]
+2023-02-05 15:19:06 DEBUG springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2023-02-05 15:19:06 DEBUG org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
+2023-02-05 15:19:29 DEBUG org.springframework.web.servlet.DispatcherServlet - POST "/api/v1/news/authors/1", parameters={}
+2023-02-05 15:19:29 DEBUG servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped to com.epam.controller.NewsControllerImpl#createNews(NewsToCreate, Long)
+2023-02-05 15:19:29 DEBUG springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2023-02-05 15:19:29 DEBUG servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [NewsToCreate(title=Test title233, content=Australian Open 2023: Aryna Sabalenka beats Elena Rybakina (truncated)...]
+2023-02-05 15:19:29 DEBUG com.epam.aspect.Logging - Enter: com.epam.controller.NewsControllerImpl.createNews() with argument[s] = [NewsToCreate(title=Test title233, content=Australian Open 2023: Aryna Sabalenka beats Elena Rybakina to win Melbourne title, tags=[TagToCreate(name=sport), TagToCreate(name=sport), TagToCreate(name=test), TagToCreate(name=test000), TagToCreate(name=test)]), 1]
+2023-02-05 15:19:29 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1681180741<open>)] for JPA transaction
+2023-02-05 15:19:29 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.epam.service.NewsServiceImpl.createNews]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-02-05 15:19:29 DEBUG hibernate.engine.transaction.internal.TransactionImpl - On TransactionImpl creation, JpaCompliance#isJpaTransactionComplianceEnabled == false
+2023-02-05 15:19:29 DEBUG hibernate.engine.transaction.internal.TransactionImpl - begin
+2023-02-05 15:19:29 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2befdaf0]
+2023-02-05 15:19:29 DEBUG com.epam.aspect.Logging - Enter: com.epam.service.NewsServiceImpl.createNews() with argument[s] = [NewsToCreate(title=Test title233, content=Australian Open 2023: Aryna Sabalenka beats Elena Rybakina to win Melbourne title, tags=[TagToCreate(name=sport), TagToCreate(name=sport), TagToCreate(name=test), TagToCreate(name=test000), TagToCreate(name=test)]), 1]
+2023-02-05 15:19:29 DEBUG hibernate.query.criteria.internal.CriteriaQueryImpl - Rendered criteria query -> select generatedAlias0 from news as generatedAlias0 where upper(generatedAlias0.title)=upper(:param0)
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - parse() - HQL: select generatedAlias0 from com.epam.domain.News as generatedAlias0 where upper(generatedAlias0.title)=upper(:param0)
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - --- HQL AST ---
+ \-[QUERY] Node: 'query'
+    +-[SELECT_FROM] Node: 'SELECT_FROM'
+    |  +-[FROM] Node: 'from'
+    |  |  \-[RANGE] Node: 'RANGE'
+    |  |     +-[DOT] Node: '.'
+    |  |     |  +-[DOT] Node: '.'
+    |  |     |  |  +-[DOT] Node: '.'
+    |  |     |  |  |  +-[IDENT] Node: 'com'
+    |  |     |  |  |  \-[IDENT] Node: 'epam'
+    |  |     |  |  \-[IDENT] Node: 'domain'
+    |  |     |  \-[IDENT] Node: 'News'
+    |  |     \-[ALIAS] Node: 'generatedAlias0'
+    |  \-[SELECT] Node: 'select'
+    |     \-[IDENT] Node: 'generatedAlias0'
+    \-[WHERE] Node: 'where'
+       \-[EQ] Node: '='
+          +-[METHOD_CALL] Node: '('
+          |  +-[IDENT] Node: 'upper'
+          |  \-[EXPR_LIST] Node: 'exprList'
+          |     \-[DOT] Node: '.'
+          |        +-[IDENT] Node: 'generatedAlias0'
+          |        \-[IDENT] Node: 'title'
+          \-[METHOD_CALL] Node: '('
+             +-[IDENT] Node: 'upper'
+             \-[EXPR_LIST] Node: 'exprList'
+                \-[COLON] Node: ':'
+                   \-[IDENT] Node: 'param0'
+
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select << begin [level=1, statement=select]
+2023-02-05 15:19:29 DEBUG hql.internal.ast.tree.FromElement - FromClause{level=1} : com.epam.domain.News (generatedAlias0) -> news0_
+2023-02-05 15:19:29 DEBUG hql.internal.ast.tree.FromReferenceNode - Resolved : generatedAlias0 -> news0_.id
+2023-02-05 15:19:29 DEBUG hql.internal.ast.tree.FromReferenceNode - Resolved : generatedAlias0 -> news0_.id
+2023-02-05 15:19:29 DEBUG hql.internal.ast.tree.DotNode - getDataType() : title -> org.hibernate.type.StringType@79f5a6ed
+2023-02-05 15:19:29 DEBUG hql.internal.ast.tree.FromReferenceNode - Resolved : generatedAlias0.title -> news0_.title
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select : finishing up [level=1, statement=select]
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.ast.HqlSqlWalker - processQuery() :  ( SELECT ( {select clause} news0_.id ) ( FromClause{level=1} news news0_ ) ( where ( = ( ( upper ( exprList ( news0_.title news0_.id title ) ) ) ( ( upper ( exprList ? ) ) ) ) )
+2023-02-05 15:19:29 DEBUG hql.internal.ast.util.JoinProcessor - Tables referenced from query nodes:
+ \-QueryNode
+    +-SelectClause
+    | referencedTables(entity News): [news]
+    |  +-IdentNode
+    |  | persister: SingleTableEntityPersister(com.epam.domain.News)
+    |  | originalText: generatedAlias0
+    |  \-SqlFragment
+    +-FromClause
+    |  \-FromElement
+    \-SqlNode
+       \-BinaryLogicOperatorNode
+          +-MethodNode
+          |  +-IdentNode
+          |  | persister: null
+          |  | originalText: upper
+          |  \-SqlNode
+          |     \-DotNode
+          |       persister: SingleTableEntityPersister(com.epam.domain.News)
+          |       path: generatedAlias0.title
+          |        +-IdentNode
+          |        | persister: SingleTableEntityPersister(com.epam.domain.News)
+          |        | originalText: generatedAlias0
+          |        \-IdentNode
+          |          persister: null
+          |          originalText: title
+          \-MethodNode
+             +-IdentNode
+             | persister: null
+             | originalText: upper
+             \-SqlNode
+                \-ParameterNode
+
+2023-02-05 15:19:29 DEBUG hql.internal.ast.util.JoinProcessor - Using FROM fragment [news news0_]
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select >> end [level=1, statement=select]
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - --- SQL AST ---
+ \-[SELECT] QueryNode: 'SELECT'  querySpaces (news)
+    +-[SELECT_CLAUSE] SelectClause: '{select clause}'
+    |  +-[ALIAS_REF] IdentNode: 'news0_.id as id1_2_' {alias=generatedAlias0, className=com.epam.domain.News, tableAlias=news0_}
+    |  \-[SQL_TOKEN] SqlFragment: 'news0_.author_id as author_i6_2_, news0_.content as content2_2_, news0_.created as created3_2_, news0_.modified as modified4_2_, news0_.title as title5_2_'
+    +-[FROM] FromClause: 'from' FromClause{level=1, fromElementCounter=1, fromElements=1, fromElementByClassAlias=[generatedAlias0], fromElementByTableAlias=[news0_], fromElementsByPath=[], collectionJoinFromElementsByPath=[], impliedElements=[]}
+    |  \-[FROM_FRAGMENT] FromElement: 'news news0_' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=generatedAlias0,role=null,tableName=news,tableAlias=news0_,origin=null,columns={,className=com.epam.domain.News}}
+    \-[WHERE] SqlNode: 'where'
+       \-[EQ] BinaryLogicOperatorNode: '='
+          +-[METHOD_CALL] MethodNode: '('
+          |  +-[METHOD_NAME] IdentNode: 'upper' {originalText=upper}
+          |  \-[EXPR_LIST] SqlNode: 'exprList'
+          |     \-[DOT] DotNode: 'news0_.title' {propertyName=title,dereferenceType=PRIMITIVE,getPropertyPath=title,path=generatedAlias0.title,tableAlias=news0_,className=com.epam.domain.News,classAlias=generatedAlias0}
+          |        +-[ALIAS_REF] IdentNode: 'news0_.id' {alias=generatedAlias0, className=com.epam.domain.News, tableAlias=news0_}
+          |        \-[IDENT] IdentNode: 'title' {originalText=title}
+          \-[METHOD_CALL] MethodNode: '('
+             +-[METHOD_NAME] IdentNode: 'upper' {originalText=upper}
+             \-[EXPR_LIST] SqlNode: 'exprList'
+                \-[NAMED_PARAM] ParameterNode: '?' {name=param0, expectedType=null}
+
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - HQL: select generatedAlias0 from com.epam.domain.News as generatedAlias0 where upper(generatedAlias0.title)=upper(:param0)
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - SQL: select news0_.id as id1_2_, news0_.author_id as author_i6_2_, news0_.content as content2_2_, news0_.created as created3_2_, news0_.modified as modified4_2_, news0_.title as title5_2_ from news news0_ where upper(news0_.title)=upper(?)
+2023-02-05 15:19:29 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:29 DEBUG org.hibernate.SQL - 
+    select
+        news0_.id as id1_2_,
+        news0_.author_id as author_i6_2_,
+        news0_.content as content2_2_,
+        news0_.created as created3_2_,
+        news0_.modified as modified4_2_,
+        news0_.title as title5_2_ 
+    from
+        news news0_ 
+    where
+        upper(news0_.title)=upper(?)
+2023-02-05 15:19:29 DEBUG org.hibernate.loader.Loader - Result set row: 0
+2023-02-05 15:19:29 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.News#7]
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.News#7]
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `author` : value = 1
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`author`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `comments` : value = NOT NULL COLLECTION
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`comments`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `content` : value = Australian Open 2023: Aryna Sabalenka beats Elena Rybakina to win Melbourne title
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`content`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `created` : value = 2023-02-05T15:18:15.117659
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`created`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `modified` : value = 2023-02-05T15:18:15.117659
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`modified`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `tags` : value = NOT NULL COLLECTION
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`tags`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `title` : value = Test title233
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`title`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:29 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.News#7]
+2023-02-05 15:19:29 ERROR com.epam.aspect.Logging - Exception in com.epam.service.NewsServiceImpl.createNews() with cause = NULL
+2023-02-05 15:19:29 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction rollback
+2023-02-05 15:19:29 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Rolling back JPA transaction on EntityManager [SessionImpl(1681180741<open>)]
+2023-02-05 15:19:29 DEBUG hibernate.engine.transaction.internal.TransactionImpl - rolling back
+2023-02-05 15:19:29 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Not closing pre-bound JPA EntityManager after transaction
+2023-02-05 15:19:29 ERROR com.epam.aspect.Logging - Exception in com.epam.controller.NewsControllerImpl.createNews() with cause = NULL
+2023-02-05 15:19:29 DEBUG servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.epam.exception.ControllerExceptionHandler#handleNewsAlreadyExistsException(NewsAlreadyExistsException)
+2023-02-05 15:19:29 ERROR com.epam.exception.ControllerExceptionHandler - Новость с таким заголовком уже существует (заголовок = Test title233)
+com.epam.exception.NewsAlreadyExistsException: news.exists
+	at com.epam.service.NewsServiceImpl.lambda$checkForDuplicate$1(NewsServiceImpl.java:109) ~[main/:?]
+	at java.util.Optional.ifPresent(Optional.java:183) ~[?:?]
+	at com.epam.service.NewsServiceImpl.checkForDuplicate(NewsServiceImpl.java:108) ~[main/:?]
+	at com.epam.service.NewsServiceImpl.createNews(NewsServiceImpl.java:77) ~[main/:?]
+	at com.epam.service.NewsServiceImpl$$FastClassBySpringCGLIB$$f6392bf.invoke(<generated>) ~[main/:?]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:62) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at com.epam.aspect.Logging.logAround(Logging.java:31) ~[main/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:566) ~[?:?]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:367) ~[spring-tx-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at com.epam.service.NewsServiceImpl$$EnhancerBySpringCGLIB$$df170937.createNews(<generated>) ~[main/:?]
+	at com.epam.controller.NewsControllerImpl.createNews(NewsControllerImpl.java:80) ~[main/:?]
+	at com.epam.controller.NewsControllerImpl$$FastClassBySpringCGLIB$$343bcb37.invoke(<generated>) ~[main/:?]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:119) ~[spring-context-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:62) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at com.epam.aspect.Logging.logAround(Logging.java:31) ~[main/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:566) ~[?:?]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at com.epam.controller.NewsControllerImpl$$EnhancerBySpringCGLIB$$71286725.createNews(<generated>) ~[main/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:566) ~[?:?]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:878) ~[spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:792) ~[spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) [spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) [spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) [spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) [spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652) [tomcat-embed-core-9.0.46.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) [spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) [tomcat-embed-core-9.0.46.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) [spring-web-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) [?:?]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at java.lang.Thread.run(Thread.java:834) [?:?]
+2023-02-05 15:19:29 DEBUG servlet.mvc.method.annotation.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2023-02-05 15:19:29 DEBUG servlet.mvc.method.annotation.HttpEntityMethodProcessor - Writing [ExceptionResponse(errorMessage=Новость с таким заголовком уже существует (заголовок = Test title233) (truncated)...]
+2023-02-05 15:19:29 DEBUG servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [com.epam.exception.NewsAlreadyExistsException: news.exists]
+2023-02-05 15:19:29 DEBUG springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2023-02-05 15:19:29 DEBUG org.springframework.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2023-02-05 15:19:32 DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2023-02-05 15:19:32 DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Fill pool skipped, pool is at sufficient level.
+2023-02-05 15:19:34 DEBUG org.springframework.web.servlet.DispatcherServlet - POST "/api/v1/news/authors/1", parameters={}
+2023-02-05 15:19:34 DEBUG servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped to com.epam.controller.NewsControllerImpl#createNews(NewsToCreate, Long)
+2023-02-05 15:19:34 DEBUG springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2023-02-05 15:19:34 DEBUG servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [NewsToCreate(title=Test title2330, content=Australian Open 2023: Aryna Sabalenka beats Elena Rybakin (truncated)...]
+2023-02-05 15:19:34 DEBUG com.epam.aspect.Logging - Enter: com.epam.controller.NewsControllerImpl.createNews() with argument[s] = [NewsToCreate(title=Test title2330, content=Australian Open 2023: Aryna Sabalenka beats Elena Rybakina to win Melbourne title, tags=[TagToCreate(name=sport), TagToCreate(name=sport), TagToCreate(name=test), TagToCreate(name=test000), TagToCreate(name=test)]), 1]
+2023-02-05 15:19:34 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(477595212<open>)] for JPA transaction
+2023-02-05 15:19:34 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.epam.service.NewsServiceImpl.createNews]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-02-05 15:19:34 DEBUG hibernate.engine.transaction.internal.TransactionImpl - On TransactionImpl creation, JpaCompliance#isJpaTransactionComplianceEnabled == false
+2023-02-05 15:19:34 DEBUG hibernate.engine.transaction.internal.TransactionImpl - begin
+2023-02-05 15:19:34 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2d219aaf]
+2023-02-05 15:19:34 DEBUG com.epam.aspect.Logging - Enter: com.epam.service.NewsServiceImpl.createNews() with argument[s] = [NewsToCreate(title=Test title2330, content=Australian Open 2023: Aryna Sabalenka beats Elena Rybakina to win Melbourne title, tags=[TagToCreate(name=sport), TagToCreate(name=sport), TagToCreate(name=test), TagToCreate(name=test000), TagToCreate(name=test)]), 1]
+2023-02-05 15:19:34 DEBUG hibernate.query.criteria.internal.CriteriaQueryImpl - Rendered criteria query -> select generatedAlias0 from news as generatedAlias0 where upper(generatedAlias0.title)=upper(:param0)
+2023-02-05 15:19:34 DEBUG org.hibernate.SQL - 
+    select
+        news0_.id as id1_2_,
+        news0_.author_id as author_i6_2_,
+        news0_.content as content2_2_,
+        news0_.created as created3_2_,
+        news0_.modified as modified4_2_,
+        news0_.title as title5_2_ 
+    from
+        news news0_ 
+    where
+        upper(news0_.title)=upper(?)
+2023-02-05 15:19:34 DEBUG com.epam.aspect.Logging - Enter: com.epam.service.AuthorServiceImpl.getAuthorById() with argument[s] = [1]
+2023-02-05 15:19:34 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(477595212<open>)] for JPA transaction
+2023-02-05 15:19:34 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2023-02-05 15:19:34 DEBUG org.hibernate.SQL - 
+    select
+        author0_.id as id1_0_0_,
+        author0_.name as name2_0_0_ 
+    from
+        author author0_ 
+    where
+        author0_.id=?
+2023-02-05 15:19:34 DEBUG plan.exec.process.internal.EntityReferenceInitializerImpl - On call to EntityIdentifierReaderImpl#resolve, EntityKey was already known; should only happen on root returns with an optional identifier specified
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Author#1]
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = Jim
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Author#1]
+2023-02-05 15:19:34 DEBUG hibernate.loader.entity.plan.AbstractLoadPlanBasedEntityLoader - Done entity load : com.epam.domain.Author#1
+2023-02-05 15:19:34 DEBUG com.epam.aspect.Logging - Exit: com.epam.service.AuthorServiceImpl.getAuthorById() with result = Author(name=Jim)
+2023-02-05 15:19:34 DEBUG com.epam.aspect.Logging - Enter: com.epam.service.TagServiceImpl.updateTags() with argument[s] = [[TagToCreate(name=sport), TagToCreate(name=sport), TagToCreate(name=test), TagToCreate(name=test000), TagToCreate(name=test)]]
+2023-02-05 15:19:34 DEBUG hibernate.query.criteria.internal.CriteriaQueryImpl - Rendered criteria query -> select generatedAlias0 from tag as generatedAlias0 where upper(generatedAlias0.name)=upper(:param0)
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - parse() - HQL: select generatedAlias0 from com.epam.domain.Tag as generatedAlias0 where upper(generatedAlias0.name)=upper(:param0)
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - --- HQL AST ---
+ \-[QUERY] Node: 'query'
+    +-[SELECT_FROM] Node: 'SELECT_FROM'
+    |  +-[FROM] Node: 'from'
+    |  |  \-[RANGE] Node: 'RANGE'
+    |  |     +-[DOT] Node: '.'
+    |  |     |  +-[DOT] Node: '.'
+    |  |     |  |  +-[DOT] Node: '.'
+    |  |     |  |  |  +-[IDENT] Node: 'com'
+    |  |     |  |  |  \-[IDENT] Node: 'epam'
+    |  |     |  |  \-[IDENT] Node: 'domain'
+    |  |     |  \-[IDENT] Node: 'Tag'
+    |  |     \-[ALIAS] Node: 'generatedAlias0'
+    |  \-[SELECT] Node: 'select'
+    |     \-[IDENT] Node: 'generatedAlias0'
+    \-[WHERE] Node: 'where'
+       \-[EQ] Node: '='
+          +-[METHOD_CALL] Node: '('
+          |  +-[IDENT] Node: 'upper'
+          |  \-[EXPR_LIST] Node: 'exprList'
+          |     \-[DOT] Node: '.'
+          |        +-[IDENT] Node: 'generatedAlias0'
+          |        \-[IDENT] Node: 'name'
+          \-[METHOD_CALL] Node: '('
+             +-[IDENT] Node: 'upper'
+             \-[EXPR_LIST] Node: 'exprList'
+                \-[COLON] Node: ':'
+                   \-[IDENT] Node: 'param0'
+
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select << begin [level=1, statement=select]
+2023-02-05 15:19:34 DEBUG hql.internal.ast.tree.FromElement - FromClause{level=1} : com.epam.domain.Tag (generatedAlias0) -> tag0_
+2023-02-05 15:19:34 DEBUG hql.internal.ast.tree.FromReferenceNode - Resolved : generatedAlias0 -> tag0_.id
+2023-02-05 15:19:34 DEBUG hql.internal.ast.tree.FromReferenceNode - Resolved : generatedAlias0 -> tag0_.id
+2023-02-05 15:19:34 DEBUG hql.internal.ast.tree.DotNode - getDataType() : name -> org.hibernate.type.StringType@79f5a6ed
+2023-02-05 15:19:34 DEBUG hql.internal.ast.tree.FromReferenceNode - Resolved : generatedAlias0.name -> tag0_.name
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select : finishing up [level=1, statement=select]
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.ast.HqlSqlWalker - processQuery() :  ( SELECT ( {select clause} tag0_.id ) ( FromClause{level=1} tag tag0_ ) ( where ( = ( ( upper ( exprList ( tag0_.name tag0_.id name ) ) ) ( ( upper ( exprList ? ) ) ) ) )
+2023-02-05 15:19:34 DEBUG hql.internal.ast.util.JoinProcessor - Tables referenced from query nodes:
+ \-QueryNode
+    +-SelectClause
+    | referencedTables(entity Tag): [tag]
+    |  +-IdentNode
+    |  | persister: SingleTableEntityPersister(com.epam.domain.Tag)
+    |  | originalText: generatedAlias0
+    |  \-SqlFragment
+    +-FromClause
+    |  \-FromElement
+    \-SqlNode
+       \-BinaryLogicOperatorNode
+          +-MethodNode
+          |  +-IdentNode
+          |  | persister: null
+          |  | originalText: upper
+          |  \-SqlNode
+          |     \-DotNode
+          |       persister: SingleTableEntityPersister(com.epam.domain.Tag)
+          |       path: generatedAlias0.name
+          |        +-IdentNode
+          |        | persister: SingleTableEntityPersister(com.epam.domain.Tag)
+          |        | originalText: generatedAlias0
+          |        \-IdentNode
+          |          persister: null
+          |          originalText: name
+          \-MethodNode
+             +-IdentNode
+             | persister: null
+             | originalText: upper
+             \-SqlNode
+                \-ParameterNode
+
+2023-02-05 15:19:34 DEBUG hql.internal.ast.util.JoinProcessor - Using FROM fragment [tag tag0_]
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.antlr.HqlSqlBaseWalker - select >> end [level=1, statement=select]
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - --- SQL AST ---
+ \-[SELECT] QueryNode: 'SELECT'  querySpaces (tag)
+    +-[SELECT_CLAUSE] SelectClause: '{select clause}'
+    |  +-[ALIAS_REF] IdentNode: 'tag0_.id as id1_4_' {alias=generatedAlias0, className=com.epam.domain.Tag, tableAlias=tag0_}
+    |  \-[SQL_TOKEN] SqlFragment: 'tag0_.name as name2_4_'
+    +-[FROM] FromClause: 'from' FromClause{level=1, fromElementCounter=1, fromElements=1, fromElementByClassAlias=[generatedAlias0], fromElementByTableAlias=[tag0_], fromElementsByPath=[], collectionJoinFromElementsByPath=[], impliedElements=[]}
+    |  \-[FROM_FRAGMENT] FromElement: 'tag tag0_' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=generatedAlias0,role=null,tableName=tag,tableAlias=tag0_,origin=null,columns={,className=com.epam.domain.Tag}}
+    \-[WHERE] SqlNode: 'where'
+       \-[EQ] BinaryLogicOperatorNode: '='
+          +-[METHOD_CALL] MethodNode: '('
+          |  +-[METHOD_NAME] IdentNode: 'upper' {originalText=upper}
+          |  \-[EXPR_LIST] SqlNode: 'exprList'
+          |     \-[DOT] DotNode: 'tag0_.name' {propertyName=name,dereferenceType=PRIMITIVE,getPropertyPath=name,path=generatedAlias0.name,tableAlias=tag0_,className=com.epam.domain.Tag,classAlias=generatedAlias0}
+          |        +-[ALIAS_REF] IdentNode: 'tag0_.id' {alias=generatedAlias0, className=com.epam.domain.Tag, tableAlias=tag0_}
+          |        \-[IDENT] IdentNode: 'name' {originalText=name}
+          \-[METHOD_CALL] MethodNode: '('
+             +-[METHOD_NAME] IdentNode: 'upper' {originalText=upper}
+             \-[EXPR_LIST] SqlNode: 'exprList'
+                \-[NAMED_PARAM] ParameterNode: '?' {name=param0, expectedType=null}
+
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - HQL: select generatedAlias0 from com.epam.domain.Tag as generatedAlias0 where upper(generatedAlias0.name)=upper(:param0)
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.ast.QueryTranslatorImpl - SQL: select tag0_.id as id1_4_, tag0_.name as name2_4_ from tag tag0_ where upper(tag0_.name)=upper(?)
+2023-02-05 15:19:34 DEBUG hibernate.hql.internal.ast.ErrorTracker - throwQueryException() : no errors
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Processing flush-time cascades
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Dirty checking collections
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.Collections - Collection found: [com.epam.domain.Author.news#1], was: [com.epam.domain.Author.news#1] (uninitialized)
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Flushed: 0 insertions, 0 updates, 0 deletions to 1 objects
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Flushed: 0 (re)creations, 0 updates, 0 removals to 1 collections
+2023-02-05 15:19:34 DEBUG org.hibernate.internal.util.EntityPrinter - Listing entities:
+2023-02-05 15:19:34 DEBUG org.hibernate.internal.util.EntityPrinter - com.epam.domain.Author{news=<uninitialized>, name=Jim, id=1}
+2023-02-05 15:19:34 DEBUG org.hibernate.SQL - 
+    select
+        tag0_.id as id1_4_,
+        tag0_.name as name2_4_ 
+    from
+        tag tag0_ 
+    where
+        upper(tag0_.name)=upper(?)
+2023-02-05 15:19:34 DEBUG org.hibernate.loader.Loader - Result set row: 0
+2023-02-05 15:19:34 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#1]
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#1]
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = sport
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#1]
+2023-02-05 15:19:34 DEBUG hibernate.query.criteria.internal.CriteriaQueryImpl - Rendered criteria query -> select generatedAlias0 from tag as generatedAlias0 where upper(generatedAlias0.name)=upper(:param0)
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Processing flush-time cascades
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Dirty checking collections
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.Collections - Collection found: [com.epam.domain.Author.news#1], was: [com.epam.domain.Author.news#1] (uninitialized)
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.Collections - Collection found: [com.epam.domain.Tag.news#1], was: [com.epam.domain.Tag.news#1] (uninitialized)
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Flushed: 0 insertions, 0 updates, 0 deletions to 2 objects
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Flushed: 0 (re)creations, 0 updates, 0 removals to 2 collections
+2023-02-05 15:19:34 DEBUG org.hibernate.internal.util.EntityPrinter - Listing entities:
+2023-02-05 15:19:34 DEBUG org.hibernate.internal.util.EntityPrinter - com.epam.domain.Author{news=<uninitialized>, name=Jim, id=1}
+2023-02-05 15:19:34 DEBUG org.hibernate.internal.util.EntityPrinter - com.epam.domain.Tag{news=<uninitialized>, name=sport, id=1}
+2023-02-05 15:19:34 DEBUG org.hibernate.SQL - 
+    select
+        tag0_.id as id1_4_,
+        tag0_.name as name2_4_ 
+    from
+        tag tag0_ 
+    where
+        upper(tag0_.name)=upper(?)
+2023-02-05 15:19:34 DEBUG org.hibernate.loader.Loader - Result set row: 0
+2023-02-05 15:19:34 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#8]
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#8]
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = test
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#8]
+2023-02-05 15:19:34 DEBUG hibernate.query.criteria.internal.CriteriaQueryImpl - Rendered criteria query -> select generatedAlias0 from tag as generatedAlias0 where upper(generatedAlias0.name)=upper(:param0)
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Processing flush-time cascades
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Dirty checking collections
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.Collections - Collection found: [com.epam.domain.Author.news#1], was: [com.epam.domain.Author.news#1] (uninitialized)
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.Collections - Collection found: [com.epam.domain.Tag.news#1], was: [com.epam.domain.Tag.news#1] (uninitialized)
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.internal.Collections - Collection found: [com.epam.domain.Tag.news#8], was: [com.epam.domain.Tag.news#8] (uninitialized)
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Flushed: 0 insertions, 0 updates, 0 deletions to 3 objects
+2023-02-05 15:19:34 DEBUG org.hibernate.event.internal.AbstractFlushingEventListener - Flushed: 0 (re)creations, 0 updates, 0 removals to 3 collections
+2023-02-05 15:19:34 DEBUG org.hibernate.internal.util.EntityPrinter - Listing entities:
+2023-02-05 15:19:34 DEBUG org.hibernate.internal.util.EntityPrinter - com.epam.domain.Tag{news=<uninitialized>, name=test, id=8}
+2023-02-05 15:19:34 DEBUG org.hibernate.internal.util.EntityPrinter - com.epam.domain.Author{news=<uninitialized>, name=Jim, id=1}
+2023-02-05 15:19:34 DEBUG org.hibernate.internal.util.EntityPrinter - com.epam.domain.Tag{news=<uninitialized>, name=sport, id=1}
+2023-02-05 15:19:34 DEBUG org.hibernate.SQL - 
+    select
+        tag0_.id as id1_4_,
+        tag0_.name as name2_4_ 
+    from
+        tag tag0_ 
+    where
+        upper(tag0_.name)=upper(?)
+2023-02-05 15:19:34 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(477595212<open>)] for JPA transaction
+2023-02-05 15:19:34 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2023-02-05 15:19:34 DEBUG org.hibernate.engine.spi.ActionQueue - Executing identity-insert immediately
+2023-02-05 15:19:34 DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        tag
+        (name) 
+    values
+        (?)
+2023-02-05 15:19:34 DEBUG org.hibernate.id.IdentifierGeneratorHelper - Natively generated identity: 10
+2023-02-05 15:19:34 DEBUG hibernate.resource.jdbc.internal.ResourceRegistryStandardImpl - HHH000387: ResultSet's statement was not registered
+2023-02-05 15:19:34 DEBUG com.epam.aspect.Logging - Exit: com.epam.service.TagServiceImpl.updateTags() with result = [Tag(name=sport), Tag(name=test), Tag(name=test000)]
+2023-02-05 15:19:34 ERROR com.epam.aspect.Logging - Exception in com.epam.service.NewsServiceImpl.createNews() with cause = NULL
+2023-02-05 15:19:34 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction rollback
+2023-02-05 15:19:34 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Rolling back JPA transaction on EntityManager [SessionImpl(477595212<open>)]
+2023-02-05 15:19:34 DEBUG hibernate.engine.transaction.internal.TransactionImpl - rolling back
+2023-02-05 15:19:34 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Not closing pre-bound JPA EntityManager after transaction
+2023-02-05 15:19:34 ERROR com.epam.aspect.Logging - Exception in com.epam.controller.NewsControllerImpl.createNews() with cause = NULL
+2023-02-05 15:19:34 DEBUG servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.epam.exception.ControllerExceptionHandler#handleException(Exception)
+2023-02-05 15:19:34 ERROR com.epam.exception.ControllerExceptionHandler - Проблемы с сервером
+java.lang.RuntimeException: ====================
+	at com.epam.service.NewsServiceImpl.createNews(NewsServiceImpl.java:87) ~[main/:?]
+	at com.epam.service.NewsServiceImpl$$FastClassBySpringCGLIB$$f6392bf.invoke(<generated>) ~[main/:?]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:62) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at com.epam.aspect.Logging.logAround(Logging.java:31) ~[main/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:566) ~[?:?]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:367) ~[spring-tx-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at com.epam.service.NewsServiceImpl$$EnhancerBySpringCGLIB$$df170937.createNews(<generated>) ~[main/:?]
+	at com.epam.controller.NewsControllerImpl.createNews(NewsControllerImpl.java:80) ~[main/:?]
+	at com.epam.controller.NewsControllerImpl$$FastClassBySpringCGLIB$$343bcb37.invoke(<generated>) ~[main/:?]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:119) ~[spring-context-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:62) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at com.epam.aspect.Logging.logAround(Logging.java:31) ~[main/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:566) ~[?:?]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692) ~[spring-aop-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at com.epam.controller.NewsControllerImpl$$EnhancerBySpringCGLIB$$71286725.createNews(<generated>) ~[main/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:566) ~[?:?]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:878) ~[spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:792) ~[spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) [spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) [spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) [spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) [spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652) [tomcat-embed-core-9.0.46.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) [spring-webmvc-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) [tomcat-embed-core-9.0.46.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) [spring-web-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.15.RELEASE.jar:5.2.15.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) [?:?]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.46.jar:9.0.46]
+	at java.lang.Thread.run(Thread.java:834) [?:?]
+2023-02-05 15:19:34 DEBUG servlet.mvc.method.annotation.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2023-02-05 15:19:34 DEBUG servlet.mvc.method.annotation.HttpEntityMethodProcessor - Writing [ExceptionResponse(errorMessage=Проблемы с сервером, errorCode=50006)]
+2023-02-05 15:19:34 DEBUG servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [java.lang.RuntimeException: ====================]
+2023-02-05 15:19:34 DEBUG springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2023-02-05 15:19:34 DEBUG org.springframework.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2023-02-05 15:20:02 DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2023-02-05 15:20:02 DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Fill pool skipped, pool is at sufficient level.
+2023-02-05 15:20:12 DEBUG org.springframework.web.servlet.DispatcherServlet - GET "/api/v1/tags?pageNumber=1&pageSize=10", parameters={masked}
+2023-02-05 15:20:12 DEBUG servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped to com.epam.controller.TagControllerImpl#getAllTags(Integer, Integer)
+2023-02-05 15:20:12 DEBUG springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2023-02-05 15:20:12 DEBUG com.epam.aspect.Logging - Enter: com.epam.controller.TagControllerImpl.getAllTags() with argument[s] = [1, 10]
+2023-02-05 15:20:12 DEBUG com.epam.aspect.Logging - Enter: com.epam.service.TagServiceImpl.getAllTags() with argument[s] = [1, 10]
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(429999436<open>)] for JPA transaction
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-02-05 15:20:12 DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Setting JDBC Connection [HikariProxyConnection@1554237468 wrapping org.postgresql.jdbc.PgConnection@3dbd7107] read-only
+2023-02-05 15:20:12 DEBUG hibernate.engine.transaction.internal.TransactionImpl - On TransactionImpl creation, JpaCompliance#isJpaTransactionComplianceEnabled == false
+2023-02-05 15:20:12 DEBUG hibernate.engine.transaction.internal.TransactionImpl - begin
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@6d1257a]
+2023-02-05 15:20:12 DEBUG org.hibernate.SQL - 
+    select
+        count(*) as col_0_0_ 
+    from
+        tag tag0_
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result set row: 0
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result row: 
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(429999436<open>)]
+2023-02-05 15:20:12 DEBUG hibernate.engine.transaction.internal.TransactionImpl - committing
+2023-02-05 15:20:12 DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Resetting read-only flag of JDBC Connection [HikariProxyConnection@1554237468 wrapping org.postgresql.jdbc.PgConnection@3dbd7107]
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Not closing pre-bound JPA EntityManager after transaction
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(429999436<open>)] for JPA transaction
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-02-05 15:20:12 DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Setting JDBC Connection [HikariProxyConnection@1554237468 wrapping org.postgresql.jdbc.PgConnection@3dbd7107] read-only
+2023-02-05 15:20:12 DEBUG hibernate.engine.transaction.internal.TransactionImpl - begin
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@3c8c3753]
+2023-02-05 15:20:12 DEBUG hibernate.query.criteria.internal.CriteriaQueryImpl - Rendered criteria query -> select generatedAlias0 from tag as generatedAlias0
+2023-02-05 15:20:12 DEBUG org.hibernate.SQL - 
+    select
+        tag0_.id as id1_4_,
+        tag0_.name as name2_4_ 
+    from
+        tag tag0_ limit ?
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result set row: 0
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#1]
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result set row: 1
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#2]
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result set row: 2
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#3]
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result set row: 3
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#4]
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result set row: 4
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#6]
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result set row: 5
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#7]
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result set row: 6
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#8]
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result set row: 7
+2023-02-05 15:20:12 DEBUG org.hibernate.loader.Loader - Result row: EntityKey[com.epam.domain.Tag#9]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#1]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = sport
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#1]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#2]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = weather
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#2]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#3]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = shop
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#3]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#4]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = culture
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#4]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#6]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = test3
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#6]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#7]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = test23
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#7]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#8]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = test
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#8]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Resolving attributes for [com.epam.domain.Tag#9]
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `name` : value = test8888
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`name`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Processing attribute `news` : value = NOT NULL COLLECTION
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Attribute (`news`)  - enhanced for lazy-loading? - false
+2023-02-05 15:20:12 DEBUG org.hibernate.engine.internal.TwoPhaseLoad - Done materializing entity [com.epam.domain.Tag#9]
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(429999436<open>)]
+2023-02-05 15:20:12 DEBUG hibernate.engine.transaction.internal.TransactionImpl - committing
+2023-02-05 15:20:12 DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Resetting read-only flag of JDBC Connection [HikariProxyConnection@1554237468 wrapping org.postgresql.jdbc.PgConnection@3dbd7107]
+2023-02-05 15:20:12 DEBUG org.springframework.orm.jpa.JpaTransactionManager - Not closing pre-bound JPA EntityManager after transaction
+2023-02-05 15:20:12 DEBUG com.epam.aspect.Logging - Enter: com.epam.service.mapper.TagDtoMapperImpl.toTagDtoList() with argument[s] = [[Tag(name=sport), Tag(name=weather), Tag(name=shop), Tag(name=culture), Tag(name=test3), Tag(name=test23), Tag(name=test), Tag(name=test8888)]]
+2023-02-05 15:20:12 DEBUG com.epam.aspect.Logging - Exit: com.epam.service.mapper.TagDtoMapperImpl.toTagDtoList() with result = [TagDto(id=1, name=sport), TagDto(id=2, name=weather), TagDto(id=3, name=shop), TagDto(id=4, name=culture), TagDto(id=6, name=test3), TagDto(id=7, name=test23), TagDto(id=8, name=test), TagDto(id=9, name=test8888)]
+2023-02-05 15:20:12 DEBUG com.epam.aspect.Logging - Exit: com.epam.service.TagServiceImpl.getAllTags() with result = [TagDto(id=1, name=sport), TagDto(id=2, name=weather), TagDto(id=3, name=shop), TagDto(id=4, name=culture), TagDto(id=6, name=test3), TagDto(id=7, name=test23), TagDto(id=8, name=test), TagDto(id=9, name=test8888)]
+2023-02-05 15:20:12 DEBUG com.epam.aspect.Logging - Exit: com.epam.controller.TagControllerImpl.getAllTags() with result = <200 OK OK,Resources { content: [TagDto(id=1, name=sport), TagDto(id=2, name=weather), TagDto(id=3, name=shop), TagDto(id=4, name=culture), TagDto(id=6, name=test3), TagDto(id=7, name=test23), TagDto(id=8, name=test), TagDto(id=9, name=test8888)], links: [<http://localhost:8080/api/v1/tags?pageNumber=1&pageSize=10>;rel="self", <http://localhost:8080/api/v1/tags?pageNumber=2&pageSize=10>;rel="nextPage"] },[]>
+2023-02-05 15:20:12 DEBUG servlet.mvc.method.annotation.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json]
+2023-02-05 15:20:12 DEBUG servlet.mvc.method.annotation.HttpEntityMethodProcessor - Writing [Resources { content: [TagDto(id=1, name=sport), TagDto(id=2, name=weather), TagDto(id=3, name=shop), (truncated)...]
+2023-02-05 15:20:12 DEBUG springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2023-02-05 15:20:12 DEBUG org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
+2023-02-05 15:20:32 DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2023-02-05 15:20:32 DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Fill pool skipped, pool is at sufficient level.
+2023-02-05 15:21:02 DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2023-02-05 15:21:02 DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Fill pool skipped, pool is at sufficient level.
+2023-02-05 15:21:32 DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2023-02-05 15:21:32 DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Fill pool skipped, pool is at sufficient level.
