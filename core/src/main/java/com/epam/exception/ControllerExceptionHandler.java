@@ -1,7 +1,8 @@
 package com.epam.exception;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,10 @@ import javax.validation.ConstraintViolationException;
 
 @AllArgsConstructor
 @ControllerAdvice
-@Slf4j
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     private final LocaleTranslator localeTranslator;
+
+    private static final Logger logger = LogManager.getLogger();
 
     @ExceptionHandler(PaginationException.class)
     public ResponseEntity<Object> handlePaginationException(PaginationException exception) {
@@ -140,7 +142,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     private ResponseEntity<Object> getResponseEntity(ServiceException exception, String errorCode, HttpStatus httpStatus) {
         String message = localeTranslator.getString(exception.getMessage(), exception.getArgs());
-        log.error(message, exception);
+        logger.error(message, exception);
         ExceptionResponse error = new ExceptionResponse(message, errorCode);
         return new ResponseEntity<>(error, new HttpHeaders(), httpStatus);
     }
@@ -148,7 +150,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> getResponseEntityWithCommonMessage(Throwable exception, String errorCode, HttpStatus httpStatus,
                                                                       String commonMessage) {
         String message = localeTranslator.getString(commonMessage);
-        log.error(message, exception);
+        logger.error(message, exception);
         ExceptionResponse error = new ExceptionResponse(message, errorCode);
         return new ResponseEntity<>(error, new HttpHeaders(), httpStatus);
     }

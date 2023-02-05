@@ -68,7 +68,7 @@ public class NewsControllerImpl implements NewsController {
     public ResponseEntity<CollectionModel<CommentDto>> getNewsComments(@PathVariable("newsId") @Positive Long newsId) {
         List<CommentDto> comments = newsService.getNewsComments(newsId);
         CollectionModel<CommentDto> model = commentCollectionAssembler.toCollectionModel(comments, 1, 10, null, null);
-        
+
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
 

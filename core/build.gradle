@@ -6,9 +6,14 @@ jar {
     enabled = true
 }
 
+configurations {
+    all*.exclude module: 'spring-boot-starter-logging'
+}
+
 dependencies {
-    implementation "org.apache.commons:commons-lang3:${commonsLang3}"
-    implementation "org.postgresql:postgresql:${postgresql}"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.7.0'
+    implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    implementation "org.postgresql:postgresql:${postgresqlVersion}"
     implementation project(":api")
     implementation project(":web")
 }

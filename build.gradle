@@ -28,8 +28,8 @@ subprojects {
         implementation "org.springframework.boot:spring-boot-starter-web"
         implementation "org.springframework.boot:spring-boot-starter-validation"
         implementation 'org.springframework.boot:spring-boot-starter-hateoas'
-        implementation "org.projectlombok:lombok:${projectlombok}"
-        annotationProcessor "org.projectlombok:lombok:${projectlombok}"
+        implementation "org.projectlombok:lombok:${projectlombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${projectlombokVersion}"
     }
 }
 
