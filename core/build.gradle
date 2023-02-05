@@ -16,4 +16,5 @@ dependencies {
     implementation "org.postgresql:postgresql:${postgresqlVersion}"
     implementation project(":api")
     implementation project(":web")
+    implementation 'org.flywaydb:flyway-core'
 }

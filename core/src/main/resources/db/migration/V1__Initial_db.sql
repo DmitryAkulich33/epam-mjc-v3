@@ -1,0 +1,44 @@
+CREATE TABLE IF NOT EXISTS tag
+(
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(15) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS author
+(
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(15) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS news
+(
+    id BIGSERIAL PRIMARY KEY,
+    title VARCHAR(30) UNIQUE NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    author_id BIGINT,
+    created TIMESTAMP,
+    modified TIMESTAMP,
+
+    CONSTRAINT fk_news_author FOREIGN KEY (author_id) REFERENCES author (id)
+);
+
+CREATE TABLE IF NOT EXISTS news_tag
+(
+    id BIGSERIAL PRIMARY KEY,
+    news_id BIGINT,
+    tag_id BIGINT,
+
+    CONSTRAINT fk_news_id FOREIGN KEY (news_id) REFERENCES news (id) ON DELETE CASCADE,
+    CONSTRAINT fk_tag_id FOREIGN KEY (tag_id) REFERENCES tag (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS comment
+(
+    id BIGSERIAL PRIMARY KEY,
+    content VARCHAR(255) NOT NULL,
+    news_id BIGINT,
+    created TIMESTAMP,
+    modified TIMESTAMP,
+
+    CONSTRAINT fk_news_comment FOREIGN KEY (news_id) REFERENCES news (id) ON DELETE CASCADE
+);
