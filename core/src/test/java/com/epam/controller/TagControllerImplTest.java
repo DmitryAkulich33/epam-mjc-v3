@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class TagControllerImplWebTest {
+class TagControllerImplTest {
     private final static String BASE_URL = "/api/v1/tags";
 
     @Autowired
@@ -75,7 +75,6 @@ class TagControllerImplWebTest {
         tagDto2.setName("test2");
         tagDto2.setId(2L);
         tags = List.of(tagDto1, tagDto2);
-
     }
 
     @Test
