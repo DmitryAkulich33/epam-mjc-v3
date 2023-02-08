@@ -17,4 +17,13 @@ dependencies {
     implementation project(":api")
     implementation project(":web")
     implementation 'org.flywaydb:flyway-core'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.mockito:mockito-core:3.6.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.6.0'
+}
+
+test {
+    useJUnitPlatform()
 }
