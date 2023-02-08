@@ -43,15 +43,14 @@ class TagControllerImplWebTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private TagServiceImpl tagService;
+    private TagServiceImpl mockTagService;
 
     @MockBean
-    private TagCollectionAssembler tagCollectionAssembler;
+    private TagCollectionAssembler mockTagCollectionAssembler;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    private ExceptionResponse customException_40001;
     private ExceptionResponse customException_40401;
     private ExceptionResponse customException_40005;
     private ExceptionResponse validationException_40005;
@@ -59,20 +58,18 @@ class TagControllerImplWebTest {
     private ExceptionResponse requestException_40007;
 
     private TagDto tagDto1;
-    private TagDto tagDto2;
     private List<TagDto> tags;
 
 
     @BeforeEach
     public void setUp() {
-        customException_40001 = new ExceptionResponse("Error message", "40001");
         customException_40401 = new ExceptionResponse("Error message", "40401");
         customException_40005 = new ExceptionResponse("Error message", "40005");
         validationException_40005 = new ExceptionResponse("Entered data is not valid", "40005");
         validationException_40007 = new ExceptionResponse("The message is not readable", "40007");
         requestException_40007 = new ExceptionResponse("Parameter of request is missed", "40007");
         tagDto1 = new TagDto();
-        tagDto2 = new TagDto();
+        TagDto tagDto2 = new TagDto();
         tagDto1.setName("test1");
         tagDto1.setId(1L);
         tagDto2.setName("test2");
@@ -83,7 +80,7 @@ class TagControllerImplWebTest {
 
     @Test
     public void testDeleteTag_204() throws Exception {
-        doNothing().when(tagService).deleteEntityById(anyLong());
+        doNothing().when(mockTagService).deleteEntityById(anyLong());
 
         mockMvc
                 .perform(delete(String.format("%s/1", BASE_URL)))
@@ -92,7 +89,7 @@ class TagControllerImplWebTest {
 
     @Test
     public void testDeleteTag_404() throws Exception {
-        doThrow(new TagNotFoundException("Error message")).when(tagService).deleteEntityById(anyLong());
+        doThrow(new TagNotFoundException("Error message")).when(mockTagService).deleteEntityById(anyLong());
 
         mockMvc
                 .perform(delete(String.format("%s/1", BASE_URL)))
@@ -115,7 +112,7 @@ class TagControllerImplWebTest {
 
     @Test
     public void testDetTagById_200() throws Exception {
-        when(tagService.getEntityById(anyLong())).thenReturn(tagDto1);
+        when(mockTagService.getEntityById(anyLong())).thenReturn(tagDto1);
 
         mockMvc.perform(get(String.format("%s/1", BASE_URL)))
                 .andExpect(status().isOk())
@@ -126,7 +123,7 @@ class TagControllerImplWebTest {
 
     @Test
     public void testGetTagById_404() throws Exception {
-        when(tagService.getEntityById(anyLong())).thenThrow(new TagNotFoundException("Error message"));
+        when(mockTagService.getEntityById(anyLong())).thenThrow(new TagNotFoundException("Error message"));
 
         mockMvc.perform(get(String.format("%s/1", BASE_URL)))
                 .andExpect(status().isNotFound())
@@ -147,8 +144,8 @@ class TagControllerImplWebTest {
 
     @Test
     public void testGetAllTags_defaultPagination_200() throws Exception {
-        when(tagService.getAllTags(anyInt(), anyInt())).thenReturn(tags);
-        when(tagCollectionAssembler.toCollectionModel(tags, 1, 10, null, null))
+        when(mockTagService.getAllTags(anyInt(), anyInt())).thenReturn(tags);
+        when(mockTagCollectionAssembler.toCollectionModel(tags, 1, 10, null, null))
                 .thenReturn(CollectionModel.of(tags));
 
         mockMvc.perform(get(BASE_URL))
@@ -173,8 +170,8 @@ class TagControllerImplWebTest {
 
     @Test
     public void testGetTagsByPartName() throws Exception {
-        when(tagService.getTagsByPartName(anyString(), anyInt(), anyInt())).thenReturn(tags);
-        when(tagCollectionAssembler.toCollectionModel(tags, 1, 10, null, null))
+        when(mockTagService.getTagsByPartName(anyString(), anyInt(), anyInt())).thenReturn(tags);
+        when(mockTagCollectionAssembler.toCollectionModel(tags, 1, 10, null, null))
                 .thenReturn(CollectionModel.of(tags));
 
         mockMvc.perform(get(String.format("%s/filter?partName=%s", BASE_URL, "test")))
@@ -188,7 +185,7 @@ class TagControllerImplWebTest {
 
     @Test
     public void testGetTagsByPartName_duplicateTag_400() throws Exception {
-        when(tagService.getTagsByPartName(anyString(), anyInt(), anyInt())).thenThrow(new TagAlreadyExistsException("Error message"));
+        when(mockTagService.getTagsByPartName(anyString(), anyInt(), anyInt())).thenThrow(new TagAlreadyExistsException("Error message"));
 
         mockMvc.perform(get(String.format("%s/filter?partName=%s", BASE_URL, "test")))
                 .andExpect(status().isBadRequest())
@@ -231,7 +228,7 @@ class TagControllerImplWebTest {
 
     @Test
     public void testCreateTag_200() throws Exception {
-        when(tagService.createTag(any())).thenReturn(tagDto1);
+        when(mockTagService.createTag(any())).thenReturn(tagDto1);
 
         TagToCreate tagToCreate = new TagToCreate();
         tagToCreate.setName("test1");
