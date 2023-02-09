@@ -30,6 +30,11 @@ subprojects {
         implementation "org.springframework.boot:spring-boot-starter-hateoas"
         implementation "org.projectlombok:lombok:${projectlombokVersion}"
         annotationProcessor "org.projectlombok:lombok:${projectlombokVersion}"
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+        testImplementation 'org.mockito:mockito-core:3.6.0'
+        testImplementation 'org.mockito:mockito-junit-jupiter:3.6.0'
     }
 }
 
