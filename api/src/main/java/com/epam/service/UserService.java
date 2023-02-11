@@ -8,5 +8,5 @@ import java.util.List;
 public interface UserService {
     UserDto createUser(UserToCreate userToCreate);
 
-    List<UserDto> getAllUsers(Integer pageNumber, Integer pageSize);
+    List<UserDto> getAllUsers(int pageNumber, int pageSize);
 }

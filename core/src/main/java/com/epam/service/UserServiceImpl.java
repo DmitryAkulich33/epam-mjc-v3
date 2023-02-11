@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> getAllUsers(Integer pageNumber, Integer pageSize) {
+    public List<UserDto> getAllUsers(int pageNumber, int pageSize) {
         Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, userRepository.count());
 
         return userDtoMapper.toUserDtoList(userRepository.findAll(pageable));

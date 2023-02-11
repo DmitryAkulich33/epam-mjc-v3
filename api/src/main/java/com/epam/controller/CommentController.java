@@ -11,8 +11,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
 public interface CommentController extends BaseEntityController<CommentDto> {
-    ResponseEntity<CollectionModel<CommentDto>> getAllComments(@Positive Integer pageNumber,
-                                                               @Positive Integer pageSize,
+    ResponseEntity<CollectionModel<CommentDto>> getAllComments(@Positive int pageNumber,
+                                                               @Positive int pageSize,
                                                                @Pattern(regexp = "ASC|DESC") String sortType,
                                                                @Pattern(regexp = "created|modified") String sortField);
 

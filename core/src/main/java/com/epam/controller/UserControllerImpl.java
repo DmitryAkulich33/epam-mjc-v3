@@ -31,8 +31,8 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UserDto>> getAllUsers(@RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
-                                                     @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize) {
+    public ResponseEntity<List<UserDto>> getAllUsers(@RequestParam(defaultValue = "${default.pageNumber}") @Positive int pageNumber,
+                                                     @RequestParam(defaultValue = "${default.pageSize}") @Positive int pageSize) {
         List<UserDto> users = userService.getAllUsers(pageNumber, pageSize);
 
         return new ResponseEntity<>(users, HttpStatus.OK);

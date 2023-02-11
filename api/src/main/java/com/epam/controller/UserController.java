@@ -11,5 +11,5 @@ import java.util.List;
 public interface UserController {
     ResponseEntity<UserDto> createUser(@Valid UserToCreate userToCreate);
 
-    ResponseEntity<List<UserDto>> getAllUsers(@Positive Integer pageNumber, @Positive Integer pageSize);
+    ResponseEntity<List<UserDto>> getAllUsers(@Positive int pageNumber, @Positive int pageSize);
 }

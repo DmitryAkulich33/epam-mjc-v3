@@ -8,11 +8,11 @@ import java.util.Collection;
 import java.util.List;
 
 public interface CollectionModelAssembler<T extends RepresentationModel<T>> {
-    List<Link> getCollectionLinks(Integer pageNumber, Integer pageSize, String sortType, String sortField);
+    List<Link> getCollectionLinks(int pageNumber, int pageSize, String sortType, String sortField);
 
     default CollectionModel<T> toCollectionModel(Collection<T> collection,
-                                                 Integer pageNumber,
-                                                 Integer pageSize,
+                                                 int pageNumber,
+                                                 int pageSize,
                                                  String sortType,
                                                  String sortField) {
         CollectionModel<T> collectionModel = CollectionModel.empty();

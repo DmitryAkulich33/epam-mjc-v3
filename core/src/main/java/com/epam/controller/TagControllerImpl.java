@@ -39,8 +39,8 @@ public class TagControllerImpl implements TagController {
             @ApiImplicitParam(name = "pageSize", dataType = "Integer"),
             @ApiImplicitParam(name = "Accept-Language", example = "en", dataType = "String", paramType = "header")
     })
-    public ResponseEntity<CollectionModel<TagDto>> getAllTags(@RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
-                                                              @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize) {
+    public ResponseEntity<CollectionModel<TagDto>> getAllTags(@RequestParam(defaultValue = "${default.pageNumber}") @Positive int pageNumber,
+                                                              @RequestParam(defaultValue = "${default.pageSize}") @Positive int pageSize) {
         List<TagDto> tags = tagService.getAllTags(pageNumber, pageSize);
         CollectionModel<TagDto> model = tagCollectionAssembler.toCollectionModel(tags, pageNumber, pageSize, null, null);
 
@@ -110,8 +110,8 @@ public class TagControllerImpl implements TagController {
             @ApiImplicitParam(name = "Accept-Language", example = "en", dataType = "String", paramType = "header")
     })
     public ResponseEntity<CollectionModel<TagDto>> getTagsByPartName(@RequestParam @NotBlank String partName,
-                                                                     @RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
-                                                                     @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize) {
+                                                                     @RequestParam(defaultValue = "${default.pageNumber}") @Positive int pageNumber,
+                                                                     @RequestParam(defaultValue = "${default.pageSize}") @Positive int pageSize) {
         List<TagDto> tags = tagService.getTagsByPartName(partName.trim(), pageNumber, pageSize);
         CollectionModel<TagDto> model = tagCollectionAssembler.toCollectionModel(tags, pageNumber, pageSize, null, null);
 

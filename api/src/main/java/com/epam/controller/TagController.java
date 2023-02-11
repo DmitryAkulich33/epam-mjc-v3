@@ -10,11 +10,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 public interface TagController extends BaseEntityController<TagDto> {
-    ResponseEntity<CollectionModel<TagDto>> getAllTags(@Positive Integer pageNumber, @Positive Integer pageSize);
+    ResponseEntity<CollectionModel<TagDto>> getAllTags(@Positive int pageNumber, @Positive int pageSize);
 
     ResponseEntity<TagDto> createTag(@Valid TagToCreate tagToCreate);
 
     ResponseEntity<CollectionModel<TagDto>> getTagsByPartName(@NotBlank String partName,
-                                                              @Positive Integer pageNumber,
-                                                              @Positive Integer pageSize);
+                                                              @Positive int pageNumber,
+                                                              @Positive int pageSize);
 }

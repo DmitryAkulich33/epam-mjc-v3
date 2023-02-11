@@ -17,7 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Component
 public class AuthorCollectionAssembler implements CollectionModelAssembler<AuthorDto> {
     @Override
-    public List<Link> getCollectionLinks(Integer pageNumber, Integer pageSize, String sortType, String sortField) {
+    public List<Link> getCollectionLinks(int pageNumber, int pageSize, String sortType, String sortField) {
         List<Link> links = new ArrayList<>();
         if (pageNumber > 1) {
             links.add(linkTo(methodOn(AuthorControllerImpl.class).getAllAuthors(pageNumber - 1, pageSize))

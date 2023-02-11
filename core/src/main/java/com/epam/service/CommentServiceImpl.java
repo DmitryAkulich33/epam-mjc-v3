@@ -24,7 +24,7 @@ public class CommentServiceImpl implements CommentService {
     private final NewsService newsService;
 
     @Override
-    public List<CommentDto> getAllComments(Integer pageNumber, Integer pageSize, String sortType, String sortField) {
+    public List<CommentDto> getAllComments(int pageNumber, int pageSize, String sortType, String sortField) {
         long count = commentRepository.count();
         Pageable pageable = PageableUtil.getPageableWithSort(pageNumber - 1, pageSize, sortType, sortField, count);
 

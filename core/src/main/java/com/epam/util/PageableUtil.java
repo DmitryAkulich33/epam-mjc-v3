@@ -23,7 +23,7 @@ public class PageableUtil {
     }
 
     private static void checkCount(int pageNumber, int pageSize, long countFromDb) {
-        long countFromRequest = pageNumber * pageSize;
+        int countFromRequest = pageNumber * pageSize;
         if (countFromDb <= countFromRequest && countFromDb != 0) {
             throw new PaginationException("pagination.not.valid.data", pageNumber, pageSize);
         }

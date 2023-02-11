@@ -27,8 +27,8 @@ public class AuthorControllerImpl implements AuthorController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CollectionModel<AuthorDto>> getAllAuthors(@RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
-                                                                    @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize) {
+    public ResponseEntity<CollectionModel<AuthorDto>> getAllAuthors(@RequestParam(defaultValue = "${default.pageNumber}") @Positive int pageNumber,
+                                                                    @RequestParam(defaultValue = "${default.pageSize}") @Positive int pageSize) {
         List<AuthorDto> authors = authorService.getAllAuthors(pageNumber, pageSize);
         CollectionModel<AuthorDto> model = authorCollectionAssembler.toCollectionModel(authors, pageNumber, pageSize, null, null);
 
@@ -58,8 +58,8 @@ public class AuthorControllerImpl implements AuthorController {
     @Override
     @GetMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CollectionModel<AuthorDto>> getAuthorsByPartName(@RequestParam @NotBlank String partName,
-                                                                           @RequestParam(defaultValue = "${default.pageNumber}") @Positive Integer pageNumber,
-                                                                           @RequestParam(defaultValue = "${default.pageSize}") @Positive Integer pageSize) {
+                                                                           @RequestParam(defaultValue = "${default.pageNumber}") @Positive int pageNumber,
+                                                                           @RequestParam(defaultValue = "${default.pageSize}") @Positive int pageSize) {
         List<AuthorDto> authors = authorService.getAuthorsByPartName(partName.trim(), pageNumber, pageSize);
         CollectionModel<AuthorDto> model = authorCollectionAssembler.toCollectionModel(authors, pageNumber, pageSize, null, null);
 

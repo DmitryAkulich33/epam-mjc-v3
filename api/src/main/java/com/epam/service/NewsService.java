@@ -6,7 +6,7 @@ import com.epam.model.dto.*;
 import java.util.List;
 
 public interface NewsService extends BaseEntityService<NewsDto> {
-    List<NewsDto> getAllNews(Integer pageNumber, Integer pageSize, String sortType, String sortField);
+    List<NewsDto> getAllNews(int pageNumber, int pageSize, String sortType, String sortField);
 
     List<TagDto> getNewsTags(Long newsId);
 

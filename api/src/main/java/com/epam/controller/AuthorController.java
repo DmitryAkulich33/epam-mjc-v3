@@ -10,11 +10,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 public interface AuthorController extends BaseEntityController<AuthorDto> {
-    ResponseEntity<CollectionModel<AuthorDto>> getAllAuthors(@Positive Integer pageNumber, @Positive Integer pageSize);
+    ResponseEntity<CollectionModel<AuthorDto>> getAllAuthors(@Positive int pageNumber, @Positive int pageSize);
 
     ResponseEntity<AuthorDto> createAuthor(@Valid AuthorToCreate authorToCreate);
 
     ResponseEntity<CollectionModel<AuthorDto>> getAuthorsByPartName(@NotBlank String partName,
-                                                                    @Positive Integer pageNumber,
-                                                                    @Positive Integer pageSize);
+                                                                    @Positive int pageNumber,
+                                                                    @Positive int pageSize);
 }

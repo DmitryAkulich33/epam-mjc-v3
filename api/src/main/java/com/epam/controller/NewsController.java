@@ -9,8 +9,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
 public interface NewsController extends BaseEntityController<NewsDto> {
-    ResponseEntity<CollectionModel<NewsDto>> getAllNews(@Positive Integer pageNumber,
-                                                        @Positive Integer pageSize,
+    ResponseEntity<CollectionModel<NewsDto>> getAllNews(@Positive int pageNumber,
+                                                        @Positive int pageSize,
                                                         @Pattern(regexp = "ASC|DESC") String sortType,
                                                         @Pattern(regexp = "created|modified") String sortField);
 

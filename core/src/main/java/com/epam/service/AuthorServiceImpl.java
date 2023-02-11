@@ -22,8 +22,8 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorDtoMapper authorDtoMapper;
 
     @Override
-    public List<AuthorDto> getAllAuthors(Integer pageNumber, Integer pageSize) {
-        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, getCount());
+    public List<AuthorDto> getAllAuthors(int pageNumber, int pageSize) {
+        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, authorRepository.count());
 
         return authorDtoMapper.toAuthorDtoList(authorRepository.findAll(pageable));
     }
@@ -49,8 +49,8 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<AuthorDto> getAuthorsByPartName(String partName, Integer pageNumber, Integer pageSize) {
-        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, getCount());
+    public List<AuthorDto> getAuthorsByPartName(String partName, int pageNumber, int pageSize) {
+        Pageable pageable = PageableUtil.getPageableWithoutSort(pageNumber - 1, pageSize, authorRepository.count());
 
         return authorDtoMapper.toAuthorDtoList(authorRepository.findAuthorsByNameContainsIgnoreCase(partName, pageable));
     }
@@ -65,9 +65,5 @@ public class AuthorServiceImpl implements AuthorService {
         authorRepository.findAuthorByNameIgnoreCase(name).ifPresent(author -> {
             throw new AuthorAlreadyExistsException("author.exists", name);
         });
-    }
-
-    private long getCount() {
-        return authorRepository.count();
     }
 }
