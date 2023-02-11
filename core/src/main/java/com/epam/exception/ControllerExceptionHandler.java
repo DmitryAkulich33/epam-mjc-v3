@@ -88,6 +88,18 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return getResponseEntityWithCommonMessage(exception, errorCode, HttpStatus.INTERNAL_SERVER_ERROR, "server.error");
     }
 
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ResponseEntity<Object> handleRoleNotFoundException(RoleNotFoundException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.NOT_FOUND.value(), ErrorCode.ROLE_ERROR_CODE.getErrorCode());
+        return getResponseEntity(exception, errorCode, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<Object> handleUserAlreadyExistsException(UserAlreadyExistsException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.BAD_REQUEST.value(), ErrorCode.VALIDATION_ERROR_CODE.getErrorCode());
+        return getResponseEntity(exception, errorCode, HttpStatus.BAD_REQUEST);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers,
                                                                   HttpStatus status, WebRequest request) {

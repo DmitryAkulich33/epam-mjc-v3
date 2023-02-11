@@ -42,3 +42,26 @@ CREATE TABLE IF NOT EXISTS comment
 
     CONSTRAINT fk_news_comment FOREIGN KEY (news_id) REFERENCES news (id) ON DELETE CASCADE
 );
+
+CREATE TABLE usr
+(
+    id BIGSERIAL PRIMARY KEY,
+    login VARCHAR(15) UNIQUE NOT NULL,
+    password VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE role
+(
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(15) UNIQUE NOT NULL
+);
+
+CREATE TABLE user_roles
+(
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT,
+    role_id BIGINT,
+
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES usr (id) ON DELETE CASCADE,
+    CONSTRAINT fk_role_id FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCADE
+);

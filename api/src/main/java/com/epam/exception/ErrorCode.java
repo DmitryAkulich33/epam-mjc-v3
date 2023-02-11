@@ -12,7 +12,9 @@ public enum ErrorCode {
     COMMENT_ERROR_CODE("04"),
     VALIDATION_ERROR_CODE("05"),
     SERVER_ERROR_CODE("06"),
-    REQUEST_ERROR_CODE("07");
+    REQUEST_ERROR_CODE("07"),
+    ROLE_ERROR_CODE("08"),
+    USER_ERROR_CODE("09");
 
     private final String errorCode;
 }
