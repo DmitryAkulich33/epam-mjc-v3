@@ -11,6 +11,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +48,7 @@ public class CommentControllerImpl implements CommentController {
 
     @Override
     @PostMapping(path = "/news/{newsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public ResponseEntity<CommentDto> createComment(@RequestBody @Valid CommentToCreate commentToCreate,
                                                     @PathVariable("newsId") @Positive Long newsId) {
         return new ResponseEntity<>(commentService.createComment(commentToCreate, newsId), HttpStatus.CREATED);
@@ -54,6 +56,7 @@ public class CommentControllerImpl implements CommentController {
 
     @Override
     @DeleteMapping("/{commentId}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<CommentDto> deleteEntityById(@PathVariable("commentId") @Positive Long commentId) {
         commentService.deleteEntityById(commentId);
 
@@ -62,6 +65,7 @@ public class CommentControllerImpl implements CommentController {
 
     @Override
     @PatchMapping(path = "/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public ResponseEntity<CommentDto> updateComment(@RequestBody @Valid CommentToUpdate commentToUpdate,
                                                     @PathVariable("commentId") @Positive Long commentId) {
         return new ResponseEntity<>(commentService.updateCommentById(commentToUpdate, commentId), HttpStatus.OK);

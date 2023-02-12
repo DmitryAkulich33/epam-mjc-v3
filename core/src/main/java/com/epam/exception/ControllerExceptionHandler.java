@@ -1,5 +1,6 @@
 package com.epam.exception;
 
+import io.jsonwebtoken.JwtException;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -98,6 +100,30 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleUserAlreadyExistsException(UserAlreadyExistsException exception) {
         String errorCode = String.format("%s%s", HttpStatus.BAD_REQUEST.value(), ErrorCode.VALIDATION_ERROR_CODE.getErrorCode());
         return getResponseEntity(exception, errorCode, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.NOT_FOUND.value(), ErrorCode.USER_ERROR_CODE.getErrorCode());
+        return getResponseEntity(exception, errorCode, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AuthenticationDataException.class)
+    public ResponseEntity<Object> handleAuthenticationDataException(AuthenticationDataException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.UNAUTHORIZED.value(), ErrorCode.USER_ERROR_CODE.getErrorCode());
+        return getResponseEntity(exception, errorCode, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(JwtAuthenticationException.class)
+    public ResponseEntity<Object> handleUserJwtAuthenticationException(JwtAuthenticationException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.UNAUTHORIZED.value(), ErrorCode.USER_ERROR_CODE.getErrorCode());
+        return getResponseEntity(exception, errorCode, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.FORBIDDEN.value(), ErrorCode.USER_ERROR_CODE.getErrorCode());
+        return getResponseEntityWithCommonMessage(exception, errorCode, HttpStatus.FORBIDDEN, "access.denied");
     }
 
     @Override

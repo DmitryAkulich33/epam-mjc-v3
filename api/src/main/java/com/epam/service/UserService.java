@@ -1,5 +1,6 @@
 package com.epam.service;
 
+import com.epam.domain.User;
 import com.epam.model.dto.UserDto;
 import com.epam.model.dto.UserToCreate;
 
@@ -9,4 +10,6 @@ public interface UserService {
     UserDto createUser(UserToCreate userToCreate);
 
     List<UserDto> getAllUsers(int pageNumber, int pageSize);
+
+    User getUserByLogin(String login);
 }

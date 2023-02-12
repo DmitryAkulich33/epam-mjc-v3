@@ -46,3 +46,13 @@ values ('Good news!', 1, '2022-04-13 15:55:52.611265', '2022-04-13 15:55:52.6112
 INSERT INTO role(name)
 values ('ROLE_ADMIN'),
        ('ROLE_USER')
+
+\connect newsmanagement
+INSERT INTO usr(login, password)
+values ('admin', '$2a$10$tevDIVT/xTb1PbFfimLlIOtzSl5aLqfUmEEfJj/hLSoamtw5fmrfy'),
+       ('user1', '$2a$10$ZoRamY3ySGikQv0wtdSZje4YIHcTGm8HzwlyEy/KSDcHTrqXgvKsW')
+
+\connect newsmanagement
+INSERT INTO user_roles(user_id, role_id)
+values (1, 1),
+       (2, 2);

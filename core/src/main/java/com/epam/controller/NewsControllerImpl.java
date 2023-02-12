@@ -11,6 +11,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,6 +76,7 @@ public class NewsControllerImpl implements NewsController {
 
     @Override
     @PostMapping(path = "/authors/{authorId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public ResponseEntity<NewsDto> createNews(@RequestBody @Valid NewsToCreate newsToCreate,
                                               @PathVariable("authorId") @Positive Long authorId) {
         return new ResponseEntity<>(newsService.createNews(newsToCreate, authorId), HttpStatus.CREATED);
@@ -82,6 +84,7 @@ public class NewsControllerImpl implements NewsController {
 
     @Override
     @DeleteMapping("/{newsId}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<NewsDto> deleteEntityById(@PathVariable("newsId") @Positive Long newsId) {
         newsService.deleteEntityById(newsId);
 
@@ -90,6 +93,7 @@ public class NewsControllerImpl implements NewsController {
 
     @Override
     @PatchMapping(path = "/{newsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public ResponseEntity<NewsDto> updateNews(@RequestBody @Valid NewsToUpdate newsToUpdate,
                                               @PathVariable("newsId") @Positive Long newsId) {
         return new ResponseEntity<>(newsService.updateNewsById(newsToUpdate, newsId), HttpStatus.OK);

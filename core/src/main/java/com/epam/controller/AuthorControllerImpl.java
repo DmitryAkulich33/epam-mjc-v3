@@ -9,6 +9,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,7 @@ public class AuthorControllerImpl implements AuthorController {
 
     @Override
     @DeleteMapping("/{authorId}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<AuthorDto> deleteEntityById(@PathVariable("authorId") @Positive Long authorId) {
         authorService.deleteEntityById(authorId);
 
@@ -51,6 +53,7 @@ public class AuthorControllerImpl implements AuthorController {
 
     @Override
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<AuthorDto> createAuthor(@RequestBody @Valid AuthorToCreate authorToCreate) {
         return new ResponseEntity<>(authorService.createAuthor(authorToCreate), HttpStatus.CREATED);
     }

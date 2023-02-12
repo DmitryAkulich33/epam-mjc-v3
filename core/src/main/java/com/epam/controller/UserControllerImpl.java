@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<UserDto>> getAllUsers(@RequestParam(defaultValue = "${default.pageNumber}") @Positive int pageNumber,
                                                      @RequestParam(defaultValue = "${default.pageSize}") @Positive int pageSize) {
         List<UserDto> users = userService.getAllUsers(pageNumber, pageSize);

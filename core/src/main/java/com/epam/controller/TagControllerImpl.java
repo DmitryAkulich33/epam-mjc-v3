@@ -10,6 +10,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,6 +76,7 @@ public class TagControllerImpl implements TagController {
             @ApiImplicitParam(name = "tagId", required = true, dataType = "Long", paramType = "path"),
             @ApiImplicitParam(name = "Accept-Language", example = "en", dataType = "String", paramType = "header")
     })
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<TagDto> deleteEntityById(@PathVariable("tagId") @Positive Long tagId) {
         tagService.deleteEntityById(tagId);
 
@@ -92,6 +94,7 @@ public class TagControllerImpl implements TagController {
             @ApiImplicitParam(name = "tagToCreate", dataType = "TagToCreate", required = true),
             @ApiImplicitParam(name = "Accept-Language", example = "en", dataType = "String", paramType = "header")
     })
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<TagDto> createTag(@RequestBody @Valid TagToCreate tagToCreate) {
         return new ResponseEntity<>(tagService.createTag(tagToCreate), HttpStatus.CREATED);
     }
