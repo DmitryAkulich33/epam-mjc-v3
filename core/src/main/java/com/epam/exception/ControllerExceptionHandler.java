@@ -1,6 +1,5 @@
 package com.epam.exception;
 
-import io.jsonwebtoken.JwtException;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

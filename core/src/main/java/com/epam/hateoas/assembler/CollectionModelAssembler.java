@@ -21,6 +21,4 @@ public interface CollectionModelAssembler<T extends RepresentationModel<T>> {
         }
         return collectionModel;
     }
-
-
 }
