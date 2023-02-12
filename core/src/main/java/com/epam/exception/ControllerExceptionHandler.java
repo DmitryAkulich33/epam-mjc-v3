@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -111,6 +112,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleAuthenticationDataException(AuthenticationDataException exception) {
         String errorCode = String.format("%s%s", HttpStatus.UNAUTHORIZED.value(), ErrorCode.USER_ERROR_CODE.getErrorCode());
         return getResponseEntity(exception, errorCode, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
+    public ResponseEntity<Object> handleAuthenticationCredentialsNotFoundException(AuthenticationCredentialsNotFoundException exception) {
+        String errorCode = String.format("%s%s", HttpStatus.UNAUTHORIZED.value(), ErrorCode.USER_ERROR_CODE.getErrorCode());
+        return getResponseEntityWithCommonMessage(exception, errorCode, HttpStatus.UNAUTHORIZED, "access.denied");
     }
 
     @ExceptionHandler(JwtAuthenticationException.class)

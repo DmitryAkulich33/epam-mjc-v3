@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -56,6 +57,8 @@ class TagControllerImplTest {
     private ExceptionResponse validationException_40005;
     private ExceptionResponse validationException_40007;
     private ExceptionResponse requestException_40007;
+    private ExceptionResponse accessDeniedException_40309;
+    private ExceptionResponse authenticationException_40109;
 
     private TagDto tagDto1;
     private List<TagDto> tags;
@@ -68,6 +71,8 @@ class TagControllerImplTest {
         validationException_40005 = new ExceptionResponse("Entered data is not valid", "40005");
         validationException_40007 = new ExceptionResponse("The message is not readable", "40007");
         requestException_40007 = new ExceptionResponse("Parameter of request is missed", "40007");
+        accessDeniedException_40309 = new ExceptionResponse("Access is denied.", "40309");
+        authenticationException_40109 = new ExceptionResponse("Access is denied.", "40109");
         tagDto1 = new TagDto();
         TagDto tagDto2 = new TagDto();
         tagDto1.setName("test1");
@@ -78,7 +83,8 @@ class TagControllerImplTest {
     }
 
     @Test
-    public void testDeleteTag_204() throws Exception {
+    @WithMockUser(authorities = {"ROLE_ADMIN"})
+    public void testDeleteTag_AdminRole_204() throws Exception {
         doNothing().when(mockTagService).deleteEntityById(anyLong());
 
         mockMvc
@@ -87,6 +93,28 @@ class TagControllerImplTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ROLE_USER"})
+    public void testDeleteTag_UserRole_403() throws Exception {
+        mockMvc
+                .perform(delete(String.format("%s/1", BASE_URL)))
+                .andExpect(status().isForbidden())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(is(objectMapper.writeValueAsString(accessDeniedException_40309))));
+    }
+
+    @Test
+    public void testDeleteTag_NotAuthorized_401() throws Exception {
+        mockMvc
+                .perform(delete(String.format("%s/1", BASE_URL)))
+                .andExpect(status().isUnauthorized())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(is(objectMapper.writeValueAsString(authenticationException_40109))));
+    }
+
+    @Test
+    @WithMockUser(authorities = {"ROLE_ADMIN"})
     public void testDeleteTag_404() throws Exception {
         doThrow(new TagNotFoundException("Error message")).when(mockTagService).deleteEntityById(anyLong());
 
@@ -100,6 +128,7 @@ class TagControllerImplTest {
 
     @ParameterizedTest
     @ValueSource(longs = {-1, 0})
+    @WithMockUser(authorities = {"ROLE_ADMIN"})
     public void testDeleteTag_400(Long tagId) throws Exception {
         mockMvc
                 .perform(delete(String.format("%s/%d", BASE_URL, tagId)))
@@ -110,7 +139,7 @@ class TagControllerImplTest {
     }
 
     @Test
-    public void testDetTagById_200() throws Exception {
+    public void testGetTagById_200() throws Exception {
         when(mockTagService.getEntityById(anyLong())).thenReturn(tagDto1);
 
         mockMvc.perform(get(String.format("%s/1", BASE_URL)))
@@ -226,7 +255,8 @@ class TagControllerImplTest {
     }
 
     @Test
-    public void testCreateTag_200() throws Exception {
+    @WithMockUser(authorities = {"ROLE_ADMIN"})
+    public void testCreateTag_AdminRole_200() throws Exception {
         when(mockTagService.createTag(any())).thenReturn(tagDto1);
 
         TagToCreate tagToCreate = new TagToCreate();
@@ -239,6 +269,39 @@ class TagControllerImplTest {
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(containsString("\"id\":1,\"name\":\"test1\"")));
+    }
+
+    @Test
+    @WithMockUser(authorities = {"ROLE_USER"})
+    public void testCreateTag_UserRole_403() throws Exception {
+        when(mockTagService.createTag(any())).thenReturn(tagDto1);
+
+        TagToCreate tagToCreate = new TagToCreate();
+        tagToCreate.setName("test1");
+
+        mockMvc.perform(post(BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(tagToCreate)))
+                .andExpect(status().isForbidden())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(is(objectMapper.writeValueAsString(accessDeniedException_40309))));
+    }
+
+    @Test
+    public void testCreateTag_notAuthorized_401() throws Exception {
+        when(mockTagService.createTag(any())).thenReturn(tagDto1);
+
+        TagToCreate tagToCreate = new TagToCreate();
+        tagToCreate.setName("test1");
+
+        mockMvc.perform(post(BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(tagToCreate)))
+                .andExpect(status().isUnauthorized())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(is(objectMapper.writeValueAsString(authenticationException_40109))));
     }
 
     @Test
